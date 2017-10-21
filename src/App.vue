@@ -30,12 +30,10 @@ export default {
   },
   methods: {
     testApi() {
-      const catchHelper = (error) => console.error(error);
+      const catchHelper = error => console.error(error);
 
-      const thenHelper = (response) => {
-        if (response) {
-          console.log(response.body);
-        }
+      const thenHelper = response => {
+        if (response) console.log(response.body);
       }
 
       this.$http.get('/api/notes').catch(catchHelper).then(thenHelper);

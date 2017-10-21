@@ -19,13 +19,16 @@ const app = express();
 app.use(express.static('dist'));
 app.use('/api', apiRouter);
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'), {
     headers: {
       'X-UA-Compatible': 'IE=edge'
     }
   });
 });
+
+// 404 Middleware
+app.use((req, res) => res.redirect('/'));
 
 /**
  * Mongoose

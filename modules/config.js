@@ -42,7 +42,7 @@ const config = {
    */
   testing: {
     http: {
-      port: 3000
+      port: 3030
     },
     mongoose: {
       database: {
@@ -57,4 +57,4 @@ const config = {
   }
 }
 
-module.exports = (env) => config[env || 'development'];
+module.exports = env => config[env || 'development'];

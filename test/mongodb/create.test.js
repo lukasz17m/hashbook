@@ -1,33 +1,25 @@
 'use strict';
 
-const assert = require('assert');
+const chai = require('chai');
 const Note = require('../../modules/mongoose/model/note');
 
-describe('Create note', () => {
-  it('Saves a note to the database', (done) => {
+const expect = chai.expect;
+
+describe('Create a note', () => {
+  it('Saves a note to the database', async () => {
     const note = new Note({
       content: 'Test note.',
       tags: ['one', 'two']
     });
 
-    note.save().catch((error) => {
-      done(error);
-    }).then(() => {
-      assert(!note.isNew);
+    await note.save();
 
-      done();
-    });
+    expect(note).to.have.property('isNew').to.equal(false);
   });
 
-  it('Content and tags aren\'t required', (done) => {
-    const note = new Note();
+  it('Content and tags aren\'t required', async () => {
+    const note = await (new Note()).save();
 
-    note.save().catch((error) => {
-      done(error);
-    }).then(() => {
-      assert(!note.isNew);
-
-      done();
-    });
+    expect(note).to.have.property('isNew').to.equal(false);
   });
 });
