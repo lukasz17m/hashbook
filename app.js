@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const log = require('npmlog');
+const chalk = require('chalk');
 const path = require('path');
 
 const apiRouter = require('./modules/router/api');
@@ -15,6 +15,10 @@ const PORT = ((process.env.PORT || config.http.port) || 3000);
  */
 
 const app = express();
+
+if (process.env.NODE_ENV !== 'testing') {
+  app.use(express.logger());
+}
 
 app.use(express.static('dist'));
 app.use('/api', apiRouter);
@@ -36,7 +40,10 @@ app.use((req, res) => res.redirect('/'));
 
 connection.once('open', () => {
   // HTTP listen
-  app.listen(PORT, () => log.info('HTTP', `Listening on ${PORT}…`));
+  app.listen(PORT, () => console.log(
+    chalk.bgBlue('HTTP'),
+    chalk.blue(`Listening on ${PORT}…`)
+  ));
 });
 
 // Process termination — Disconnect from MongoDB

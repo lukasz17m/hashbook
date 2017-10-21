@@ -5,11 +5,7 @@ const connection = require('../../modules/mongoose/connection');
 before(done => {
   connection.on('error', error => {
     done(error);
-  }).once('open', () => {
-    console.log('Connected to MongoDB (in `before()`)');
-
-    done();
-  });
+  }).once('open', () => done());
 });
 
 beforeEach(done => {
