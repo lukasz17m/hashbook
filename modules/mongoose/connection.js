@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 
 const config = require('../config')(process.env.NODE_ENV).mongoose;
+const log = require('../log');
 
 const { host, name } = config.database;
 
@@ -15,16 +16,16 @@ mongoose.connect(`mongodb://${host}/${name}`, config.options);
 let timeoutId = null;
 
 mongoose.connection.on('error', error => {
-  console.log(chalk.bgRed('MONGODB'), error);
+  log(chalk.bgRed('MONGODB'), error);
 }).on('disconnected', () => {
-  console.log(
+  log(
     chalk.bgYellow('MONGODB'),
     chalk.yellow('Mongoose disconnected\nTrying to reconnect…')
   );
 
   // Wait for reconnect
   timeoutId = setTimeout(() => {
-    console.log(
+    log(
       chalk.bgRed('MONGODB'),
       chalk.red('Couldn’t reconnect to MongoDB — app terminated.')
     );
@@ -33,7 +34,7 @@ mongoose.connection.on('error', error => {
     process.exit(1);
   }, config.reconnectTimeoutMS);
 }).on('connected', () => {
-  console.log(chalk.bgGreen('MONGODB'), chalk.green('Mongoose connected'));
+  log(chalk.bgGreen('MONGODB'), chalk.green('Mongoose connected'));
 
   if (timeoutId) {
     clearTimeout(timeoutId);

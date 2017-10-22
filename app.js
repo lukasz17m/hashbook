@@ -7,6 +7,7 @@ const path = require('path');
 const apiRouter = require('./modules/router/api');
 const config = require('./modules/config')(process.env.NODE_ENV);
 const connection = require('./modules/mongoose/connection');
+const log = require('./modules/log');
 
 const PORT = ((process.env.PORT || config.http.port) || 3000);
 
@@ -15,10 +16,6 @@ const PORT = ((process.env.PORT || config.http.port) || 3000);
  */
 
 const app = express();
-
-if (process.env.NODE_ENV !== 'testing') {
-  app.use(express.logger());
-}
 
 app.use(express.static('dist'));
 app.use('/api', apiRouter);
@@ -40,7 +37,7 @@ app.use((req, res) => res.redirect('/'));
 
 connection.once('open', () => {
   // HTTP listen
-  app.listen(PORT, () => console.log(
+  app.listen(PORT, () => log(
     chalk.bgBlue('HTTP'),
     chalk.blue(`Listening on ${PORT}…`)
   ));

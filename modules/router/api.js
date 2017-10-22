@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const router = require('express').Router();
 
+const log = require('../log');
 const Note = require('../mongoose/model/note');
 
 /**
@@ -10,7 +11,7 @@ const Note = require('../mongoose/model/note');
 */
 
 router.use((req, res, next) => {
-  console.log(
+  log(
     chalk.bgBlue('API'),
     chalk.blue(`[${(new Date()).toLocaleString()}] ${req.method} ${req.url}`)
   );
