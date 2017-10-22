@@ -55,6 +55,6 @@ const config = {
       reconnectTimeoutMS: 0
     }
   }
-}
+};
 
 module.exports = env => config[env || 'development'];
