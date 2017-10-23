@@ -1,7 +1,10 @@
+'use strict';
+
+import App from './components/App.vue';
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import App from './App.vue';
-import './assets/sass/style.sass';
+import 'babel-polyfill';
+import './assets/scss/style.scss';
 
 Vue.use(VueResource);
 
