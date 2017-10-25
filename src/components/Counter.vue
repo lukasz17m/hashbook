@@ -8,17 +8,17 @@
 
 <script>
 export default {
-  data() {
-    return {
-      count: 0
-    };
+  computed: {
+    count() {
+      return this.$store.getters.count;
+    }
   },
   methods: {
     increment() {
-      this.count++;
+      this.$store.commit('increment');
     },
     decrement() {
-      this.count--;
+      this.$store.commit('decrement');
     }
   }
 };

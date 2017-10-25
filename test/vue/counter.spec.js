@@ -1,13 +1,19 @@
 'use strict';
 
+import Vuex from 'vuex'
 import { expect } from 'chai';
-import { mount } from 'vue-test-utils';
+import { shallow, createLocalVue } from 'vue-test-utils';
 import Counter from '../../src/components/Counter.vue';
+import store from '../../src/store';
+
+const localVue = createLocalVue();
+
+localVue.use(Vuex);
 
 describe('Counter', () => {
   let wrapper;
 
-  beforeEach(() => wrapper = mount(Counter));
+  beforeEach(() => wrapper = shallow(Counter, { store, localVue }));
 
   it('has default count set to 0', () => {
     expect(wrapper.vm.count).to.equal(0);
@@ -27,7 +33,7 @@ describe('Counter', () => {
   it('decrements count to 5', () => {
     const decButton = wrapper.find('.decrement');
 
-    wrapper.setData({
+    store.replaceState({
       count: 6
     });
 
