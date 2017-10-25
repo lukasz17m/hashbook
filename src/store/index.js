@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   getters,
   mutations,
   actions,
-  debug: process.env.NODE_ENV !== 'production'
+  strict: process.env.NODE_ENV !== 'production'
 });
 
 export default store;

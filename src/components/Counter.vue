@@ -7,19 +7,19 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   computed: {
-    count() {
-      return this.$store.getters.count;
-    }
+    ...mapGetters([
+      'count'
+    ])
   },
   methods: {
-    increment() {
-      this.$store.commit('increment');
-    },
-    decrement() {
-      this.$store.commit('decrement');
-    }
+    ...mapMutations([
+      'increment',
+      'decrement'
+    ])
   }
 };
 </script>

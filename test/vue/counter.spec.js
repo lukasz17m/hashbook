@@ -13,7 +13,13 @@ localVue.use(Vuex);
 describe('Counter', () => {
   let wrapper;
 
-  beforeEach(() => wrapper = shallow(Counter, { store, localVue }));
+  beforeEach(() => {
+    store.replaceState({
+      count: 0
+    });
+
+    wrapper = shallow(Counter, { store, localVue });
+  });
 
   it('has default count set to 0', () => {
     expect(wrapper.vm.count).to.equal(0);
@@ -21,8 +27,6 @@ describe('Counter', () => {
 
   it('increments count by 2', () => {
     const incButton = wrapper.find('.increment');
-
-    expect(wrapper.vm.count).to.equal(0);
 
     incButton.trigger('click');
     incButton.trigger('click');
