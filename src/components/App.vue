@@ -33,17 +33,17 @@ export default {
         'architecto', 'sint', 'voluptate', 'odit', 'eum', 'commodi', 'dode',
         'cupiditate', 'fuga', 'corporis', 'soluta', 'aperiam', 'repellendus',
         'Maiores', 'excepturi', 'eius', 'nisi', 'blanditiis', 'doloremque',
-        'ut', 'ad', 'similique', 'aut', 'sint', 'blanditiis', 'adipisicing'
-      ]
+        'ut', 'ad', 'similique', 'aut', 'sint', 'blanditiis', 'adipisicing',
+      ],
     };
   },
   computed: {
     uniqTags() {
       return [...new Set(this.tags)];
-    }
+    },
   },
   methods: {
-    tagColor
-  }
+    tagColor,
+  },
 };
 </script>

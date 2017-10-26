@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const chalk = require('chalk');
 const path = require('path');
@@ -23,8 +21,8 @@ app.use('/api', apiRouter);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'), {
     headers: {
-      'X-UA-Compatible': 'IE=edge'
-    }
+      'X-UA-Compatible': 'IE=edge',
+    },
   });
 });
 
@@ -39,7 +37,7 @@ connection.once('open', () => {
   // HTTP listen
   app.listen(PORT, () => log(
     chalk.bgBlue('HTTP'),
-    chalk.blue(`Listening on ${PORT}…`)
+    chalk.blue(`Listening on ${PORT}…`),
   ));
 });
 

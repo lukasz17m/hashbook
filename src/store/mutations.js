@@ -1,4 +1,10 @@
 export default {
-  increment: state => state.count++,
-  decrement: state => state.count--
+  increment: (state) => {
+    const h = state;
+    h.count += 1;
+  },
+  decrement: (state) => {
+    const h = state;
+    h.count -= 1;
+  },
 };

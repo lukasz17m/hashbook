@@ -1,5 +1,3 @@
-'use strict';
-
 const chalk = require('chalk');
 const router = require('express').Router();
 
@@ -13,7 +11,7 @@ const Note = require('../mongoose/model/note');
 router.use((req, res, next) => {
   log(
     chalk.bgBlue('API'),
-    chalk.blue(`[${(new Date()).toLocaleString()}] ${req.method} ${req.url}`)
+    chalk.blue(`[${(new Date()).toLocaleString()}] ${req.method} ${req.url}`),
   );
 
   next();

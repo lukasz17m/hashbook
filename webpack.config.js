@@ -1,5 +1,3 @@
-'use strict';
-
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
@@ -9,49 +7,45 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
-    filename: 'main.js'
+    filename: 'main.js',
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
+        loaders: ['vue-loader', 'eslint-loader'],
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        loader: 'babel-loader!eslint-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          useRelativePath: true
-        }
-      }
-    ]
+          useRelativePath: true,
+        },
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, 'src/raw/*'),
-        to: path.join(__dirname, 'dist/[name].[ext]')
-      }
-    ])
+        to: path.join(__dirname, 'dist/[name].[ext]'),
+      },
+    ]),
   ],
-  devtool: '#eval-source-map'
-}
+  devtool: '#eval-source-map',
+};
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map';
@@ -59,17 +53,17 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
+      minimize: true,
+    }),
   ]);
 }

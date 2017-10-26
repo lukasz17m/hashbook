@@ -1,3 +1,3 @@
 export default {
-  count: state => state.count
+  count: state => state.count,
 };

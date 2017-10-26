@@ -6,7 +6,7 @@ import sr from 'seedrandom';
  * @param  {String} tag Tag name.
  * @return {Object}     Background and font color.
  */
-const tagColor = tag => {
+const tagColor = (tag) => {
   const hex = Math.floor(sr(tag)() * 0x1000000).toString(16).padStart(6, '0');
 
   const r = parseInt(hex.substr(0, 2), 16);
@@ -18,8 +18,8 @@ const tagColor = tag => {
 
   return {
     background: `#${hex}`,
-    font: brightness > 125 ? '#000' : '#fff'
+    font: brightness > 125 ? '#000' : '#fff',
   };
-}
+};
 
 export default tagColor;

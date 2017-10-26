@@ -1,0 +1,15 @@
+---
+env:
+  browser: true
+  es6: true
+  mocha: true
+  node: true
+extends:
+  - airbnb-base
+plugins:
+  - chai-friendly
+  - html
+rules:
+  chai-friendly/no-unused-expressions: 2
+  no-new: 1
+  no-unused-expressions: 0

@@ -1,6 +1,4 @@
-'use strict';
-
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 import { expect } from 'chai';
 import { shallow, createLocalVue } from 'vue-test-utils';
 import Counter from '../../src/components/Counter.vue';
@@ -15,7 +13,7 @@ describe('Counter', () => {
 
   beforeEach(() => {
     store.replaceState({
-      count: 0
+      count: 0,
     });
 
     wrapper = shallow(Counter, { store, localVue });
@@ -38,7 +36,7 @@ describe('Counter', () => {
     const decButton = wrapper.find('.decrement');
 
     store.replaceState({
-      count: 6
+      count: 6,
     });
 
     decButton.trigger('click');
