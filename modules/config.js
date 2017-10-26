@@ -36,9 +36,9 @@ const config = {
     },
   },
   /**
-   * Testing environment config
+   * Test environment config
    */
-  testing: {
+  test: {
     http: {
       port: 3030,
     },

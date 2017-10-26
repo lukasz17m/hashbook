@@ -41,19 +41,6 @@ connection.once('open', () => {
   ));
 });
 
-// Process termination — Disconnect from MongoDB
-// Not sure if this is necessary…
-// const exitHandler = () => {
-//   connection.close(() => {
-//     log.info('MONGODB', 'Mongoose disconnected on app termination');
-//
-//     process.exit(0);
-//   });
-// }
-// process.on('SIGINT', exitHandler.bind(null));
-// process.on('SIGUSR1', exitHandler.bind(null));
-// process.on('SIGUSR2', exitHandler.bind(null));
-
-if (process.env.NODE_ENV === 'testing') {
+if (process.env.NODE_ENV === 'test') {
   module.exports = app;
 }

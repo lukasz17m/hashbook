@@ -10,9 +10,8 @@
     "server:dev": "cross-env NODE_ENV=development node app.js",
     "server:prod": "cross-env NODE_ENV=production node app.js",
     "start": "npm run server:dev",
-    "test": "cross-env NODE_ENV=testing mocha test/**/*.test.js",
-    "test:vue": "mocha-webpack --webpack-config webpack.config.js --require test/vue/setup.js test/**/*.spec.js",
-    "test:vue:watch": "npm run test:vue --watch",
+    "test": "cross-env NODE_ENV=test mocha test/**/*.test.js",
+    "test:vue": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.config.js --require test/vue/setup.js test/**/*.spec.js",
     "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "keywords": [

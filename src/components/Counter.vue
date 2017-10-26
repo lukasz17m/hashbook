@@ -12,14 +12,14 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   computed: {
     ...mapGetters([
-      'count'
-    ])
+      'count',
+    ]),
   },
   methods: {
     ...mapMutations([
       'increment',
-      'decrement'
-    ])
-  }
+      'decrement',
+    ]),
+  },
 };
 </script>
