@@ -18,6 +18,11 @@ body {
   color: invert(darken($primary-color, 70%), 10%);
 }
 
+.block-center {
+  display: block;
+  margin: 0 auto;
+}
+
 .tag-list {
   list-style-type: none;
   padding: 2rem;

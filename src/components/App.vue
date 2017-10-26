@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div class="hello" v-text="msg"></div>
+
+    <img class="block-center" src="../assets/images/logo.png" alt="logo">
+
     <ul class="tag-list">
       <li
       v-for="(tag, index) in uniqTags"
