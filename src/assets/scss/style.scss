@@ -1,43 +1,11 @@
-$primary-color: #d3f8e4;
+@import "~font-awesome/scss/font-awesome";
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma";
 
-html {
-  font-family: Impact, Charcoal, sans-serif;
+.hero-foot {
+  padding: 0 1.5rem;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: $primary-color;
-}
-
-.hello {
-  padding: 2rem;
-  font-size: 4em;
-  font-weight: bold;
-  text-align: center;
-  color: invert(darken($primary-color, 70%), 10%);
-}
-
-.block-center {
-  display: block;
-  margin: 0 auto;
-}
-
-.tag-list {
-  list-style-type: none;
-  padding: 2rem;
-}
-
-.tag-list-item {
-  display: inline-block;
-  margin: .2em;
-  padding: .3em .7em;
-  border-radius: .5em;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    filter: drop-shadow(black 0 0 .1em);
-    transform: scale(1.1);
-  }
+.hero .breadcrumb .is-active a {
+  color: $link-active;
 }
