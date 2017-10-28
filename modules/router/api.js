@@ -48,11 +48,7 @@ router.get('/notes', (req, res) => {
       res.json(notes);
     })
     .catch((error) => {
-      if (error.name === 'CastError') {
-        res.status(404).send('Note doesn’t exist');
-      } else {
-        res.status(500).send(error);
-      }
+      res.status(500).send(error);
     });
 });
 

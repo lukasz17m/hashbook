@@ -13,7 +13,7 @@ describe('Create', () => {
       .post('/api/notes')
       .send({ content: 'Lorem ipsum', tags: ['lorem', 'ipsum'] });
 
-    expect(res.body).to.have.property('content').to.equal('Lorem ipsum');
+    expect(res.body).to.have.property('content', 'Lorem ipsum');
     expect(res.body).to.have.property('tags').eql(['lorem', 'ipsum']);
   });
 });

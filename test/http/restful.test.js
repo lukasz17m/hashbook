@@ -30,7 +30,7 @@ describe('RESTful API', () => {
     expect(res).to.be.json;
   });
   // Update
-  it('PUT on /api/notes/notexistihope — status should be 500', async () => {
+  it('PUT on /api/notes/notexistihope — status should be 404', async () => {
     try {
       await chai.request(app).put('/api/notes/notexistihope');
       // Test must not reach this point
@@ -40,7 +40,7 @@ describe('RESTful API', () => {
     }
   });
   // Delete
-  it('DELETE on /api/notes/notexistihope — status should be 500', async () => {
+  it('DELETE on /api/notes/notexistihope — status should be 404', async () => {
     try {
       await chai.request(app).delete('/api/notes/notexistihope');
       // Test must not reach this point

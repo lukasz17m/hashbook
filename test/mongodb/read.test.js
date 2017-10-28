@@ -20,6 +20,6 @@ describe('Read notes', () => {
 
     const notes = await Note.find({});
 
-    expect(notes).to.have.length(2);
+    expect(notes).to.have.lengthOf(2);
   });
 });

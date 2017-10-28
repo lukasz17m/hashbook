@@ -12,12 +12,12 @@ describe('Create a note', () => {
 
     await note.save();
 
-    expect(note).to.have.property('isNew').to.equal(false);
+    expect(note).to.have.property('isNew', false);
   });
 
   it('Content and tags aren\'t required', async () => {
-    const note = await (new Note()).save();
+    const note = await new Note().save();
 
-    expect(note).to.have.property('isNew').to.equal(false);
+    expect(note).to.have.property('isNew', false);
   });
 });

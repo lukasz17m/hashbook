@@ -22,6 +22,6 @@ describe('Delete notes', () => {
 
     const notes = await Note.find({});
 
-    expect(notes).to.have.length(1);
+    expect(notes).to.have.lengthOf(1);
   });
 });

@@ -13,13 +13,16 @@ describe('Update', () => {
 
     res = await chai.request(app)
       .post('/api/notes')
-      .send({ content: 'Lorem ipsum', tags: ['lorem', 'ipsum'] });
+      .send({
+        content: 'Lorem ipsum',
+        tags: ['lorem', 'ipsum'],
+      });
 
     // Linter is annoying sometimes ^^
     const mongoID = '_id';
     const noteID = res.body[mongoID];
 
-    expect(res.body).to.have.property('content').to.equal('Lorem ipsum');
+    expect(res.body).to.have.property('content', 'Lorem ipsum');
     expect(res.body).to.have.property('tags').eql(['lorem', 'ipsum']);
 
     res = await chai.request(app)
@@ -29,12 +32,7 @@ describe('Update', () => {
         tags: ['lorem', 'ipsum', 'dolor'],
       });
 
-    expect(res.body)
-      .to.have.property('content')
-      .to.be.equal('Lorem ipsum dolor');
-
-    expect(res.body)
-      .to.have.property('tags')
-      .to.be.eql(['lorem', 'ipsum', 'dolor']);
+    expect(res.body).to.have.property('content', 'Lorem ipsum dolor');
+    expect(res.body).to.have.property('tags').eql(['lorem', 'ipsum', 'dolor']);
   });
 });

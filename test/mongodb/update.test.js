@@ -27,7 +27,7 @@ describe('Update notes', () => {
 
     const updatedNote = await Note.findById(note.id);
 
-    expect(updatedNote.content).to.equal('Dolor.');
-    expect(updatedNote.tags).to.have.length(1);
+    expect(updatedNote).to.have.property('content', 'Dolor.');
+    expect(updatedNote).to.have.property('tags').with.lengthOf(1);
   });
 });
