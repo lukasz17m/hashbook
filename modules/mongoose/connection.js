@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 
 const config = require('../config')(process.env.NODE_ENV).mongoose;
-const log = require('../log');
+const log = require('../utils/log');
 
 const { host, name } = config.database;
 
