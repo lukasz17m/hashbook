@@ -1,8 +1,8 @@
 import Vuex from 'vuex';
 import { expect } from 'chai';
 import { shallow, createLocalVue } from 'vue-test-utils';
-import Counter from '../../src/components/Counter.vue';
-import store from '../../src/store';
+import Counter from '@/components/Counter.vue';
+import store from '@/store';
 
 const localVue = createLocalVue();
 

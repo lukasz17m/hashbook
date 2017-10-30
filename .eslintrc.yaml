@@ -11,5 +11,6 @@ plugins:
   - html
 rules:
   chai-friendly/no-unused-expressions: 2
-  no-new: 1
   no-unused-expressions: 0
+settings:
+  import/resolver: webpack

@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import tagColor from '../utils/tagColor';
+import tagColor from '@/utils/tagColor';
 
 export default {
   data() {

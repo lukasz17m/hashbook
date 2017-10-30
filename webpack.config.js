@@ -3,11 +3,16 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/main.js',
+  entry: '@/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
     filename: 'main.js',
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   module: {
     rules: [
