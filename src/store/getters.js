@@ -1,3 +1,3 @@
 export default {
-  count: state => state.count,
+  leftNav: state => state.leftNav,
 };

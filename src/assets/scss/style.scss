@@ -1,11 +1,15 @@
-@import "~font-awesome/scss/font-awesome";
-@import "~bulma/sass/utilities/initial-variables";
-@import "~bulma";
+@import "./base";
+@import "./nav";
 
-.hero-foot {
-  padding: 0 1.5rem;
+html {
+  height: 100%;
 }
 
-.hero .breadcrumb .is-active a {
-  color: $link-active;
+body {
+  background-color: $background;
+  min-height: 100%;
+}
+
+.fix-top-padding {
+  padding-top: 4rem;
 }

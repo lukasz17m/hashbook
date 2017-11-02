@@ -1,0 +1,50 @@
+header {
+  background-color: $primary;
+  box-shadow: 0 .25rem .3125rem rgba(0, 0, 0, 0.65);
+  height: 4rem;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.burger-button {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  height: 4rem;
+  margin: 0 1rem;
+  width: 4rem;
+  &:hover .burger-button__bar {
+    background-color: $burger-color-hover;
+  }
+}
+
+.burger-button__bar {
+  background-color: $burger-color;
+  height: .25rem;
+  margin: .3125rem 0;
+  width: 3rem;
+  transition: background-color .25s;
+  &:first-child {
+    margin-top: 1rem;
+  }
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+}
+
+nav {
+  background-color: $nav-color;
+  height: calc(100vh - 4rem);
+  width: 0;
+  transition: width .5s;
+  &.collapsed {
+    width: 6rem;
+  }
+  &.uncollapsed {
+    width: 20rem;
+  }
+}

@@ -1,10 +1,10 @@
 export default {
-  increment: (_state) => {
+  hideLeftNav: (_state) => {
     const state = _state;
-    state.count += 1;
+    state.leftNav = false;
   },
-  decrement: (_state) => {
+  showLeftNav: (_state) => {
     const state = _state;
-    state.count -= 1;
+    state.leftNav = true;
   },
 };
