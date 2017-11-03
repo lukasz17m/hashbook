@@ -1,6 +1,10 @@
 <template>
-  <header>
-    <div class="burger-button" @click="toggleLeftNav">
+  <header class="top-nav">
+    <div
+    class="burger-button"
+    tabindex="0"
+    @click="toggleLeftNav"
+    @keyup.enter.space="toggleLeftNav">
       <div class="burger-button__bar"></div>
       <div class="burger-button__bar"></div>
       <div class="burger-button__bar"></div>
@@ -12,6 +16,12 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
+  name: 'NavTop',
+
+  computed: {
+    ...mapGetters(['leftNav']),
+  },
+
   methods: {
     ...mapMutations(['hideLeftNav', 'showLeftNav']),
 
@@ -22,10 +32,6 @@ export default {
         this.showLeftNav();
       }
     },
-  },
-
-  computed: {
-    ...mapGetters(['leftNav']),
   },
 };
 </script>

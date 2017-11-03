@@ -10,17 +10,8 @@ import NavLeft from '@/components/NavLeft.vue';
 import NavTop from '@/components/NavTop.vue';
 
 export default {
-  data() {
-    return {
-    };
-  },
+  name: 'App',
 
-  components: {
-    NavLeft,
-    NavTop,
-  },
-
-  methods: {
-  },
+  components: { NavLeft, NavTop },
 };
 </script>

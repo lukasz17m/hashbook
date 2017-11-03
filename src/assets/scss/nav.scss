@@ -1,4 +1,4 @@
-header {
+.top-nav {
   background-color: $primary;
   box-shadow: 0 .25rem .3125rem rgba(0, 0, 0, 0.65);
   height: 4rem;
@@ -17,34 +17,87 @@ header {
   height: 4rem;
   margin: 0 1rem;
   width: 4rem;
-  &:hover .burger-button__bar {
+  &:focus &__bar,
+  &:hover &__bar {
     background-color: $burger-color-hover;
   }
+  &__bar {
+    background-color: $burger-color;
+    height: .25rem;
+    margin: .3125rem 0;
+    transition: background-color .25s ease-out;
+    width: 3rem;
+    &:first-child {
+      margin-top: 1rem;
+    }
+    &:last-child {
+      margin-bottom: 1rem;
+    }
+  }
 }
 
-.burger-button__bar {
-  background-color: $burger-color;
-  height: .25rem;
-  margin: .3125rem 0;
-  width: 3rem;
-  transition: background-color .25s;
-  &:first-child {
-    margin-top: 1rem;
-  }
-  &:last-child {
-    margin-bottom: 1rem;
-  }
-}
-
-nav {
-  background-color: $nav-color;
+.left-nav {
+  background-color: $nav-background-color;
   height: calc(100vh - 4rem);
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem .75rem;
+  position: relative;
+  transition: width .25s ease-in-out, left .5s ease-in-out;
   width: 0;
-  transition: width .5s;
   &.collapsed {
     width: 6rem;
+    &.hidden {
+      left: -6rem;
+    }
   }
   &.uncollapsed {
     width: 20rem;
+    &.hidden {
+      left: -20rem;
+    }
   }
+  &__item {
+    color: $nav-font-color;
+    cursor: pointer;
+    margin: 1rem 0;
+    white-space: nowrap;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:focus,
+    &:hover {
+      color: $nav-font-color-hover;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &__icon {
+    align-items: center;
+    display: inline-flex;
+    font-size: .875rem;
+    height: 4.5rem;
+    justify-content: center;
+    vertical-align: middle;
+    width: 4.5rem;
+  }
+  &__label {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 4.5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+}
+
+.fa {
+  transition: font-size .1s ease-out; // this causes earthquake but whatever
+}
+
+.fa-angle-left {
+  transition: font-size .1s ease-out, transform .1s ease-in;
 }

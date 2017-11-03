@@ -7,4 +7,12 @@ export default {
     const state = _state;
     state.leftNav = true;
   },
+  collapseLeftNav: (_state) => {
+    const state = _state;
+    state.leftNavCollapsed = true;
+  },
+  uncollapseLeftNav: (_state) => {
+    const state = _state;
+    state.leftNavCollapsed = false;
+  },
 };
