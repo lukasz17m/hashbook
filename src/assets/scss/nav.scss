@@ -1,6 +1,6 @@
 .top-nav {
   background-color: $primary;
-  box-shadow: 0 .25rem .3125rem rgba(0, 0, 0, 0.65);
+  box-shadow: 0 .25rem .3125rem $top-nav-box-shadow-color;
   height: 4rem;
   left: 0;
   position: fixed;
@@ -17,19 +17,23 @@
   height: 4rem;
   margin: 0 1rem;
   width: 4rem;
+
   &:focus &__bar,
   &:hover &__bar {
     background-color: $burger-color-hover;
   }
+
   &__bar {
     background-color: $burger-color;
     height: .25rem;
     margin: .3125rem 0;
     transition: background-color .25s ease-out;
     width: 3rem;
+
     &:first-child {
       margin-top: 1rem;
     }
+
     &:last-child {
       margin-bottom: 1rem;
     }
@@ -47,35 +51,44 @@
   top: 4rem;
   transition: width $left-menu-transition, left $left-menu-transition;
   width: 0;
+
   &.collapsed {
     width: 6rem;
+
     &.hidden {
       left: -6rem;
     }
   }
+
   &.uncollapsed {
     width: 20rem;
+
     &.hidden {
       left: -20rem;
     }
   }
+
   &__item {
     color: $nav-font-color;
     cursor: pointer;
     margin: 1rem 0;
     user-select: none;
     white-space: nowrap;
+
     &:first-child {
       margin-top: 0;
     }
+
     &:focus,
     &:hover {
       color: $nav-font-color-hover;
     }
+
     &:last-child {
       margin-bottom: 0;
     }
   }
+
   &__icon {
     align-items: center;
     display: inline-flex;
@@ -85,6 +98,7 @@
     vertical-align: middle;
     width: 4.5rem;
   }
+
   &__label {
     align-items: center;
     display: inline-flex;

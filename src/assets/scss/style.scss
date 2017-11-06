@@ -1,5 +1,5 @@
-@import "./base";
-@import "./nav";
+@import './base';
+@import './nav';
 
 html {
   height: 100%;
@@ -15,9 +15,11 @@ body {
   padding-left: 0;
   padding-top: 4rem;
   transition: padding-left $left-menu-transition;
+
   &.collapsed {
     padding-left: 6rem;
   }
+
   &.uncollapsed {
     padding-left: 20rem;
   }
