@@ -1,11 +1,11 @@
 <template>
   <li
   :class="classItem"
-  tabindex="0"
+  :tabindex="tabindex"
   @click="toggleLeftNavCollapse"
   @keyup.enter.space="toggleLeftNavCollapse">
     <span class="left-nav__icon">
-      <i :class="classIcon"></i>
+      <span :class="classIcon"></span>
     </span>
     <span v-if="!leftNavCollapsed" class="left-nav__label">Collapse</span>
   </li>
@@ -18,7 +18,7 @@ export default {
   name: 'NavLeftToggleCollapse',
 
   computed: {
-    ...mapGetters(['leftNavCollapsed']),
+    ...mapGetters(['leftNav', 'leftNavCollapsed']),
 
     classItem() {
       return {
@@ -36,6 +36,10 @@ export default {
         'fa-angle-left': true,
         'fa-rotate-180': this.leftNavCollapsed,
       };
+    },
+
+    tabindex() {
+      return this.leftNav ? 0 : -1;
     },
   },
 

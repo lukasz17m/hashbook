@@ -43,8 +43,9 @@
   overflow-x: hidden;
   overflow-y: auto;
   padding: 1rem .75rem;
-  position: relative;
-  transition: width .25s ease-in-out, left .5s ease-in-out;
+  position: fixed;
+  top: 4rem;
+  transition: width $left-menu-transition, left $left-menu-transition;
   width: 0;
   &.collapsed {
     width: 6rem;
@@ -62,6 +63,7 @@
     color: $nav-font-color;
     cursor: pointer;
     margin: 1rem 0;
+    user-select: none;
     white-space: nowrap;
     &:first-child {
       margin-top: 0;
@@ -89,13 +91,14 @@
     font-size: 1.5rem;
     font-weight: bold;
     line-height: 4.5rem;
+    padding-left: .75rem;
     vertical-align: middle;
     white-space: nowrap;
   }
 }
 
 .fa {
-  transition: font-size .1s ease-out; // this causes earthquake but whatever
+  transition: font-size .1s ease-out; // this causes an earthquake but whatever
 }
 
 .fa-angle-left {

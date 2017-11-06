@@ -1,7 +1,7 @@
 <template>
-  <li :class="classItem" tabindex="0">
+  <li :class="classItem" :tabindex="tabindex">
     <span class="left-nav__icon">
-      <i :class="classIcon"></i>
+      <span :class="classIcon"></span>
     </span>
     <span v-if="!leftNavCollapsed" class="left-nav__label">{{label}}</span>
   </li>
@@ -31,7 +31,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['leftNavCollapsed']),
+    ...mapGetters(['leftNav', 'leftNavCollapsed']),
 
     classItem() {
       return [
@@ -48,6 +48,10 @@ export default {
         `fa-${faSize}`,
         `fa-${this.fa}`,
       ];
+    },
+
+    tabindex() {
+      return this.leftNav ? 0 : -1;
     },
   },
 };
