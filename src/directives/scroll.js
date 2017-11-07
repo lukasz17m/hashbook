@@ -2,11 +2,13 @@ let heightDiff;
 let widthDiff;
 
 const updateDimDiffs = (el, pel) => {
-  heightDiff = parseFloat(window.getComputedStyle(el).height, 10)
-  - parseFloat(window.getComputedStyle(pel).height, 10);
+  heightDiff =
+      parseFloat(window.getComputedStyle(el).height)
+    - parseFloat(window.getComputedStyle(pel).height);
 
-  widthDiff = parseFloat(window.getComputedStyle(el).width, 10)
-  - parseFloat(window.getComputedStyle(pel).width, 10);
+  widthDiff =
+      parseFloat(window.getComputedStyle(el).width)
+    - parseFloat(window.getComputedStyle(pel).width);
 };
 
 export default {
@@ -26,8 +28,6 @@ export default {
     };
 
     let dragging = false;
-    let xDiff;
-    let yDiff;
 
     pel.style.overflow = 'hidden';
     pel.style.position = 'relative';
@@ -37,14 +37,14 @@ export default {
 
     updateDimDiffs(el, pel);
 
-    const restartVars = (e, { x, y }) => {
+    const resetVars = (e, { x, y }) => {
       if (x) {
-        startPosition.left = parseInt(el.style.left, 10);
+        startPosition.left = parseFloat(el.style.left);
         startPoint.x = e.touches ? e.touches[0].clientX : e.clientX;
       }
 
       if (y) {
-        startPosition.top = parseInt(el.style.top, 10);
+        startPosition.top = parseFloat(el.style.top);
         startPoint.y = e.touches ? e.touches[0].clientY : e.clientY;
       }
     };
@@ -58,7 +58,7 @@ export default {
 
     ['mousedown', 'touchstart'].forEach((event) => {
       el.addEventListener(event, (e) => {
-        restartVars(e, { x: true, y: true });
+        resetVars(e, { x: true, y: true });
 
         dragging = true;
       });
@@ -73,17 +73,17 @@ export default {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-        [xDiff, yDiff] = [clientX - startPoint.x, clientY - startPoint.y];
+        const [xDiff, yDiff] = [clientX - startPoint.x, clientY - startPoint.y];
 
         if (direction === 'horizontal') {
           if (startPosition.left + xDiff > 0) {
             el.style.left = '0';
 
-            restartVars(e, { x: true, y: false });
+            resetVars(e, { x: true, y: false });
           } else if (-(startPosition.left + xDiff) >= widthDiff) {
             el.style.left = `${-widthDiff}px`;
 
-            restartVars(e, { x: true, y: false });
+            resetVars(e, { x: true, y: false });
           } else {
             el.style.left = `${startPosition.left + xDiff}px`;
           }
@@ -91,11 +91,11 @@ export default {
           if (startPosition.top + yDiff > 0) {
             el.style.top = '0';
 
-            restartVars(e, { x: false, y: true });
+            resetVars(e, { x: false, y: true });
           } else if (-(startPosition.top + yDiff) >= heightDiff) {
             el.style.top = `${-heightDiff}px`;
 
-            restartVars(e, { x: false, y: true });
+            resetVars(e, { x: false, y: true });
           } else {
             el.style.top = `${startPosition.top + yDiff}px`;
           }
