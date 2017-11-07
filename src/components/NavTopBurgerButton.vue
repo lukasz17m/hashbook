@@ -1,9 +1,9 @@
 <template>
   <div
-  class="burger-button"
-  tabindex="0"
-  @click="toggleLeftNav"
-  @keyup.enter.space="toggleLeftNav">
+    class="burger-button"
+    tabindex="0"
+    @click="toggleLeftNav"
+    @keyup.enter.space="toggleLeftNav">
     <div class="burger-button__bar"></div>
     <div class="burger-button__bar"></div>
     <div class="burger-button__bar"></div>

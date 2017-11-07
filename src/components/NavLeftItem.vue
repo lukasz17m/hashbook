@@ -1,9 +1,12 @@
 <template>
-  <li :class="classItem" :tabindex="tabindex">
+  <li :class="classItem" :tabindex="tabindex" @click="temp">
     <span class="left-nav__icon">
       <span :class="classIcon"></span>
     </span>
-    <span v-if="!leftNavCollapsed" class="left-nav__label">{{label}}</span>
+    <span
+      v-if="!leftNavCollapsed"
+      class="left-nav__label"
+      v-text="label"></span>
   </li>
 </template>
 
@@ -52,6 +55,13 @@ export default {
 
     tabindex() {
       return this.leftNav ? 0 : -1;
+    },
+  },
+
+  methods: {
+    // TEMP: Only for scroll testing
+    temp() {
+      this.$store.commit('pushtags');
     },
   },
 };

@@ -1,6 +1,7 @@
 .top-nav {
   background-color: $primary;
   box-shadow: 0 .25rem .3125rem $top-nav-box-shadow-color;
+  display: flex;
   height: 4rem;
   left: 0;
   position: fixed;
@@ -16,6 +17,7 @@
   flex-direction: column;
   height: 4rem;
   margin: 0 1rem;
+  vertical-align: middle;
   width: 4rem;
 
   &:focus &__bar,

@@ -1,9 +1,9 @@
 <template>
   <li
-  :class="classItem"
-  :tabindex="tabindex"
-  @click="toggleLeftNavCollapse"
-  @keyup.enter.space="toggleLeftNavCollapse">
+    :class="classItem"
+    :tabindex="tabindex"
+    @click="toggleLeftNavCollapse"
+    @keyup.enter.space="toggleLeftNavCollapse">
     <span class="left-nav__icon">
       <span :class="classIcon"></span>
     </span>
