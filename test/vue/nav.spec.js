@@ -4,6 +4,7 @@ import { mount, createLocalVue } from 'vue-test-utils';
 import App from '@/components/App.vue';
 import NavLeftItems from '@/components/NavLeftItems.vue';
 import NavLeftToggleCollapse from '@/components/NavLeftToggleCollapse.vue';
+import NavTopBurgerButton from '@/components/NavTopBurgerButton.vue';
 import store from '@/store';
 import state from '@/store/state';
 
@@ -114,6 +115,14 @@ describe('Nav', () => {
   });
 
   describe('Components', () => {
+    it('contains NavTopBurgerButton component which is a `div` element', () => {
+      expect(wrapper.find('.left-nav').contains(NavTopBurgerButton)).to.be.true;
+      expect(wrapper.find(NavTopBurgerButton).is('div')).to.be.true;
+
+      expect(wrapper.find(NavTopBurgerButton).hasClass('burger-button'))
+        .to.be.true;
+    });
+
     it('contains NavLeftItems component which is an `ul` element', () => {
       expect(wrapper.find('.left-nav').contains(NavLeftItems)).to.be.true;
       expect(wrapper.find(NavLeftItems).is('ul')).to.be.true;
