@@ -1,3 +1,9 @@
+import detectIt from 'detect-it';
+
+const mouse = detectIt.hasMouse;
+const passive = detectIt.passiveEvents;
+const touch = detectIt.hasTouch;
+
 let heightDiff;
 let widthDiff;
 
@@ -12,28 +18,21 @@ const updateDimDiffs = (el, pel) => {
 };
 
 export default {
-  inserted(_el, { value }, vnode) {
-    const direction = value;
+  inserted(_el, { value: direction }, vnode) {
     const el = _el;
     const pel = vnode.elm.parentElement;
 
-    const startPosition = {
-      left: 0,
-      top: 0,
-    };
-
-    const startPoint = {
-      x: 0,
-      y: 0,
-    };
+    const startPosition = { left: 0, top: 0 };
+    const startPoint = { x: 0, y: 0 };
 
     let dragging = false;
 
     pel.style.overflow = 'hidden';
     pel.style.position = 'relative';
-    el.style.left = '0';
     el.style.position = 'relative';
-    el.style.top = '0';
+
+    el.style.left = startPosition.left;
+    el.style.top = startPosition.top;
 
     updateDimDiffs(el, pel);
 
@@ -49,23 +48,37 @@ export default {
       }
     };
 
+    const eventTypes = { start: [], move: [], end: ['visibilitychange'] };
+
+    if (mouse) {
+      eventTypes.start.push('mousedown');
+      eventTypes.move.push('mousemove');
+      eventTypes.end.push('mouseup');
+    }
+
+    if (touch) {
+      eventTypes.start.push('touchstart');
+      eventTypes.move.push('touchmove');
+      eventTypes.end.push('touchend');
+    }
+
     // forEach is not necessary in the following case, consistency issues
-    ['resize'].forEach((event) => {
-      window.addEventListener(event, () => {
+    ['resize'].forEach((type) => {
+      window.addEventListener(type, () => {
         updateDimDiffs(el, pel);
-      });
+      }, passive ? { passive } : false);
     });
 
-    ['mousedown', 'touchstart'].forEach((event) => {
-      el.addEventListener(event, (e) => {
+    eventTypes.start.forEach((type) => {
+      el.addEventListener(type, (e) => {
         resetVars(e, { x: true, y: true });
 
         dragging = true;
-      });
+      }, passive ? { passive } : false);
     });
 
-    ['mousemove', 'touchmove'].forEach((event) => {
-      window.addEventListener(event, (e) => {
+    eventTypes.move.forEach((type) => {
+      window.addEventListener(type, (e) => {
         if (!dragging) {
           return false;
         }
@@ -107,13 +120,13 @@ export default {
         }
 
         return true;
-      });
+      }, passive ? { passive } : false);
     });
 
-    ['mouseup', 'touchend', 'visibilitychange'].forEach((event) => {
-      window.addEventListener(event, () => {
+    eventTypes.end.forEach((type) => {
+      window.addEventListener(type, () => {
         dragging = false;
-      });
+      }, passive ? { passive } : false);
     });
   },
 

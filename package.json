@@ -27,6 +27,7 @@
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
+    "detect-it": "^3.0.3",
     "express": "^4.16.2",
     "mongoose": "^4.12.6",
     "seedrandom": "^2.4.3",
