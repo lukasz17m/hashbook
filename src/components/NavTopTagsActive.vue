@@ -1,33 +1,19 @@
 <template>
   <div v-if="hasActive" class="tags-active">
     <div class="tags-active__scroll-wrapper">
-      <ul class="tags" v-scroll="direction">
-        <li
-          v-for="(tag, i) in tagsActive"
-          class="tag is-medium"
-          tabindex="0"
-          :key="i"
-          v-text="tag"
-          v-tag></li>
-        </ul>
+      <NavTopTagsActiveItems :tags="tagsActive" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { scroll, tag } from '@/directives';
+import NavTopTagsActiveItems from '@/components/NavTopTagsActiveItems.vue';
 
 export default {
   name: 'NavTopTagsActive',
 
-  directives: { scroll, tag },
-
-  data() {
-    return {
-      direction: 'horizontal',
-    };
-  },
+  components: { NavTopTagsActiveItems },
 
   computed: {
     ...mapGetters(['tagsActive']),

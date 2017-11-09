@@ -1,5 +1,9 @@
 <template>
-  <li :class="classItem" :tabindex="tabindex" @click="temp">
+  <li
+    :class="classItem"
+    :tabindex="tabindex"
+    @click="$emit('hit')"
+    @keyup.enter.space="$emit('hit')">
     <span class="left-nav__icon">
       <span :class="classIcon"></span>
     </span>
@@ -55,13 +59,6 @@ export default {
 
     tabindex() {
       return this.leftNav ? 0 : -1;
-    },
-  },
-
-  methods: {
-    // TEMP: Only for scroll testing
-    temp() {
-      this.$store.commit('pushtags');
     },
   },
 };

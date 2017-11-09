@@ -66,7 +66,7 @@ export default {
     ['resize'].forEach((type) => {
       window.addEventListener(type, () => {
         updateDimDiffs(el, pel);
-      }, passive ? { passive } : false);
+      });
     });
 
     eventTypes.start.forEach((type) => {
