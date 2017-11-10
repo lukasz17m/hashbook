@@ -3,4 +3,5 @@ export default {
   leftNavCollapsed: false,
   tags: [],
   tagsActive: [],
+  tagsInactiveVisible: false,
 };

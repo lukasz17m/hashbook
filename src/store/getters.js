@@ -3,4 +3,5 @@ export default {
   leftNavCollapsed: state => state.leftNavCollapsed,
   tags: state => state.tags,
   tagsActive: state => state.tagsActive,
+  tagsInactiveVisible: state => state.tagsInactiveVisible,
 };

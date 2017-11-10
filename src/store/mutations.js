@@ -15,9 +15,18 @@ export default {
     const state = _state;
     state.leftNavCollapsed = false;
   },
+  hideTagsInactive: (_state) => {
+    const state = _state;
+    state.tagsInactiveVisible = false;
+  },
+  showTagsInactive: (_state) => {
+    const state = _state;
+    state.tagsInactiveVisible = true;
+  },
   // TEMP: Only for scroll testing
   pushtags: (_state) => {
     const state = _state;
     state.tagsActive.push('Lorem', 'ipsum', 'dolor', 'sit', 'amet');
+    state.tags.push('Lorem', 'ipsum', 'dolor', 'sit', 'amet');
   },
 };

@@ -2,8 +2,9 @@
   <div :class="classObject">
     <NavTop />
     <NavLeft />
+    <TagsInactive />
     <!-- TEMP: -->
-    <div style="height: calc(100vh - 4rem); overflow-x: hidden; overflow-y: scroll; padding: 1rem" tabindex="0">
+    <div style="height: calc(100vh - 4rem); overflow-x: hidden; overflow-y: scroll; padding: 1rem" tabindex="0" @focus="preventDocumentScroll">
       <div class="content" style="margin: 0 auto; max-width: 60rem">
         <p class="is-size-4 has-text-weight-bold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate omnis dolores eveniet cupiditate at nam rerum porro aperiam voluptatum modi, iusto itaque cumque, illo culpa nemo quisquam consectetur ipsa molestias.</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit culpa, ab, iste, veniam aliquam ipsam fugiat ut incidunt quis similique fugit dolorum cum accusantium quia voluptatibus mollitia voluptatem labore quaerat sapiente. Corrupti eligendi laborum animi ipsam repellat placeat, odit. Consequatur quaerat sunt eius rem alias esse vel quo quis porro, distinctio numquam id ducimus nisi ipsa cum earum. Dolores, eligendi maxime aspernatur voluptate harum voluptatibus omnis similique dolorum rerum. Autem rerum inventore animi, dolore quaerat ut nihil culpa laudantium velit modi officiis exercitationem praesentium, aliquam quibusdam quas nostrum soluta dignissimos odit minima ratione consequatur veritatis tempore ipsam? Beatae dolor, labore illum quod, harum tempore reiciendis laboriosam? Repudiandae dignissimos facere sapiente consequatur ipsum temporibus praesentium ullam excepturi, voluptatibus, impedit perferendis! Iure ullam amet eius velit possimus earum iusto vel, incidunt temporibus molestiae sed nobis, sunt reprehenderit, doloremque explicabo aspernatur quae delectus facilis quas iste repudiandae asperiores ex ratione. Dolores cumque enim necessitatibus laudantium nulla eos consectetur, praesentium expedita architecto numquam aut voluptatum, illo reprehenderit dolore. Sunt ducimus quibusdam error commodi exercitationem ut, iusto, et minima molestiae illo, quisquam perferendis officia. Reprehenderit deleniti quas culpa odit sint porro saepe explicabo ut voluptatum, quam est maxime sequi delectus? Tempore facere nesciunt optio, soluta consequuntur possimus fugiat quod dolores nam labore deserunt inventore, quo ea sit excepturi temporibus consequatur, dignissimos autem nostrum. Omnis enim laudantium dolore laboriosam nihil sint sit, vel alias labore tempora aliquid iusto maiores et repudiandae. Ducimus cumque delectus laborum sapiente nam beatae suscipit dolores unde deserunt voluptatibus. Veniam possimus tempora fugit, voluptate vero sapiente inventore, totam ut delectus sed facilis quibusdam perspiciatis iure consequuntur porro atque repudiandae architecto similique repellat illo. Temporibus aut esse libero dolorum consequuntur doloremque placeat veritatis optio laudantium reprehenderit obcaecati et recusandae, minima illo beatae ut qui sed totam velit, repudiandae amet neque. Doloremque a consequatur reiciendis cum illum culpa, quaerat distinctio nostrum error, harum corporis obcaecati veritatis minima excepturi expedita ipsum incidunt minus nobis sequi dolores quos. Laborum adipisci dolorum, quidem quisquam provident et. Tempore veniam fugiat aliquid obcaecati ex odit beatae maiores excepturi iusto molestias unde laboriosam error, eveniet voluptatem nulla quas suscipit accusamus ipsum hic reiciendis quo rem nobis ut illum tenetur! Officia quidem aspernatur ea, laboriosam impedit cum autem consectetur? Hic doloremque fuga beatae alias porro officia, at corporis sit consectetur consequuntur obcaecati neque, tempore assumenda laudantium, eaque expedita quis temporibus reprehenderit dolore commodi ea! Alias modi aperiam ipsam quidem temporibus culpa velit expedita fugit, libero voluptas sunt laboriosam eveniet omnis rem, quaerat vero aliquam eius adipisci odit nihil inventore voluptatem in. Asperiores quaerat ipsam maiores sed molestias placeat illum, explicabo libero voluptates repellat aperiam voluptatibus quia, mollitia autem labore ad! Possimus quas delectus excepturi omnis, impedit repellendus blanditiis vero neque expedita quae aliquam, quaerat doloribus natus, magni id quasi eligendi voluptas odit minus ipsum optio illum doloremque eos quia! Est reprehenderit, ratione vero, illum soluta eum! Aspernatur quis repellat odit, praesentium delectus unde nihil, repudiandae vel aperiam dolor quae ipsa maxime illum iure saepe quasi. Quos alias eligendi ratione nam iusto.</p>
@@ -21,11 +22,12 @@
 import { mapGetters } from 'vuex';
 import NavLeft from '@/components/NavLeft.vue';
 import NavTop from '@/components/NavTop.vue';
+import TagsInactive from '@/components/TagsInactive.vue';
 
 export default {
   name: 'App',
 
-  components: { NavLeft, NavTop },
+  components: { NavLeft, NavTop, TagsInactive },
 
   computed: {
     ...mapGetters(['leftNav', 'leftNavCollapsed']),
@@ -36,6 +38,12 @@ export default {
         collapsed: this.leftNav && this.leftNavCollapsed,
         uncollapsed: this.leftNav && !this.leftNavCollapsed,
       };
+    },
+  },
+
+  methods: {
+    preventDocumentScroll() {
+      document.documentElement.scrollTop = 0;
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <ul class="tags">
-    <NavTopTagsActiveItem
+    <TagsInactiveItem
       v-for="(tag, i) in tags"
       :key="i"
       :tag="tag" />
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import NavTopTagsActiveItem from '@/components/NavTopTagsActiveItem.vue';
+import TagsInactiveItem from '@/components/TagsInactiveItem.vue';
 
 export default {
-  name: 'NavTopTagsActiveItems',
+  name: 'TagsInactiveItems',
 
-  components: { NavTopTagsActiveItem },
+  components: { TagsInactiveItem },
 
   props: {
     tags: {

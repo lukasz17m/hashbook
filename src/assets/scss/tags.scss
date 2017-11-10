@@ -22,3 +22,31 @@
     }
   }
 }
+
+.tags-inactive {
+  background-color: $tags-inactive-background-color;
+  max-height: 6.5rem;
+  transition: $tags-inactive-transition;
+
+  &__scroll-wrapper {
+    display: block;
+    max-height: 6.5rem;
+    padding: 1rem .5rem 0;
+  }
+
+  &.collapse-enter,
+  &.collapse-leave-to {
+    max-height: 0;
+  }
+
+  .tags {
+    .tag {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

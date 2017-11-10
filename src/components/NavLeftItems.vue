@@ -10,7 +10,7 @@
       className="hashtags"
       label="Hashtags"
       fa="hashtag"
-      @hit="temp" />
+      @hit="hashtags" />
 
     <NavLeftItem
       className="technologies"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 import NavLeftItem from '@/components/NavLeftItem.vue';
 import NavLeftToggleCollapse from '@/components/NavLeftToggleCollapse.vue';
 
@@ -37,14 +38,30 @@ export default {
 
   components: { NavLeftItem, NavLeftToggleCollapse },
 
+  computed: {
+    ...mapGetters(['tagsInactiveVisible']),
+  },
+
   methods: {
+    ...mapMutations(['hideTagsInactive', 'showTagsInactive']),
+
+    hashtags() {
+      if (this.tagsInactiveVisible) {
+        this.hideTagsInactive();
+      } else {
+        this.showTagsInactive();
+      }
+    },
+
     github() {
       window.open('https://github.com/lukasz17m/hashbook', '_blank');
     },
+
     technologies() {
       // TEMP
       console.log(JSON.stringify(['Vue.js', 'Node.js', 'MongoDB'], null, 2));
     },
+
     // TEMP: Only for scroll testing
     temp() {
       this.$store.commit('pushtags');
