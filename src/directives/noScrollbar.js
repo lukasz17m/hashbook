@@ -1,5 +1,9 @@
+import detectIt from 'detect-it';
+
+const passive = detectIt.passiveEvents;
+
 export default {
-  inserted(_el, { arg: direction, modifiers: { wheel } }, vnode) {
+  inserted(_el, { arg: direction, modifiers: { flex, wheel } }, vnode) {
     if (direction !== 'horizontal' && direction !== 'vertical') {
       throw new Error(`
         Undefined direction '${direction}'.
@@ -30,7 +34,7 @@ export default {
             // TODO: Smooth?
             el.scrollLeft += e.deltaY;
           }
-        }, { passive: true });
+        }, passive ? { passive } : false);
       }
     }
 
@@ -41,6 +45,8 @@ export default {
       window.addEventListener('resize', verticalMarginNegative);
     }
 
-    pel.style.overflow = 'hidden';
+    if (!flex) {
+      pel.style.overflow = 'hidden';
+    }
   },
 };

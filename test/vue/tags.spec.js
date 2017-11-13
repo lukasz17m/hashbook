@@ -15,31 +15,7 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-// BUG
-// Skip all tests, because they’re throwing an exception when using <transition>
-// in Vue components
-//
-/* eslint-disable no-irregular-whitespace */
-// Exception message:
-//
-// webpack-internal:///43:6750
-//   var transitionDelays = styles[transitionProp + 'Delay'].split(', ');
-//                                                           ^
-//
-// TypeError: Cannot read property 'split' of undefined
-//     at getTransitionInfo (webpack-internal:///43:6750:59)
-//     at whenTransitionEnds (webpack-internal:///43:6720:13)
-//     at Timeout.eval [as _onTimeout] (webpack-internal:///43:7053:13)
-//     at ontimeout (timers.js:471:11)
-//     at tryOnTimeout (timers.js:306:5)
-//     at Timer.listOnTimeout (timers.js:266:5)
-//     at listOnTimeoutNT (timers.js:342:26)
-//     at _combinedTickCallback (internal/process/next_tick.js:135:11)
-//     at Immediate._tickCallback [as _onImmediate] (internal/process/next_tick.js:180:9)
-//     at runCallback (timers.js:785:20)
-//     at tryOnImmediate (timers.js:747:5)
-//     at processImmediate [as _immediateCallback] (timers.js:718:5)
-describe.skip('Tags', () => {
+describe('Tags', () => {
   const initialState = state;
 
   let wrapper;

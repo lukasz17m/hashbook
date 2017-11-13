@@ -1,11 +1,9 @@
 <template>
-  <transition name="collapse">
-    <div v-if="tagsInactiveVisible" class="tags-inactive">
-      <div class="tags-inactive__scroll-wrapper" v-no-scrollbar:vertical>
-        <TagsInactiveItems :tags="tags" />
-      </div>
+  <section v-if="tagsInactiveVisible" class="tags-inactive">
+    <div class="tags-inactive__scroll-wrapper" v-no-scrollbar:vertical.flex>
+      <TagsInactiveItems :tags="tags" />
     </div>
-  </transition>
+  </section>
 </template>
 
 <script>
