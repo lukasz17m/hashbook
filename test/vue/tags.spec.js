@@ -171,5 +171,29 @@ describe('Tags', () => {
       expect(wrapper.find('.fix-top-padding').contains('.tags-inactive'))
         .to.be.false;
     });
+
+    it('contains `No tags to show` when there is no tags', () => {
+      store.replaceState({
+        ...initialState,
+        tagsInactiveVisible: true,
+      });
+
+      wrapper = mount(App, { store, localVue });
+
+      expect(wrapper.find(TagsInactive).html()).to.contain('No tags to show');
+    });
+
+    it('does not contain `No tags to show` when there is no tags', () => {
+      store.replaceState({
+        ...initialState,
+        tags: ['lorem'],
+        tagsInactiveVisible: true,
+      });
+
+      wrapper = mount(App, { store, localVue });
+
+      expect(wrapper.find(TagsInactive).html())
+        .to.not.contain('No tags to show');
+    });
   });
 });

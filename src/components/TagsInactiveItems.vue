@@ -1,10 +1,11 @@
 <template>
-  <ul class="tags">
-    <TagsInactiveItem
-      v-for="(tag, i) in tags"
-      :key="i"
-      :tag="tag" />
+  <ul v-if="!!tags.length" key="tags-fallback" class="tags">
+    <TagsInactiveItem v-for="(tag, i) in tags" :key="i" :tag="tag" />
   </ul>
+  <div v-else key="tags-fallback" class="tags-inactive__scroll-wrapper--zero-tags">
+    <span class="fa fa-hashtag"></span>
+    <span>No tags to show</span>
+  </div>
 </template>
 
 <script>
