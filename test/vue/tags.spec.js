@@ -172,7 +172,7 @@ describe('Tags', () => {
         .to.be.false;
     });
 
-    it('contains `No tags to show` when there is no tags', () => {
+    it('contains `No tags to show` when there are no tags', () => {
       store.replaceState({
         ...initialState,
         tagsInactiveVisible: true,
@@ -183,7 +183,7 @@ describe('Tags', () => {
       expect(wrapper.find(TagsInactive).html()).to.contain('No tags to show');
     });
 
-    it('does not contain `No tags to show` when there is no tags', () => {
+    it('does not contain `No tags to show` when there are some tags', () => {
       store.replaceState({
         ...initialState,
         tags: ['lorem'],
