@@ -1,5 +1,6 @@
 @import './base';
 @import './nav';
+@import './notes';
 @import './tags';
 
 html {
@@ -24,4 +25,10 @@ body {
   &.uncollapsed {
     padding-left: 20rem;
   }
+}
+
+.main-flex {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4rem);
 }

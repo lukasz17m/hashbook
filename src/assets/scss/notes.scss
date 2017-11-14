@@ -1,0 +1,10 @@
+.notes {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 1rem;
+
+  &__wrapper {
+    margin: 0 auto;
+    max-width: 60rem;
+  }
+}

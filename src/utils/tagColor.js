@@ -1,4 +1,4 @@
-import sr from 'seedrandom';
+import seedrandom from 'seedrandom';
 
 /**
  * Returns always the same random color for given tag name.
@@ -7,7 +7,9 @@ import sr from 'seedrandom';
  * @return {Object}     Background and font color.
  */
 const tagColor = (tag) => {
-  const hex = Math.floor(sr(tag)() * 0x1000000).toString(16).padStart(6, '0');
+  const hex = Math.floor(seedrandom(tag)() * 0x1000000)
+    .toString(16)
+    .padStart(6, '0');
 
   const r = parseInt(hex.substr(0, 2), 16);
   const g = parseInt(hex.substr(2, 2), 16);
