@@ -23,10 +23,16 @@ export default {
     const state = _state;
     state.tagsInactiveVisible = true;
   },
-  // TEMP: Only for scroll testing
-  pushtags: (_state) => {
+  // TEMP: Only for note testing
+  pushnotes: (_state) => {
     const state = _state;
-    state.tagsActive.push('Lorem', 'ipsum', 'dolor', 'sit', 'amet');
-    state.tags.push('Lorem', 'ipsum', 'dolor', 'sit', 'amet');
+    state.notes.push(
+      { content: 'Lorem ipsum dolor sit amet.', tags: ['lorem ipsum'] },
+      { content: 'Two tags note.', tags: ['lorem', 'ipsum'] },
+      { content: '', tags: ['blank', 'content'] },
+      { content: 'No tags', tags: ['', 'sds'] },
+      { content: null, tags: 'lorem ipsum' },
+      {},
+    );
   },
 };

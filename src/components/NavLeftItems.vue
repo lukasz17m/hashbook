@@ -59,12 +59,13 @@ export default {
 
     technologies() {
       // TEMP
+      /* eslint-disable no-console */
       console.log(JSON.stringify(['Vue.js', 'Node.js', 'MongoDB'], null, 2));
     },
 
     // TEMP: Only for scroll testing
     temp() {
-      this.$store.commit('pushtags');
+      this.$store.commit('pushnotes');
     },
   },
 };

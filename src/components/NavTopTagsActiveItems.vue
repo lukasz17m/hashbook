@@ -1,9 +1,6 @@
 <template>
   <ul class="tags">
-    <NavTopTagsActiveItem
-      v-for="(tag, i) in tags"
-      :key="i"
-      :tag="tag" />
+    <NavTopTagsActiveItem v-for="(tag, i) in tags" :key="i" :tag="tag" />
   </ul>
 </template>
 

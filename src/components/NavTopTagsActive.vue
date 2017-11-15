@@ -1,9 +1,9 @@
 <template>
-  <section v-if="hasActive" class="tags-active">
+  <aside v-if="hasActive" class="tags-active">
     <div class="tags-active__scroll-wrapper" v-no-scrollbar:horizontal.wheel>
       <NavTopTagsActiveItems :tags="tagsActive" />
     </div>
-  </section>
+  </aside>
 </template>
 
 <script>

@@ -3,8 +3,105 @@
   overflow-y: scroll;
   padding: 1rem;
 
+  &--flex {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__zero-notes {
+    color: $notes-zero-color;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    @media screen and (min-width: 60em) {
+      font-size: 3em;
+    }
+  }
+
   &__wrapper {
     margin: 0 auto;
     max-width: 60rem;
+    padding: .5rem;
+  }
+}
+
+.note {
+  background-color: $note-background-color;
+  margin-bottom: 2rem;
+  padding: .5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__content {
+    background-color: $note-content-background-color;
+    overflow: auto;
+    padding: .5rem;
+  }
+
+  &__menu {
+    margin: .5rem 0;
+    padding: 0 .5rem;
+  }
+
+  &__menu-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+    @media screen and (min-width: 50em) {
+      flex-direction: row;
+    }
+  }
+
+  &__menu-item {
+    align-self: center;
+    color: $note-menu-color;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    margin: .5rem 0;
+    overflow: hidden;
+    user-select: none;
+    white-space: nowrap;
+
+    &:hover,
+    &:focus {
+      color: $note-menu-hover-color;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__menu-icon {
+    align-items: center;
+    display: inline-flex;
+    font-size: .875rem;
+    height: 2rem;
+    justify-content: center;
+    vertical-align: middle;
+    width: 2rem;
+  }
+
+  &__menu-label {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 2rem;
+    padding: 0 .5rem;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  &__tags {
+    background-color: $note-tags-background-color;
+    overflow: auto;
+    padding: .5rem;
   }
 }
