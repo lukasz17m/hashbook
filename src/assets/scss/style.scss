@@ -1,7 +1,7 @@
-@import './base';
-@import './nav';
-@import './notes';
-@import './tags';
+@import '~@/assets/scss/base';
+@import '~@/assets/scss/nav';
+@import '~@/assets/scss/notes';
+@import '~@/assets/scss/tags';
 
 html {
   height: 100%;

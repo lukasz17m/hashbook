@@ -19,7 +19,7 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe.only('Notes', () => {
+describe('Notes', () => {
   const initialState = state;
 
   let wrapper;

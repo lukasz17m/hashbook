@@ -1,5 +1,5 @@
 @import '~bulma/sass/utilities/initial-variables';
-@import './palette';
+@import '~@/assets/scss/palette';
 
 $background: $color5;
 $body-size: 100%;
@@ -12,6 +12,7 @@ $nav-font-color: $color2;
 $nav-font-color-hover: $color1;
 $note-background-color: $color2;
 $note-content-background-color: $color5;
+$note-menu-breakpoint: 52em;
 $note-menu-color: $color4;
 $note-menu-hover-color: $color5;
 $note-tags-background-color: $color5;

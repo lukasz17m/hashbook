@@ -12,8 +12,8 @@
     "server:dev": "cross-env NODE_ENV=development node app.js",
     "server:prod": "cross-env NODE_ENV=production node app.js",
     "start": "npm run server:dev",
-    "test": "cross-env NODE_ENV=test mocha test/**/*.test.js",
-    "test:vue": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.config.js --require test/vue/setup.js test/**/*.spec.js",
+    "test": "cross-env NODE_ENV=test mocha 'test/**/*.test.js'",
+    "test:vue": "cross-env NODE_ENV=test mocha-webpack --webpack-config webpack.config.js --require test/vue/setup.js 'test/vue/**/*.spec.js'",
     "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "keywords": [
@@ -59,6 +59,7 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^4.0.1",
     "mocha-webpack": "^1.0.1",
+    "node-glob": "^1.2.0",
     "node-sass": "^4.5.3",
     "sass-lint": "^1.12.1",
     "sass-loader": "^6.0.6",

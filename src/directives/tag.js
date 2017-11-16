@@ -1,4 +1,4 @@
-import tagColor from '@/utils/tagColor';
+import { tagColor } from '@/utils';
 
 export default {
   bind(_el) {

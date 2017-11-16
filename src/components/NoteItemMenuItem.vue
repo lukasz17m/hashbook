@@ -1,6 +1,6 @@
 <template>
   <li
-    class="note__menu-item"
+    :class="classObject"
     tabindex="0"
     @click="$emit('hit')"
     @keyup.enter.space="$emit('hit')">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { contains } from '@/utils';
+
 export default {
   name: 'NoteItemMenuItem',
 
@@ -36,6 +38,18 @@ export default {
         'fa-2x',
         `fa-${this.fa}`,
       ];
+    },
+
+    classObject() {
+      return {
+        button: true,
+        'note__menu-item': true,
+        'is-danger': contains(this.label, 'Cancel', 'Delete'),
+        'is-success': this.label.includes('Save'),
+        'is-info': this.label.includes('Edit'),
+        /* eslint-disable no-useless-computed-key */ // DRY is `useless` ^^
+        ['is-primary is-outlined']: this.label.includes('Preview'),
+      };
     },
   },
 };
