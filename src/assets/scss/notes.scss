@@ -10,7 +10,7 @@
   }
 
   &__zero-notes {
-    @include media-min-width($note-menu-breakpointem) {
+    @include media-min-width(60em) {
       font-size: 3em;
     }
 

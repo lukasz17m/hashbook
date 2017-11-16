@@ -47,8 +47,7 @@ export default {
         'is-danger': contains(this.label, 'Cancel', 'Delete'),
         'is-success': this.label.includes('Save'),
         'is-info': this.label.includes('Edit'),
-        /* eslint-disable no-useless-computed-key */ // DRY is `useless` ^^
-        ['is-primary is-outlined']: this.label.includes('Preview'),
+        'is-primary is-outlined': this.label.includes('Preview'),
       };
     },
   },
