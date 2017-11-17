@@ -29,44 +29,36 @@ describe('Notes', () => {
 
     if (invalid) {
       notes = [
-        // Valid
-        { content: 'Lorem ipsum dolor sit amet.', tags: ['lorem ipsum'] },
-        // Valid
-        { content: '', tags: [] },
-        // Invalid
-        { content: [], tags: ['lorem ipsum'] },
-        // Invalid
-        { content: {}, tags: ['lorem ipsum'] },
-        // Invalid
-        { content: null, tags: ['lorem ipsum'] },
-        // Invalid
-        { content: true, tags: ['lorem ipsum'] },
-        // Invalid
-        { content: false, tags: ['lorem ipsum'] },
-        // Invalid
-        { content: 7, tags: ['lorem ipsum'] },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: '' },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: {} },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: null },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: true },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: false },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.', tags: 7 },
-        // Invalid
-        { tags: [] },
-        // Invalid
-        { content: 'Lorem ipsum dolor sit amet.' },
-        // Invalid
+        // Only two first are valid
+        { id: 'valid', content: 'Lorem ipsum.', tags: ['lorem ipsum'] },
+        { id: 'any length', content: '', tags: [] },
+        { id: [], content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: {}, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: null, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: true, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: false, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: 7, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: 'valid', content: [], tags: ['lorem ipsum'] },
+        { id: 'valid', content: {}, tags: ['lorem ipsum'] },
+        { id: 'valid', content: null, tags: ['lorem ipsum'] },
+        { id: 'valid', content: true, tags: ['lorem ipsum'] },
+        { id: 'valid', content: false, tags: ['lorem ipsum'] },
+        { id: 'valid', content: 7, tags: ['lorem ipsum'] },
+        { id: 'valid', content: 'Lorem ipsum', tags: '' },
+        { id: 'valid', content: 'Lorem ipsum', tags: {} },
+        { id: 'valid', content: 'Lorem ipsum', tags: null },
+        { id: 'valid', content: 'Lorem ipsum', tags: true },
+        { id: 'valid', content: 'Lorem ipsum', tags: false },
+        { id: 'valid', content: 'Lorem ipsum', tags: 7 },
+        { content: 'Lorem ipsum', tags: [] },
+        { id: 'valid', tags: [] },
+        { id: 'valid', content: 'Lorem ipsum' },
         {},
       ];
     } else {
       notes = [
-        { content: 'Lorem ipsum dolor sit amet.', tags: ['lorem ipsum'] },
+        { id: 'valid', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: 'valid2', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
       ];
     }
 
@@ -82,8 +74,26 @@ describe('Notes', () => {
   });
 
   describe('Vuex', () => {
-    it('has an array of notes in store', () => {
-      expect(wrapper.vm.$store.getters.notes).to.be.an('array');
+    it('has an array of notes in state but not in getters', () => {
+      expect(wrapper.vm.$store.state.notes).to.be.an('array');
+      expect(wrapper.vm.$store.getters.notes).to.be.undefined;
+    });
+
+    it('has an array of valid notes in getters but not in state', () => {
+      expect(wrapper.vm.$store.getters.notesValidated).to.be.an('array');
+      expect(wrapper.vm.$store.state.notesValidated).to.be.undefined;
+    });
+
+    it('has a boolean that indicates if edit mode is on', () => {
+      expect(wrapper.vm.$store.getters.editing).to.be.a('boolean');
+    });
+
+    it('edit mode is set to false by default', () => {
+      expect(wrapper.vm.$store.getters.editing).to.be.false;
+    });
+
+    it('has a property named `editingID` with `null` by default', () => {
+      expect(wrapper.vm.$store.getters.editingID).to.be.null;
     });
   });
 
@@ -163,7 +173,7 @@ describe('Notes', () => {
       store.replaceState({
         ...initialState,
         notes: [
-          { content: 'Correct content', tags: ['one', 'two'] },
+          { id: 'valid', content: 'Correct content', tags: ['one', 'two'] },
         ],
       });
 
@@ -180,14 +190,81 @@ describe('Notes', () => {
     });
   });
 
-  describe('Menu', () => {
-    it('has Edit and Delete button', () => {
+  describe('Menu edit mode off', () => {
+    it('has Edit and Delete buttons but not Save, Cancel and Preview', () => {
       pushNotes();
 
       const menu = wrapper.find(NoteItemMenu);
 
       expect(menu.html()).to.contain('Edit');
       expect(menu.html()).to.contain('Delete');
+      expect(menu.html()).to.not.contain('Save');
+      expect(menu.html()).to.not.contain('Cancel');
+      expect(menu.html()).to.not.contain('Preview');
+    });
+  });
+
+  describe('Menu edit mode on', () => {
+    it('has Save, Cancel and Preview buttons but not Edit and Delete', (done) => {
+      pushNotes();
+
+      const notes = wrapper.findAll(NoteItem);
+
+      const note = notes.at(0);
+      const note2 = notes.at(1);
+
+      const menu = note.find(NoteItemMenu);
+      const menu2 = note2.find(NoteItemMenu);
+
+      menu.find('.is-info').trigger('click'); // Edit button
+
+      localVue.nextTick(() => {
+        expect(menu.html()).to.not.contain('Edit');
+        expect(menu.html()).to.not.contain('Delete');
+        expect(menu.html()).to.contain('Save');
+        expect(menu.html()).to.contain('Cancel');
+        expect(menu.html()).to.contain('Preview');
+
+        expect(menu2.html()).to.not.contain('Edit');
+        expect(menu2.html()).to.contain('Delete');
+        expect(menu2.html()).to.not.contain('Save');
+        expect(menu2.html()).to.not.contain('Cancel');
+        expect(menu2.html()).to.not.contain('Preview');
+
+        done();
+      });
+    });
+
+    it('can cancel note editing', (done) => {
+      pushNotes();
+
+      const notes = wrapper.findAll(NoteItem);
+
+      const note = notes.at(0);
+      const note2 = notes.at(1);
+
+      const menu = note.find(NoteItemMenu);
+      const menu2 = note2.find(NoteItemMenu);
+
+      menu.find('.is-info').trigger('click'); // Edit button
+
+      localVue.nextTick(() => {
+        expect(menu.html()).to.not.contain('Edit');
+        expect(menu.html()).to.contain('Preview');
+        expect(menu2.html()).to.not.contain('Edit');
+        expect(menu2.html()).to.not.contain('Preview');
+
+        menu.find('.is-danger').trigger('click'); // Cancel button
+
+        localVue.nextTick(() => {
+          expect(menu.html()).to.contain('Edit');
+          expect(menu.html()).to.not.contain('Preview');
+          expect(menu2.html()).to.contain('Edit');
+          expect(menu2.html()).to.not.contain('Preview');
+        });
+
+        done();
+      });
     });
   });
 });

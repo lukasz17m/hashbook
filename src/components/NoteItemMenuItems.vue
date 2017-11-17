@@ -1,26 +1,31 @@
 <template>
   <ul class="note__menu-items">
     <NoteItemMenuItem
+      v-if="editModeButton"
       label="Edit"
       fa="pencil"
-      @hit="temp" />
+      @hit="edit" />
 
     <NoteItemMenuItem
+      v-if="!editModeButtons"
       label="Delete"
       fa="trash"
       @hit="temp" />
 
     <NoteItemMenuItem
+      v-if="editModeButtons"
       label="Save"
       fa="check"
       @hit="temp" />
 
     <NoteItemMenuItem
+      v-if="editModeButtons"
       label="Cancel"
       fa="times"
-      @hit="temp" />
+      @hit="cancelEdit" />
 
     <NoteItemMenuItem
+      v-if="editModeButtons"
       label="Preview"
       fa="eye"
       @hit="temp" />
@@ -35,7 +40,33 @@ export default {
 
   components: { NoteItemMenuItem },
 
+  props: {
+    noteID: {
+      type: String,
+      required: true,
+    },
+  },
+
+  computed: {
+    editModeButton() {
+      return !this.$store.getters.editing;
+    },
+
+    editModeButtons() {
+      return this.$store.getters.editing
+        && this.$store.getters.editingID === this.noteID;
+    },
+  },
+
   methods: {
+    cancelEdit() {
+      this.$store.commit('cancelEdit');
+    },
+
+    edit() {
+      this.$store.commit('edit', { id: this.noteID });
+    },
+
     // TEMP
     temp() {
       console.log('Note menu');

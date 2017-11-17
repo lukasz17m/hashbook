@@ -1,8 +1,8 @@
 <template>
   <article class="note">
-    <NoteItemTags :tags="note.tags" />
-    <NoteItemMenu />
-    <NoteItemContent :content="note.content" />
+    <NoteItemTags :tags="tags" />
+    <NoteItemMenu :noteID="id" />
+    <NoteItemContent :content="content" />
   </article>
 </template>
 
@@ -17,8 +17,16 @@ export default {
   components: { NoteItemContent, NoteItemMenu, NoteItemTags },
 
   props: {
-    note: {
-      type: Object,
+    id: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    tags: {
+      type: Array,
       required: true,
     },
   },

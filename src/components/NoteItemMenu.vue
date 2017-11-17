@@ -1,6 +1,6 @@
 <template>
   <nav class="note__menu">
-    <NoteItemMenuItems />
+    <NoteItemMenuItems :noteID="noteID" />
   </nav>
 </template>
 
@@ -11,5 +11,12 @@ export default {
   name: 'NoteItemMenu',
 
   components: { NoteItemMenuItems },
+
+  props: {
+    noteID: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>

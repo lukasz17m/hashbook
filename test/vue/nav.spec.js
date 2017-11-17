@@ -283,4 +283,32 @@ describe('Nav', () => {
       expect(wrapper.find('.collapse').contains('.fa-angle-left'));
     });
   });
+
+  describe.only('Note menu impact', () => {
+    it('`New note` turns into `Save note` in edit mode', (done) => {
+      store.replaceState({
+        ...initialState,
+        // editing: true,
+        // editingID: 'valid',
+        notes: [
+          { id: 'valid', content: 'Foobar', tags: ['foo', 'bar'] },
+        ],
+      });
+
+      wrapper = mount(App, { store, localVue });
+
+      const button = wrapper.find('.new-note');
+
+      expect(button.html()).to.contain('New note');
+
+      wrapper.find('.note__menu-item.is-info').trigger('click');
+
+      localVue.nextTick(() => {
+        expect(button.html()).to.not.contain('New note');
+        expect(button.html()).to.contain('Save note');
+
+        done();
+      });
+    });
+  });
 });

@@ -15,9 +15,23 @@ describe('Create a note', () => {
     expect(note).to.have.property('isNew', false);
   });
 
-  it('Content and tags aren\'t required', async () => {
-    const note = await new Note().save();
+  describe('Content is required, tags are not', () => {
+    it('throws ValidationError', async () => {
+      try {
+        await new Note({ tags: ['foo'] }).save();
+        expect(true).to.be.false;
+      } catch (e) {
+        expect(e).to.have.property('name', 'ValidationError');
+      }
+    });
 
-    expect(note).to.have.property('isNew', false);
+    it('saves note correctly', async () => {
+      const note = await new Note({ content: 'Foobar' }).save();
+
+      expect(note).to.have.property('isNew', false);
+
+      expect(note.content).to.be.a('string');
+      expect(note.tags).to.be.an('array');
+    });
   });
 });

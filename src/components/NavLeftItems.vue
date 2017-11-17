@@ -1,9 +1,9 @@
 <template>
   <ul class="left-nav__items">
     <NavLeftItem
-      className="new-note"
-      label="New note"
-      fa="pencil"
+      :className="newNoteClass"
+      :label="newNoteLabel"
+      :fa="newNoteIcon"
       @hit="temp" />
 
     <NavLeftItem
@@ -40,6 +40,18 @@ export default {
 
   computed: {
     ...mapGetters(['tagsInactiveVisible']),
+
+    newNoteClass() {
+      return this.$store.getters.editing ? 'save-note' : 'new-note';
+    },
+
+    newNoteIcon() {
+      return this.$store.getters.editing ? 'check' : 'pencil';
+    },
+
+    newNoteLabel() {
+      return this.$store.getters.editing ? 'Save note' : 'New note';
+    },
   },
 
   methods: {

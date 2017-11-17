@@ -1,6 +1,6 @@
 const { Schema } = require('mongoose');
 
 module.exports = new Schema({
-  content: String,
-  tags: [String],
+  content: { type: String, required: true },
+  tags: [{ type: String, required: true }],
 });

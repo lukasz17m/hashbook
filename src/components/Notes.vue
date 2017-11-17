@@ -1,6 +1,6 @@
 <template>
-  <section :class="{ notes: true, 'notes--flex': !notes.length }">
-    <NotesWrapper />
+  <section :class="{ notes: true, 'notes--flex': !notesValidated.length }">
+    <NotesWrapper :notes="notesValidated" />
   </section>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   components: { NotesWrapper },
 
   computed: {
-    ...mapGetters(['notes']),
+    ...mapGetters(['notesValidated']),
   },
 };
 </script>
