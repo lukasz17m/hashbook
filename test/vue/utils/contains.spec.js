@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { contains } from '@/utils';
 
-describe('Function returns true if expression contains any given word', () => {
+describe('Contains', () => {
   it('returns false — expression does not include any given word', () => {
     expect(contains('Lorem ipsum', 'dolor', 'sit', 'amet')).to.be.false;
   });

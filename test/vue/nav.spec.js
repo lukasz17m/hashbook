@@ -284,7 +284,7 @@ describe('Nav', () => {
     });
   });
 
-  describe.only('Note menu impact', () => {
+  describe('Note menu impact', () => {
     it('`New note` turns into `Save note` in edit mode', (done) => {
       store.replaceState({
         ...initialState,
