@@ -151,7 +151,7 @@ describe('Nav', () => {
   });
 
   describe('Collapse button', () => {
-    it('collapses left menu when collapse button is clicked', (done) => {
+    it('collapses left menu when collapse button is clicked', () => {
       const paddingBox = wrapper.find('.fix-top-padding');
       const leftNav = wrapper.find('.left-nav');
       const leftNavTC = wrapper.find(NavLeftToggleCollapse);
@@ -171,25 +171,22 @@ describe('Nav', () => {
 
       leftNavTC.trigger('click');
 
-      // Vue.nextTick() is required in this case for some reason
-      localVue.nextTick(() => {
-        expect(wrapper.vm.$store.getters.leftNavCollapsed).to.be.true;
-        expect(paddingBox.hasClass('collapsed')).to.be.true;
-        expect(paddingBox.hasClass('uncollapsed')).to.be.false;
-        expect(leftNav.hasClass('collapsed')).to.be.true;
-        expect(leftNav.hasClass('uncollapsed')).to.be.false;
-        expect(leftNavTC.hasClass('collapse')).to.be.false;
-        expect(leftNavTC.hasClass('uncollapse')).to.be.true;
-        expect(leftNavTC.contains('.left-nav__label')).to.be.false;
-        expect(leftNavTCIcon.hasClass('fa-rotate-180')).to.be.true;
-        expect(leftNavTCIcon.hasClass('fa-3x')).to.be.false;
-        expect(leftNavTCIcon.hasClass('fa-4x')).to.be.true;
+      wrapper.update();
 
-        done();
-      });
+      expect(wrapper.vm.$store.getters.leftNavCollapsed).to.be.true;
+      expect(paddingBox.hasClass('collapsed')).to.be.true;
+      expect(paddingBox.hasClass('uncollapsed')).to.be.false;
+      expect(leftNav.hasClass('collapsed')).to.be.true;
+      expect(leftNav.hasClass('uncollapsed')).to.be.false;
+      expect(leftNavTC.hasClass('collapse')).to.be.false;
+      expect(leftNavTC.hasClass('uncollapse')).to.be.true;
+      expect(leftNavTC.contains('.left-nav__label')).to.be.false;
+      expect(leftNavTCIcon.hasClass('fa-rotate-180')).to.be.true;
+      expect(leftNavTCIcon.hasClass('fa-3x')).to.be.false;
+      expect(leftNavTCIcon.hasClass('fa-4x')).to.be.true;
     });
 
-    it('uncollapses left menu when uncollapse button is clicked', (done) => {
+    it('uncollapses left menu when uncollapse button is clicked', () => {
       store.replaceState({
         ...initialState,
         leftNavCollapsed: true,
@@ -216,22 +213,19 @@ describe('Nav', () => {
 
       leftNavTC.trigger('click');
 
-      // Vue.nextTick() is required in this case for some reason
-      localVue.nextTick(() => {
-        expect(wrapper.vm.$store.getters.leftNavCollapsed).to.be.false;
-        expect(paddingBox.hasClass('collapsed')).to.be.false;
-        expect(paddingBox.hasClass('uncollapsed')).to.be.true;
-        expect(leftNav.hasClass('collapsed')).to.be.false;
-        expect(leftNav.hasClass('uncollapsed')).to.be.true;
-        expect(leftNavTC.hasClass('collapse')).to.be.true;
-        expect(leftNavTC.hasClass('uncollapse')).to.be.false;
-        expect(leftNavTC.contains('.left-nav__label')).to.be.true;
-        expect(leftNavTCIcon.hasClass('fa-rotate-180')).to.be.false;
-        expect(leftNavTCIcon.hasClass('fa-3x')).to.be.true;
-        expect(leftNavTCIcon.hasClass('fa-4x')).to.be.false;
+      wrapper.update();
 
-        done();
-      });
+      expect(wrapper.vm.$store.getters.leftNavCollapsed).to.be.false;
+      expect(paddingBox.hasClass('collapsed')).to.be.false;
+      expect(paddingBox.hasClass('uncollapsed')).to.be.true;
+      expect(leftNav.hasClass('collapsed')).to.be.false;
+      expect(leftNav.hasClass('uncollapsed')).to.be.true;
+      expect(leftNavTC.hasClass('collapse')).to.be.true;
+      expect(leftNavTC.hasClass('uncollapse')).to.be.false;
+      expect(leftNavTC.contains('.left-nav__label')).to.be.true;
+      expect(leftNavTCIcon.hasClass('fa-rotate-180')).to.be.false;
+      expect(leftNavTCIcon.hasClass('fa-3x')).to.be.true;
+      expect(leftNavTCIcon.hasClass('fa-4x')).to.be.false;
     });
   });
 
@@ -285,11 +279,9 @@ describe('Nav', () => {
   });
 
   describe('Note menu impact', () => {
-    it('`New note` turns into `Save note` in edit mode', (done) => {
+    it('`New note` turns into `Save note` in edit mode', () => {
       store.replaceState({
         ...initialState,
-        // editing: true,
-        // editingID: 'valid',
         notes: [
           { id: 'valid', content: 'Foobar', tags: ['foo', 'bar'] },
         ],
@@ -301,14 +293,12 @@ describe('Nav', () => {
 
       expect(button.html()).to.contain('New note');
 
-      wrapper.find('.note__menu-item.is-info').trigger('click');
+      wrapper.find('.note__menu-item.is-info').trigger('click'); // Edit button
 
-      localVue.nextTick(() => {
-        expect(button.html()).to.not.contain('New note');
-        expect(button.html()).to.contain('Save note');
+      wrapper.update();
 
-        done();
-      });
+      expect(button.html()).to.not.contain('New note');
+      expect(button.html()).to.contain('Save note');
     });
   });
 });

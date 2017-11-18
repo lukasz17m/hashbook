@@ -205,7 +205,7 @@ describe('Notes', () => {
   });
 
   describe('Menu edit mode on', () => {
-    it('has Save, Cancel and Preview buttons but not Edit and Delete', (done) => {
+    it('has Save, Cancel and Preview buttons but not Edit and Delete', () => {
       pushNotes();
 
       const notes = wrapper.findAll(NoteItem);
@@ -218,24 +218,22 @@ describe('Notes', () => {
 
       menu.find('.is-info').trigger('click'); // Edit button
 
-      localVue.nextTick(() => {
-        expect(menu.html()).to.not.contain('Edit');
-        expect(menu.html()).to.not.contain('Delete');
-        expect(menu.html()).to.contain('Save');
-        expect(menu.html()).to.contain('Cancel');
-        expect(menu.html()).to.contain('Preview');
+      wrapper.update();
 
-        expect(menu2.html()).to.not.contain('Edit');
-        expect(menu2.html()).to.contain('Delete');
-        expect(menu2.html()).to.not.contain('Save');
-        expect(menu2.html()).to.not.contain('Cancel');
-        expect(menu2.html()).to.not.contain('Preview');
+      expect(menu.html()).to.not.contain('Edit');
+      expect(menu.html()).to.not.contain('Delete');
+      expect(menu.html()).to.contain('Save');
+      expect(menu.html()).to.contain('Cancel');
+      expect(menu.html()).to.contain('Preview');
 
-        done();
-      });
+      expect(menu2.html()).to.not.contain('Edit');
+      expect(menu2.html()).to.contain('Delete');
+      expect(menu2.html()).to.not.contain('Save');
+      expect(menu2.html()).to.not.contain('Cancel');
+      expect(menu2.html()).to.not.contain('Preview');
     });
 
-    it('can cancel note editing', (done) => {
+    it('can cancel note editing', () => {
       pushNotes();
 
       const notes = wrapper.findAll(NoteItem);
@@ -248,23 +246,21 @@ describe('Notes', () => {
 
       menu.find('.is-info').trigger('click'); // Edit button
 
-      localVue.nextTick(() => {
-        expect(menu.html()).to.not.contain('Edit');
-        expect(menu.html()).to.contain('Preview');
-        expect(menu2.html()).to.not.contain('Edit');
-        expect(menu2.html()).to.not.contain('Preview');
+      wrapper.update();
 
-        menu.find('.is-danger').trigger('click'); // Cancel button
+      expect(menu.html()).to.not.contain('Edit');
+      expect(menu.html()).to.contain('Preview');
+      expect(menu2.html()).to.not.contain('Edit');
+      expect(menu2.html()).to.not.contain('Preview');
 
-        localVue.nextTick(() => {
-          expect(menu.html()).to.contain('Edit');
-          expect(menu.html()).to.not.contain('Preview');
-          expect(menu2.html()).to.contain('Edit');
-          expect(menu2.html()).to.not.contain('Preview');
-        });
+      menu.find('.is-danger').trigger('click'); // Cancel button
 
-        done();
-      });
+      wrapper.update();
+
+      expect(menu.html()).to.contain('Edit');
+      expect(menu.html()).to.not.contain('Preview');
+      expect(menu2.html()).to.contain('Edit');
+      expect(menu2.html()).to.not.contain('Preview');
     });
   });
 });
