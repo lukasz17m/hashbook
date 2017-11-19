@@ -28,7 +28,13 @@ export default {
 
   notesValidated: state => state.notes.filter(validator.note),
 
-  tags: state => state.tags,
+  // I even have no idea how to indent it, will follow linter tips
+  tags: state => [
+    ...new Set([]
+      .concat(...state.notes
+        .filter(validator.note)
+        .map(note => note.tags))),
+  ],
 
   tagsActive: state => state.tagsActive,
 

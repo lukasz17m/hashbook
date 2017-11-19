@@ -15,10 +15,24 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe('Tags', () => {
+describe.only('Tags', () => {
   const initialState = state;
 
   let wrapper;
+
+  const pushLoremTag = () => {
+    const notes = [
+      { id: 'valid', content: 'Lorem ipsum.', tags: ['lorem'] },
+    ];
+
+    store.replaceState({
+      ...initialState,
+      notes,
+      tagsInactiveVisible: true,
+    });
+
+    wrapper = mount(App, { store, localVue });
+  };
 
   beforeEach(() => {
     store.replaceState({ ...initialState });
@@ -27,8 +41,33 @@ describe('Tags', () => {
   });
 
   describe('Vuex', () => {
-    it('has an array of tags in store', () => {
+    it('has an array of tags in getters but not in state', () => {
+      store.replaceState({
+        ...initialState,
+        notes: [
+          { id: '1', content: 'Foobar', tags: ['foo', 'bar'] },
+          { id: '2', content: 'Foobar2', tags: ['foo2', 'bar2'] },
+        ],
+      });
+
+      wrapper = mount(App, { store, localVue });
+
       expect(wrapper.vm.$store.getters.tags).to.be.an('array');
+      expect(wrapper.vm.$store.state.tags).to.be.undefined;
+    });
+
+    it('tags are unique', () => {
+      store.replaceState({
+        ...initialState,
+        notes: [
+          { id: '1', content: 'Foobar', tags: ['foo', 'bar'] },
+          { id: '2', content: 'Foobar2', tags: ['foo2', 'bar'] },
+        ],
+      });
+
+      wrapper = mount(App, { store, localVue });
+
+      expect(wrapper.vm.$store.getters.tags).eql(['foo', 'bar', 'foo2']);
     });
 
     it('has an array of active tags in store', () => {
@@ -80,26 +119,14 @@ describe('Tags', () => {
       });
 
       it('has a component `TagsInactiveItems` in `TagsInactive`', () => {
-        store.replaceState({
-          ...initialState,
-          tags: ['lorem'],
-          tagsInactiveVisible: true,
-        });
-
-        wrapper = mount(App, { store, localVue });
+        pushLoremTag();
 
         expect(wrapper.find(TagsInactive).contains(TagsInactiveItems))
           .to.be.true;
       });
 
       it('has a component `TagsInactiveItem` in `TagsInactiveItems`', () => {
-        store.replaceState({
-          ...initialState,
-          tags: ['lorem'],
-          tagsInactiveVisible: true,
-        });
-
-        wrapper = mount(App, { store, localVue });
+        pushLoremTag();
 
         expect(wrapper.find(TagsInactiveItems).contains(TagsInactiveItem))
           .to.be.true;
@@ -184,13 +211,7 @@ describe('Tags', () => {
     });
 
     it('does not contain `No tags to show` when there are some tags', () => {
-      store.replaceState({
-        ...initialState,
-        tags: ['lorem'],
-        tagsInactiveVisible: true,
-      });
-
-      wrapper = mount(App, { store, localVue });
+      pushLoremTag();
 
       expect(wrapper.find(TagsInactive).html())
         .to.not.contain('No tags to show');
