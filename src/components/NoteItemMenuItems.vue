@@ -1,31 +1,31 @@
 <template>
   <ul class="note__menu-items">
     <NoteItemMenuItem
-      v-if="editModeButton"
+      v-if="!editingID"
       label="Edit"
       fa="pencil"
-      @hit="edit" />
+      @hit="$emit('edit')" />
 
     <NoteItemMenuItem
-      v-if="!editModeButtons"
+      v-if="!inEditMode"
       label="Delete"
       fa="trash"
       @hit="temp" />
 
     <NoteItemMenuItem
-      v-if="editModeButtons"
+      v-if="inEditMode"
       label="Save"
       fa="check"
       @hit="temp" />
 
     <NoteItemMenuItem
-      v-if="editModeButtons"
+      v-if="inEditMode"
       label="Cancel"
       fa="times"
-      @hit="cancelEdit" />
+      @hit="$emit('cancel')" />
 
     <NoteItemMenuItem
-      v-if="editModeButtons"
+      v-if="inEditMode"
       label="Preview"
       fa="eye"
       @hit="temp" />
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import NoteItemMenuItem from '@/components/NoteItemMenuItem.vue';
 
 export default {
@@ -41,34 +42,18 @@ export default {
   components: { NoteItemMenuItem },
 
   props: {
-    noteID: {
-      type: String,
+    inEditMode: {
+      type: Boolean,
       required: true,
     },
   },
 
-  computed: {
-    editModeButton() {
-      return !this.$store.getters.editing;
-    },
-
-    editModeButtons() {
-      return this.$store.getters.editing
-        && this.$store.getters.editingID === this.noteID;
-    },
-  },
+  computed: mapGetters(['editingID']),
 
   methods: {
-    cancelEdit() {
-      this.$store.commit('cancelEdit');
-    },
-
-    edit() {
-      this.$store.commit('edit', { id: this.noteID });
-    },
-
     // TEMP
     temp() {
+      /* eslint-disable no-console */
       console.log('Note menu');
     },
   },

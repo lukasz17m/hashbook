@@ -28,6 +28,8 @@
 
 .note {
   background-color: $note-background-color;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
   padding: .5rem;
 
@@ -37,12 +39,13 @@
 
   &__content {
     background-color: $note-content-background-color;
+    flex: 1;
+    margin-top: .5rem;
     overflow: auto;
     padding: .5rem;
   }
 
   &__menu {
-    margin: .5rem 0;
     padding: 0 .5rem;
   }
 
@@ -61,6 +64,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-around;
+    overflow: hidden;
   }
 
   &__menu-item {

@@ -15,7 +15,7 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe.only('Tags', () => {
+describe('Tags', () => {
   const initialState = state;
 
   let wrapper;
@@ -72,6 +72,24 @@ describe.only('Tags', () => {
 
     it('has an array of active tags in store', () => {
       expect(wrapper.vm.$store.getters.tagsActive).to.be.an('array');
+    });
+
+    it('inactive tags never contains active tags', () => {
+      store.replaceState({
+        ...initialState,
+        notes: [
+          { id: 'v', content: 'FBB', tags: ['foo', 'bar', 'baz'] },
+        ],
+      });
+
+      expect(store.getters.tags).eql(['foo', 'bar', 'baz']);
+
+      store.commit('pushActiveTags', { tags: ['baz'] });
+
+      expect(store.getters.tags).eql(['foo', 'bar']);
+
+      store.commit('cancel');
+      initialState.tagsActive = [];
     });
   });
 

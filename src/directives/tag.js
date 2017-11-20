@@ -1,11 +1,19 @@
 import { tagColor } from '@/utils';
 
-export default {
-  bind(_el) {
-    const el = _el;
-    const text = el.textContent;
+const paintTag = (_tag) => {
+  const tag = _tag;
+  const { textContent: text } = tag;
 
-    el.style.backgroundColor = tagColor(text).background;
-    el.style.color = tagColor(text).font;
+  tag.style.backgroundColor = tagColor(text).background;
+  tag.style.color = tagColor(text).font;
+};
+
+export default {
+  bind(el) {
+    paintTag(el);
+  },
+
+  update(el) {
+    paintTag(el);
   },
 };

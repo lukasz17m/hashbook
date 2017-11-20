@@ -1,7 +1,9 @@
 export default {
-  cancelEdit: (_state) => {
+  cancel: (_state) => {
     const state = _state;
+    state.tagsActive = [];
     state.editing = false;
+    state.editingID = null;
   },
 
   edit: (_state, { id }) => {
@@ -33,6 +35,11 @@ export default {
   hideTagsInactive: (_state) => {
     const state = _state;
     state.tagsInactiveVisible = false;
+  },
+
+  pushActiveTags(_state, { tags }) {
+    const state = _state;
+    state.tagsActive.push(...tags);
   },
 
   showTagsInactive: (_state) => {

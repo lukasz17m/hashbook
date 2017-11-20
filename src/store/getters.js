@@ -18,13 +18,13 @@ const validator = {
 };
 
 export default {
-  editing: state => state.editing,
-
   editingID: state => state.editingID,
 
   leftNav: state => state.leftNav,
 
   leftNavCollapsed: state => state.leftNavCollapsed,
+
+  noteContent: state => state.noteContent,
 
   notesValidated: state => state.notes.filter(validator.note),
 
@@ -33,7 +33,8 @@ export default {
     ...new Set([]
       .concat(...state.notes
         .filter(validator.note)
-        .map(note => note.tags))),
+        .map(note => note.tags)
+        .map(tags => tags.filter(tag => state.tagsActive.indexOf(tag) < 0)))),
   ],
 
   tagsActive: state => state.tagsActive,

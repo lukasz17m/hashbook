@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 import { expect } from 'chai';
 import { mount, createLocalVue } from 'vue-test-utils';
 import App from '@/components/App.vue';
+import NavTopTagsActive from '@/components/NavTopTagsActive.vue';
 import NoteItemTags from '@/components/NoteItemTags.vue';
 import NoteItemTagsItem from '@/components/NoteItemTagsItem.vue';
 import NoteItemTagsItems from '@/components/NoteItemTagsItems.vue';
@@ -9,6 +10,8 @@ import NoteItemMenu from '@/components/NoteItemMenu.vue';
 import NoteItemMenuItem from '@/components/NoteItemMenuItem.vue';
 import NoteItemMenuItems from '@/components/NoteItemMenuItems.vue';
 import NoteItemContent from '@/components/NoteItemContent.vue';
+import NoteItemContentEdit from '@/components/NoteItemContentEdit.vue';
+import NoteItemContentPreview from '@/components/NoteItemContentPreview.vue';
 import NoteItem from '@/components/NoteItem.vue';
 import Notes from '@/components/Notes.vue';
 import NotesWrapper from '@/components/NotesWrapper.vue';
@@ -20,7 +23,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Notes', () => {
-  const initialState = state;
+  const initialState = { ...state };
 
   let wrapper;
 
@@ -58,13 +61,18 @@ describe('Notes', () => {
     } else {
       notes = [
         { id: 'valid', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
-        { id: 'valid2', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
+        { id: 'valid2', content: 'Foobar', tags: ['foo', 'bar'] },
       ];
     }
 
     store.replaceState({ ...initialState, notes });
 
     wrapper = mount(App, { store, localVue });
+  };
+
+  const clearTags = () => {
+    store.commit('cancel');
+    initialState.tagsActive = [];
   };
 
   beforeEach(() => {
@@ -84,16 +92,12 @@ describe('Notes', () => {
       expect(wrapper.vm.$store.state.notesValidated).to.be.undefined;
     });
 
-    it('has a boolean that indicates if edit mode is on', () => {
-      expect(wrapper.vm.$store.getters.editing).to.be.a('boolean');
-    });
-
-    it('edit mode is set to false by default', () => {
-      expect(wrapper.vm.$store.getters.editing).to.be.false;
-    });
-
-    it('has a property named `editingID` with `null` by default', () => {
+    it('has a property named `editingID` which is `null` by default', () => {
       expect(wrapper.vm.$store.getters.editingID).to.be.null;
+    });
+
+    it('has a property named `noteContent` which is `null` by default', () => {
+      expect(wrapper.vm.$store.getters.noteContent).to.be.null;
     });
   });
 
@@ -202,9 +206,38 @@ describe('Notes', () => {
       expect(menu.html()).to.not.contain('Cancel');
       expect(menu.html()).to.not.contain('Preview');
     });
+
+    it('has `NoteItemContentPreview` component in `NoteItemContent`', () => {
+      pushNotes();
+
+      const noteContent = wrapper.find(NoteItemContent);
+
+      expect(noteContent.contains(NoteItemContentPreview)).to.be.true;
+    });
   });
 
   describe('Menu edit mode on', () => {
+    it('has `NoteItemContentEdit` component in edit mode', () => {
+      pushNotes();
+
+      const notes = wrapper.findAll(NoteItem);
+
+      const note = notes.at(0);
+      const note2 = notes.at(1);
+
+      note.find('.is-info').trigger('click'); // Edit button
+
+      wrapper.update();
+
+      expect(note.contains(NoteItemContentEdit)).to.be.true;
+      expect(note.contains(NoteItemContentPreview)).to.be.false;
+
+      expect(note2.contains(NoteItemContentEdit)).to.be.false;
+      expect(note2.contains(NoteItemContentPreview)).to.be.true;
+
+      clearTags();
+    });
+
     it('has Save, Cancel and Preview buttons but not Edit and Delete', () => {
       pushNotes();
 
@@ -231,6 +264,8 @@ describe('Notes', () => {
       expect(menu2.html()).to.not.contain('Save');
       expect(menu2.html()).to.not.contain('Cancel');
       expect(menu2.html()).to.not.contain('Preview');
+
+      clearTags();
     });
 
     it('can cancel note editing', () => {
@@ -261,6 +296,46 @@ describe('Notes', () => {
       expect(menu.html()).to.not.contain('Preview');
       expect(menu2.html()).to.contain('Edit');
       expect(menu2.html()).to.not.contain('Preview');
+
+      clearTags();
+    });
+
+    it('makes tags of editing note active', () => {
+      pushNotes();
+
+      const notes = wrapper.findAll(NoteItem);
+      const tagsActive = wrapper.find(NavTopTagsActive);
+
+      const note = notes.at(0);
+      const note2 = notes.at(1);
+
+      const menu = note.find(NoteItemMenu);
+
+      expect(note.find(NoteItemTags).html()).to.contain('lorem ipsum');
+      expect(note2.find(NoteItemTags).html()).to.contain('foo');
+      expect(note2.find(NoteItemTags).html()).to.contain('bar');
+
+      menu.find('.is-info').trigger('click'); // Edit button
+
+      wrapper.update();
+
+      expect(note.find(NoteItemTags).html()).to.be.undefined;
+      expect(note2.find(NoteItemTags).html()).to.contain('foo');
+      expect(note2.find(NoteItemTags).html()).to.contain('bar');
+
+      expect(tagsActive.html()).to.contain('lorem ipsum');
+
+      menu.find('.is-danger').trigger('click'); // Cancel button
+
+      wrapper.update();
+
+      expect(note.find(NoteItemTags).html()).to.contain('lorem ipsum');
+      expect(note2.find(NoteItemTags).html()).to.contain('foo');
+      expect(note2.find(NoteItemTags).html()).to.contain('bar');
+
+      expect(tagsActive.html()).to.be.undefined;
+
+      clearTags();
     });
   });
 });

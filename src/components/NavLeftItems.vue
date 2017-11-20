@@ -42,15 +42,15 @@ export default {
     ...mapGetters(['tagsInactiveVisible']),
 
     newNoteClass() {
-      return this.$store.getters.editing ? 'save-note' : 'new-note';
+      return this.$store.getters.editingID ? 'save-note' : 'new-note';
     },
 
     newNoteIcon() {
-      return this.$store.getters.editing ? 'check' : 'pencil';
+      return this.$store.getters.editingID ? 'check' : 'pencil';
     },
 
     newNoteLabel() {
-      return this.$store.getters.editing ? 'Save note' : 'New note';
+      return this.$store.getters.editingID ? 'Save note' : 'New note';
     },
   },
 

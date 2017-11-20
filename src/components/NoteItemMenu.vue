@@ -1,6 +1,6 @@
 <template>
   <nav class="note__menu">
-    <NoteItemMenuItems :noteID="noteID" />
+    <NoteItemMenuItems :inEditMode="inEditMode" @edit="$emit('edit')" @cancel="$emit('cancelEdit')" />
   </nav>
 </template>
 
@@ -13,8 +13,8 @@ export default {
   components: { NoteItemMenuItems },
 
   props: {
-    noteID: {
-      type: String,
+    inEditMode: {
+      type: Boolean,
       required: true,
     },
   },

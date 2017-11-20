@@ -6,7 +6,8 @@
         :key="i"
         :id="note.id"
         :content="note.content"
-        :tags="note.tags" />
+        :tags="note.tags"
+        v-adjust-editor="note.id" />
     </template>
     <h1 v-else class="notes__zero-notes">
       <span class="fa fa-book"></span>
@@ -17,11 +18,14 @@
 
 <script>
 import NoteItem from '@/components/NoteItem.vue';
+import { adjustEditor } from '@/directives';
 
 export default {
   name: 'NotesWrapper',
 
   components: { NoteItem },
+
+  directives: { adjustEditor },
 
   props: {
     notes: {

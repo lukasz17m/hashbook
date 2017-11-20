@@ -299,6 +299,9 @@ describe('Nav', () => {
 
       expect(button.html()).to.not.contain('New note');
       expect(button.html()).to.contain('Save note');
+
+      store.commit('cancel');
+      initialState.tagsActive = [];
     });
   });
 });

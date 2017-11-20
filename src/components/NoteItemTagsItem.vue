@@ -1,9 +1,5 @@
 <template>
-  <li
-    class="tag is-medium"
-    tabindex="0"
-    v-text="tag"
-    v-tag></li>
+  <li class="tag is-medium" v-text="tag" v-tag></li>
 </template>
 
 <script>
