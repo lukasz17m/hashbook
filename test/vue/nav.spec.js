@@ -24,10 +24,6 @@ describe('Nav', () => {
     wrapper = mount(App, { store, localVue });
   });
 
-  afterEach(() => {
-    // initialState.tagsActive = [];
-  });
-
   describe('Burger button', () => {
     it('hides left menu when burger button is clicked', () => {
       const burgerBtn = wrapper.find('.burger-button');

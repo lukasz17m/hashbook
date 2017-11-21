@@ -45,7 +45,12 @@ router.post('/notes', (req, res) => {
 router.get('/notes', (req, res) => {
   Note.find()
     .then((notes) => {
-      res.json(notes);
+      res.json(notes.map(note => ({
+        /* eslint-disable no-underscore-dangle */
+        id: note._id,
+        content: note.content,
+        tags: note.tags,
+      })));
     })
     .catch((error) => {
       res.status(500).send(error);

@@ -77,10 +77,6 @@ describe('Notes', () => {
     wrapper = mount(App, { store, localVue });
   });
 
-  afterEach(() => {
-    // initialState.tagsActive = [];
-  });
-
   describe('Vuex', () => {
     it('has an array of notes in state but not in getters', () => {
       expect(wrapper.vm.$store.state.notes).to.be.an('array');

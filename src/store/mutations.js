@@ -63,6 +63,11 @@ export default {
     state.noteContent = value;
   },
 
+  updateNotes: (_state, notes) => {
+    const state = _state;
+    state.notes = notes;
+  },
+
   // TEMP: Only for note testing
   pushnotes: (_state) => {
     const state = _state;
