@@ -51,20 +51,22 @@ export default {
 
     handleAction(type) {
       switch (type) {
-        case 'edit':
+        case 'edit': {
           this.edit({ id: this.id });
           this.pushActiveTags({ tags: this.tags });
           this.$el.dispatchEvent(new Event('editmodeon'));
 
           break;
+        }
 
-        case 'cancel':
+        case 'cancel': {
           this.cancel();
           this.$el.dispatchEvent(new Event('editmodeoff'));
 
           break;
+        }
 
-        case 'preview':
+        case 'preview': {
           if (this.preview) {
             this.disablePreview();
             this.$el.dispatchEvent(new Event('previewmodeoff'));
@@ -74,19 +76,11 @@ export default {
           }
 
           break;
+        }
+
         default:
       }
     },
-    // cancelEdit() {
-    //   this.cancel();
-    //   this.$el.dispatchEvent(new Event('editmodeoff'));
-    // },
-    //
-    // startEdit() {
-    //   this.edit({ id: this.id });
-    //   this.pushActiveTags({ tags: this.tags });
-    //   this.$el.dispatchEvent(new Event('editmodeon'));
-    // },
   },
 };
 </script>
