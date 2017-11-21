@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import extend from 'extend';
 import { expect } from 'chai';
 import { mount, createLocalVue } from 'vue-test-utils';
 import App from '@/components/App.vue';
@@ -16,7 +17,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Tags', () => {
-  const initialState = { ...state };
+  const initialState = extend(true, {}, state);
 
   let wrapper;
 
@@ -25,34 +26,27 @@ describe('Tags', () => {
       { id: 'valid', content: 'Lorem ipsum.', tags: ['lorem'] },
     ];
 
-    store.replaceState({
-      ...initialState,
-      notes,
+    store.replaceState(extend(true, {}, initialState, { notes }, {
       tagsInactiveVisible: true,
-    });
+    }));
 
     wrapper = mount(App, { store, localVue });
   };
 
   beforeEach(() => {
-    store.replaceState({ ...initialState });
+    store.replaceState(extend(true, {}, initialState));
 
     wrapper = mount(App, { store, localVue });
   });
 
-  afterEach(() => {
-    initialState.tagsActive = [];
-  });
-
   describe('Vuex', () => {
     it('has an array of tags in getters but not in state', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         notes: [
           { id: '1', content: 'Foobar', tags: ['foo', 'bar'] },
           { id: '2', content: 'Foobar2', tags: ['foo2', 'bar2'] },
         ],
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -61,13 +55,12 @@ describe('Tags', () => {
     });
 
     it('tags are unique', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         notes: [
           { id: '1', content: 'Foobar', tags: ['foo', 'bar'] },
           { id: '2', content: 'Foobar2', tags: ['foo2', 'bar'] },
         ],
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -79,12 +72,11 @@ describe('Tags', () => {
     });
 
     it('inactive tags never contains active tags', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         notes: [
           { id: 'v', content: 'FBB', tags: ['foo', 'bar', 'baz'] },
         ],
-      });
+      }));
 
       expect(store.getters.tags).eql(['foo', 'bar', 'baz']);
 
@@ -103,10 +95,9 @@ describe('Tags', () => {
       it(
         'has a component `NavTopTagsActiveItems` in `NavTopTagsActive`',
         () => {
-          store.replaceState({
-            ...initialState,
+          store.replaceState(extend(true, {}, initialState, {
             tagsActive: ['lorem'],
-          });
+          }));
 
           wrapper = mount(App, { store, localVue });
 
@@ -118,10 +109,9 @@ describe('Tags', () => {
       it(
         'has a component `NavTopTagsActiveItem` in `NavTopTagsActiveItems`',
         () => {
-          store.replaceState({
-            ...initialState,
+          store.replaceState(extend(true, {}, initialState, {
             tagsActive: ['lorem'],
-          });
+          }));
 
           wrapper = mount(App, { store, localVue });
 
@@ -159,10 +149,9 @@ describe('Tags', () => {
     });
 
     it('`NavTopTagsActive` is rendered when `tagsActive` isn’t empty', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         tagsActive: ['lorem'],
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -180,10 +169,9 @@ describe('Tags', () => {
     );
 
     it('`TagsInactive` is rendered when `tagsInactiveVisible` is true', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         tagsInactiveVisible: true,
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -202,10 +190,9 @@ describe('Tags', () => {
     });
 
     it('hides `TagsInactive` component when menu item is clicked', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         tagsInactiveVisible: true,
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -219,10 +206,9 @@ describe('Tags', () => {
     });
 
     it('contains `No tags to show` when there are no tags', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         tagsInactiveVisible: true,
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 

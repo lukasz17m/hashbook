@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import extend from 'extend';
 import { expect } from 'chai';
 import { mount, createLocalVue } from 'vue-test-utils';
 import App from '@/components/App.vue';
@@ -23,7 +24,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Notes', () => {
-  const initialState = { ...state };
+  const initialState = extend(true, {}, state);
 
   let wrapper;
 
@@ -65,19 +66,19 @@ describe('Notes', () => {
       ];
     }
 
-    store.replaceState({ ...initialState, notes });
+    store.replaceState(extend(true, {}, initialState, { notes }));
 
     wrapper = mount(App, { store, localVue });
   };
 
   beforeEach(() => {
-    store.replaceState({ ...initialState });
+    store.replaceState(extend(true, {}, initialState));
 
     wrapper = mount(App, { store, localVue });
   });
 
   afterEach(() => {
-    initialState.tagsActive = [];
+    // initialState.tagsActive = [];
   });
 
   describe('Vuex', () => {
@@ -177,12 +178,11 @@ describe('Notes', () => {
     });
 
     it('shows correct content and tags', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         notes: [
           { id: 'valid', content: 'Correct content', tags: ['one', 'two'] },
         ],
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 

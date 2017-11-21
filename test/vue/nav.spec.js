@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import extend from 'extend';
 import { expect } from 'chai';
 import { mount, createLocalVue } from 'vue-test-utils';
 import App from '@/components/App.vue';
@@ -13,18 +14,18 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Nav', () => {
-  const initialState = { ...state };
+  const initialState = extend(true, {}, state);
 
   let wrapper;
 
   beforeEach(() => {
-    store.replaceState({ ...initialState });
+    store.replaceState(extend(true, {}, initialState));
 
     wrapper = mount(App, { store, localVue });
   });
 
   afterEach(() => {
-    initialState.tagsActive = [];
+    // initialState.tagsActive = [];
   });
 
   describe('Burger button', () => {
@@ -70,10 +71,7 @@ describe('Nav', () => {
     });
 
     it('shows left menu when burger button is clicked', () => {
-      store.replaceState({
-        ...initialState,
-        leftNav: false,
-      });
+      store.replaceState(extend(true, {}, initialState, { leftNav: false }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -191,10 +189,9 @@ describe('Nav', () => {
     });
 
     it('uncollapses left menu when uncollapse button is clicked', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         leftNavCollapsed: true,
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
@@ -284,12 +281,11 @@ describe('Nav', () => {
 
   describe('Note menu impact', () => {
     it('`New note` turns into `Save note` in edit mode', () => {
-      store.replaceState({
-        ...initialState,
+      store.replaceState(extend(true, {}, initialState, {
         notes: [
           { id: 'valid', content: 'Foobar', tags: ['foo', 'bar'] },
         ],
-      });
+      }));
 
       wrapper = mount(App, { store, localVue });
 
