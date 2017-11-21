@@ -1,6 +1,6 @@
 <template>
   <nav class="note__menu">
-    <NoteItemMenuItems :inEditMode="inEditMode" @edit="$emit('edit')" @cancel="$emit('cancelEdit')" />
+    <NoteItemMenuItems :inEditMode="inEditMode" @action="onAction" />
   </nav>
 </template>
 
@@ -16,6 +16,12 @@ export default {
     inEditMode: {
       type: Boolean,
       required: true,
+    },
+  },
+
+  methods: {
+    onAction(type) {
+      this.$emit('action', type);
     },
   },
 };

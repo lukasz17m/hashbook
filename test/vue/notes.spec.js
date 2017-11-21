@@ -70,15 +70,14 @@ describe('Notes', () => {
     wrapper = mount(App, { store, localVue });
   };
 
-  const clearTags = () => {
-    store.commit('cancel');
-    initialState.tagsActive = [];
-  };
-
   beforeEach(() => {
     store.replaceState({ ...initialState });
 
     wrapper = mount(App, { store, localVue });
+  });
+
+  afterEach(() => {
+    initialState.tagsActive = [];
   });
 
   describe('Vuex', () => {
@@ -98,6 +97,10 @@ describe('Notes', () => {
 
     it('has a property named `noteContent` which is `null` by default', () => {
       expect(wrapper.vm.$store.getters.noteContent).to.be.null;
+    });
+
+    it('has a property named `preview` which is `false` by default', () => {
+      expect(wrapper.vm.$store.getters.preview).to.be.false;
     });
   });
 
@@ -234,8 +237,6 @@ describe('Notes', () => {
 
       expect(note2.contains(NoteItemContentEdit)).to.be.false;
       expect(note2.contains(NoteItemContentPreview)).to.be.true;
-
-      clearTags();
     });
 
     it('has Save, Cancel and Preview buttons but not Edit and Delete', () => {
@@ -264,8 +265,6 @@ describe('Notes', () => {
       expect(menu2.html()).to.not.contain('Save');
       expect(menu2.html()).to.not.contain('Cancel');
       expect(menu2.html()).to.not.contain('Preview');
-
-      clearTags();
     });
 
     it('can cancel note editing', () => {
@@ -296,8 +295,6 @@ describe('Notes', () => {
       expect(menu.html()).to.not.contain('Preview');
       expect(menu2.html()).to.contain('Edit');
       expect(menu2.html()).to.not.contain('Preview');
-
-      clearTags();
     });
 
     it('makes tags of editing note active', () => {
@@ -334,8 +331,89 @@ describe('Notes', () => {
       expect(note2.find(NoteItemTags).html()).to.contain('bar');
 
       expect(tagsActive.html()).to.be.undefined;
+    });
 
-      clearTags();
+    it('editor content is saved to Vuex and vice versa', () => {
+      pushNotes();
+
+      const note = wrapper.find(NoteItem);
+
+      note.find('.is-info').trigger('click'); // Edit button
+
+      note.find('textarea').element.value = 'Lorem ipsum dolor'; // Set content
+      note.find('textarea').trigger('input'); // Force v-model update
+
+      expect(store.getters.noteContent).to.equal('Lorem ipsum dolor');
+
+      store.commit('setNoteContent', 'Foobar');
+
+      wrapper.update();
+
+      expect(note.find('textarea').element.value).to.equal('Foobar');
+    });
+
+    it('note content is set into editor', () => {
+      pushNotes();
+
+      const note = wrapper.find(NoteItem);
+
+      note.find('.is-info').trigger('click'); // Edit button
+
+      wrapper.update();
+
+      expect(note.find('textarea').element.value).to.equal('Lorem ipsum');
+    });
+  });
+
+  describe('Preview mode on', () => {
+    it('change `NoteItemContentEdit` to `NoteItemContentPreview`', () => {
+      pushNotes();
+
+      const note = wrapper.find(NoteItem);
+
+      note.find('.is-info').trigger('click'); // Edit button
+
+      wrapper.update();
+
+      expect(note.contains(NoteItemContentEdit)).to.be.true;
+      expect(note.contains(NoteItemContentPreview)).to.be.false;
+
+      note.find('.is-primary').trigger('click'); // Preview button, switch on
+
+      wrapper.update();
+
+      expect(note.find('.is-primary').hasClass('active')).to.be.true;
+
+      expect(note.contains(NoteItemContentEdit)).to.be.false;
+      expect(note.contains(NoteItemContentPreview)).to.be.true;
+
+      note.find('.is-primary').trigger('click'); // Preview button, switch off
+
+      wrapper.update();
+
+      expect(note.find('.is-primary').hasClass('active')).to.be.false;
+
+      expect(note.contains(NoteItemContentEdit)).to.be.true;
+      expect(note.contains(NoteItemContentPreview)).to.be.false;
+    });
+
+    it('shows preview correctly', () => {
+      pushNotes();
+
+      const note = wrapper.find(NoteItem);
+
+      note.find('.is-info').trigger('click'); // Edit button
+
+      wrapper.update();
+
+      note.find('textarea').element.value = 'Lorem ipsum dolor'; // Set content
+      note.find('textarea').trigger('input'); // Force v-model update
+
+      note.find('.is-primary').trigger('click'); // Preview button, switch on
+
+      wrapper.update();
+
+      expect(note.find('.content').text()).to.equal('Lorem ipsum dolor');
     });
   });
 });

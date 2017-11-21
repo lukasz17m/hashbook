@@ -78,9 +78,23 @@
     user-select: none;
     white-space: nowrap;
 
-    &:hover,
-    &:focus {
-      color: $note-menu-hover-color;
+    &.is-outlined--preview {
+      background-color: transparent;
+      border-color: $primary;
+      color: $primary;
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        border-color: $white;
+        color: $white;
+      }
+
+      &.active {
+        background-color: $primary;
+        border-color: $primary;
+        color: $white;
+      }
     }
 
     &:last-child {

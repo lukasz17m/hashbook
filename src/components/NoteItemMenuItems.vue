@@ -4,7 +4,7 @@
       v-if="!editingID"
       label="Edit"
       fa="pencil"
-      @hit="$emit('edit')" />
+      @hit="$emit('action', 'edit')" />
 
     <NoteItemMenuItem
       v-if="!inEditMode"
@@ -22,13 +22,14 @@
       v-if="inEditMode"
       label="Cancel"
       fa="times"
-      @hit="$emit('cancel')" />
+      @hit="$emit('action', 'cancel')" />
 
     <NoteItemMenuItem
       v-if="inEditMode"
+      :class="{ active: preview }"
       label="Preview"
       fa="eye"
-      @hit="temp" />
+      @hit="$emit('action', 'preview')" />
   </ul>
 </template>
 
@@ -48,7 +49,7 @@ export default {
     },
   },
 
-  computed: mapGetters(['editingID']),
+  computed: mapGetters(['editingID', 'preview']),
 
   methods: {
     // TEMP

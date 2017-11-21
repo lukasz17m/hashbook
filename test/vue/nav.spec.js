@@ -13,7 +13,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Nav', () => {
-  const initialState = state;
+  const initialState = { ...state };
 
   let wrapper;
 
@@ -21,6 +21,10 @@ describe('Nav', () => {
     store.replaceState({ ...initialState });
 
     wrapper = mount(App, { store, localVue });
+  });
+
+  afterEach(() => {
+    initialState.tagsActive = [];
   });
 
   describe('Burger button', () => {
@@ -299,9 +303,6 @@ describe('Nav', () => {
 
       expect(button.html()).to.not.contain('New note');
       expect(button.html()).to.contain('Save note');
-
-      store.commit('cancel');
-      initialState.tagsActive = [];
     });
   });
 });

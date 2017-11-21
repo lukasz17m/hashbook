@@ -28,6 +28,8 @@ export default {
 
   notesValidated: state => state.notes.filter(validator.note),
 
+  preview: state => state.preview,
+
   // I even have no idea how to indent it, will follow linter tips
   tags: state => [
     ...new Set([]

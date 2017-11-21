@@ -16,7 +16,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Tags', () => {
-  const initialState = state;
+  const initialState = { ...state };
 
   let wrapper;
 
@@ -38,6 +38,10 @@ describe('Tags', () => {
     store.replaceState({ ...initialState });
 
     wrapper = mount(App, { store, localVue });
+  });
+
+  afterEach(() => {
+    initialState.tagsActive = [];
   });
 
   describe('Vuex', () => {
@@ -87,9 +91,6 @@ describe('Tags', () => {
       store.commit('pushActiveTags', { tags: ['baz'] });
 
       expect(store.getters.tags).eql(['foo', 'bar']);
-
-      store.commit('cancel');
-      initialState.tagsActive = [];
     });
   });
 

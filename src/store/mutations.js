@@ -2,14 +2,25 @@ export default {
   cancel: (_state) => {
     const state = _state;
     state.tagsActive = [];
-    state.editing = false;
     state.editingID = null;
+    state.noteContent = null;
+    state.preview = false;
   },
 
   edit: (_state, { id }) => {
     const state = _state;
-    state.editing = true;
     state.editingID = id;
+    state.noteContent = state.notes.find(note => note.id === id).content;
+  },
+
+  disablePreview: (_state) => {
+    const state = _state;
+    state.preview = false;
+  },
+
+  enablePreview: (_state) => {
+    const state = _state;
+    state.preview = true;
   },
 
   hideLeftNav: (_state) => {
@@ -37,14 +48,19 @@ export default {
     state.tagsInactiveVisible = false;
   },
 
-  pushActiveTags(_state, { tags }) {
+  showTagsInactive: (_state) => {
+    const state = _state;
+    state.tagsInactiveVisible = true;
+  },
+
+  pushActiveTags: (_state, { tags }) => {
     const state = _state;
     state.tagsActive.push(...tags);
   },
 
-  showTagsInactive: (_state) => {
+  setNoteContent: (_state, value) => {
     const state = _state;
-    state.tagsInactiveVisible = true;
+    state.noteContent = value;
   },
 
   // TEMP: Only for note testing

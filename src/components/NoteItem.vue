@@ -1,7 +1,7 @@
 <template>
   <article class="note">
     <NoteItemTags :inEditMode="inEditMode" :tags="tags" />
-    <NoteItemMenu :inEditMode="inEditMode" @edit="startEdit" @cancelEdit="cancelEdit" />
+    <NoteItemMenu :inEditMode="inEditMode" @action="handleAction" />
     <NoteItemContent :content="content" :inEditMode="inEditMode" />
   </article>
 </template>
@@ -33,7 +33,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['editingID']),
+    ...mapGetters(['editingID', 'preview']),
 
     inEditMode() {
       return this.editingID === this.id;
@@ -41,18 +41,52 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['cancel', 'edit', 'pushActiveTags']),
+    ...mapMutations([
+      'cancel',
+      'disablePreview',
+      'edit',
+      'enablePreview',
+      'pushActiveTags',
+    ]),
 
-    cancelEdit() {
-      this.cancel();
-      this.$el.style.height = 'auto';
-    },
+    handleAction(type) {
+      switch (type) {
+        case 'edit':
+          this.edit({ id: this.id });
+          this.pushActiveTags({ tags: this.tags });
+          this.$el.dispatchEvent(new Event('editmodeon'));
 
-    startEdit() {
-      this.edit({ id: this.id });
-      this.pushActiveTags({ tags: this.tags });
-      this.$el.dispatchEvent(new Event('editmodeon'));
+          break;
+
+        case 'cancel':
+          this.cancel();
+          this.$el.dispatchEvent(new Event('editmodeoff'));
+
+          break;
+
+        case 'preview':
+          if (this.preview) {
+            this.disablePreview();
+            this.$el.dispatchEvent(new Event('previewmodeoff'));
+          } else {
+            this.enablePreview();
+            this.$el.dispatchEvent(new Event('previewmodeon'));
+          }
+
+          break;
+        default:
+      }
     },
+    // cancelEdit() {
+    //   this.cancel();
+    //   this.$el.dispatchEvent(new Event('editmodeoff'));
+    // },
+    //
+    // startEdit() {
+    //   this.edit({ id: this.id });
+    //   this.pushActiveTags({ tags: this.tags });
+    //   this.$el.dispatchEvent(new Event('editmodeon'));
+    // },
   },
 };
 </script>

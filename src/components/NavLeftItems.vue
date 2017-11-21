@@ -4,7 +4,7 @@
       :className="newNoteClass"
       :label="newNoteLabel"
       :fa="newNoteIcon"
-      @hit="temp" />
+      @hit="1 === 1" />
 
     <NavLeftItem
       className="hashtags"
@@ -65,19 +65,15 @@ export default {
       }
     },
 
-    github() {
-      window.open('https://github.com/lukasz17m/hashbook', '_blank');
-    },
-
     technologies() {
       // TEMP
       /* eslint-disable no-console */
       console.log(JSON.stringify(['Vue.js', 'Node.js', 'MongoDB'], null, 2));
+      this.$store.commit('pushnotes');
     },
 
-    // TEMP: Only for scroll testing
-    temp() {
-      this.$store.commit('pushnotes');
+    github() {
+      window.open('https://github.com/lukasz17m/hashbook', '_blank');
     },
   },
 };

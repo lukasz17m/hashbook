@@ -9,23 +9,32 @@ export default {
       10,
     );
 
-    // `editmodeon` is a custom event triggered in `NoteItemMenuItems` component
-    el.addEventListener('editmodeon', () => {
-      const container = document.querySelector('.notes');
-      const tagBox = document.querySelector('.tags-inactive');
+    // Four custom events triggered in `NoteItemMenuItems` component
 
-      if (container === null || typeof container === 'undefined') return;
+    ['editmodeon', 'previewmodeoff'].forEach((type) => {
+      el.addEventListener(type, () => {
+        const container = document.querySelector('.notes');
+        const tagBox = document.querySelector('.tags-inactive');
 
-      const containerHeight = container.clientHeight;
-      const tagBoxHeight = tagBox === null ? 0 : tagBox.clientHeight;
+        if (container === null || typeof container === 'undefined') return;
 
-      if (!containerHeight || id !== store.getters.editingID) return;
+        const containerHeight = container.clientHeight;
+        const tagBoxHeight = tagBox === null ? 0 : tagBox.clientHeight;
 
-      el.style.height = `${containerHeight - (3 * rem)}px`;
+        if (!containerHeight || id !== store.getters.editingID) return;
 
-      container.scrollTo({
-        behavior: 'smooth',
-        top: el.offsetTop - ((5.5 * rem) + tagBoxHeight),
+        el.style.height = `${containerHeight - (3 * rem)}px`;
+
+        container.scrollTo({
+          behavior: 'smooth',
+          top: el.offsetTop - ((5.5 * rem) + tagBoxHeight),
+        });
+      });
+    });
+
+    ['editmodeoff', 'previewmodeon'].forEach((type) => {
+      el.addEventListener(type, () => {
+        el.style.height = 'auto';
       });
     });
   },
