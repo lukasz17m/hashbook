@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import NotesWrapper from '@/components/NotesWrapper.vue';
 
 export default {
@@ -18,17 +17,13 @@ export default {
     ...mapGetters(['notesValidated']),
   },
 
-  methods: mapMutations(['updateNotes', 'spin']),
+  methods: {
+    ...mapActions(['getNotes']),
+    ...mapMutations(['spin']),
+  },
 
   mounted() {
-    this.spin(true);
-
-    axios.get('/api/notes')
-      .catch(() => ({ data: [] }))
-      .then(({ data: notes }) => {
-        this.updateNotes(notes);
-        this.spin(false);
-      });
+    this.getNotes();
   },
 };
 </script>
