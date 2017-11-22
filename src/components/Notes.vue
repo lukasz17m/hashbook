@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import NotesWrapper from '@/components/NotesWrapper.vue';
 
 export default {
@@ -17,10 +17,7 @@ export default {
     ...mapGetters(['notesValidated']),
   },
 
-  methods: {
-    ...mapActions(['getNotes']),
-    ...mapMutations(['spin']),
-  },
+  methods: mapActions(['getNotes']),
 
   mounted() {
     this.getNotes();
