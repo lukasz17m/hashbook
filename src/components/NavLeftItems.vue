@@ -4,7 +4,7 @@
       :className="newNoteClass"
       :label="newNoteLabel"
       :fa="newNoteIcon"
-      @hit="1 === 1" />
+      @hit="newNoteAction" />
 
     <NavLeftItem
       className="hashtags"
@@ -39,23 +39,31 @@ export default {
   components: { NavLeftItem, NavLeftToggleCollapse },
 
   computed: {
-    ...mapGetters(['tagsInactiveVisible']),
+    ...mapGetters(['editingID', 'tagsInactiveVisible']),
 
     newNoteClass() {
-      return this.$store.getters.editingID ? 'save-note' : 'new-note';
+      return this.editingID ? 'save-note' : 'new-note';
     },
 
     newNoteIcon() {
-      return this.$store.getters.editingID ? 'check' : 'pencil';
+      return this.editingID ? 'check' : 'pencil';
     },
 
     newNoteLabel() {
-      return this.$store.getters.editingID ? 'Save note' : 'New note';
+      return this.editingID ? 'Save note' : 'New note';
     },
   },
 
   methods: {
-    ...mapMutations(['hideTagsInactive', 'showTagsInactive']),
+    ...mapMutations(['hideTagsInactive', 'prependNote', 'showTagsInactive']),
+
+    newNoteAction() {
+      if (this.editingID) {
+        // Save note
+      } else {
+        this.prependNote();
+      }
+    },
 
     hashtags() {
       if (this.tagsInactiveVisible) {
@@ -69,7 +77,6 @@ export default {
       // TEMP
       /* eslint-disable no-console */
       console.log(JSON.stringify(['Vue.js', 'Node.js', 'MongoDB'], null, 2));
-      this.$store.commit('pushnotes');
     },
 
     github() {

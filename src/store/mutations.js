@@ -1,6 +1,11 @@
 export default {
   cancel: (_state) => {
     const state = _state;
+
+    if (state.editingID === 'new') {
+      state.notes.shift();
+    }
+
     state.tagsActive = [];
     state.editingID = null;
     state.noteContent = null;
@@ -9,7 +14,7 @@ export default {
 
   edit: (_state, { id }) => {
     const state = _state;
-    state.editingID = id;
+    state.editingID = String(id);
     state.noteContent = state.notes.find(note => note.id === id).content;
   },
 
@@ -53,6 +58,14 @@ export default {
     state.tagsInactiveVisible = true;
   },
 
+  prependNote: (_state) => {
+    const state = _state;
+    const id = 'new';
+
+    state.notes.unshift({ id, content: '', tags: [] });
+    state.editingID = id;
+  },
+
   pushActiveTags: (_state, { tags }) => {
     const state = _state;
     state.tagsActive.push(...tags);
@@ -60,24 +73,16 @@ export default {
 
   setNoteContent: (_state, value) => {
     const state = _state;
-    state.noteContent = value;
+    state.noteContent = String(value);
+  },
+
+  spin: (_state, value) => {
+    const state = _state;
+    state.loading = Boolean(value);
   },
 
   updateNotes: (_state, notes) => {
     const state = _state;
     state.notes = notes;
-  },
-
-  // TEMP: Only for note testing
-  pushnotes: (_state) => {
-    const state = _state;
-    state.notes.push(
-      { id: 'valid', content: 'Lorem ipsum dolor sit amet.', tags: ['lorem'] },
-      { id: 'valid2', content: 'Two tags note.', tags: ['lorem', 'ipsum'] },
-      { id: 'valid3', content: '', tags: ['blank', 'content'] },
-      { id: 'valid4', content: 'No tags', tags: ['', 'sds'] },
-      { id: 'invalid', content: null, tags: 'lorem ipsum' },
-      {},
-    );
   },
 };

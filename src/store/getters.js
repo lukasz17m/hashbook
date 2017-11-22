@@ -24,6 +24,8 @@ export default {
 
   leftNavCollapsed: state => state.leftNavCollapsed,
 
+  loading: state => state.loading,
+
   noteContent: state => state.noteContent,
 
   notesValidated: state => state.notes.filter(validator.note),

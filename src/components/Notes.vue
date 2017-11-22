@@ -18,12 +18,17 @@ export default {
     ...mapGetters(['notesValidated']),
   },
 
-  methods: mapMutations(['updateNotes']),
+  methods: mapMutations(['updateNotes', 'spin']),
 
   mounted() {
-    axios.get('/api/notes').then(({ data: notes }) => {
-      this.updateNotes(notes);
-    });
+    this.spin(true);
+
+    axios.get('/api/notes')
+      .catch(() => ({ data: [] }))
+      .then(({ data: notes }) => {
+        this.updateNotes(notes);
+        this.spin(false);
+      });
   },
 };
 </script>

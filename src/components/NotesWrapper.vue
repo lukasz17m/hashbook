@@ -2,8 +2,8 @@
   <div class="notes__wrapper" tabindex="0">
     <template v-if="!!notes.length">
       <NoteItem
-        v-for="(note, i) in notes"
-        :key="i"
+        v-for="note in notes"
+        :key="note.id"
         :id="note.id"
         :content="note.content"
         :tags="note.tags"

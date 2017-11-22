@@ -15,13 +15,14 @@ describe('Basic HTTP tests', () => {
     expect(res).to.have.header('X-UA-Compatible', 'IE=edge');
   });
 
-  it('GET on /undefined/route should redirect to /', async () => {
+  it('GET on /undefined/route return 404', async () => {
     try {
-      await chai.request(app).get('/undefined/route').redirects(0);
+      await chai.request(app).get('/undefined/route');
+      // must not reach this assertion
+      expect(true).to.be.false;
     } catch (err) {
       // have no idea why this is in catch…
-      expect(err).to.have.status(302);
-      expect(err.response).to.have.header('location', '/');
+      expect(err).to.have.status(404);
     }
   });
 });

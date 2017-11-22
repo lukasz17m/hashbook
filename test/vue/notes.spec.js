@@ -99,6 +99,10 @@ describe('Notes', () => {
     it('has a property named `preview` which is `false` by default', () => {
       expect(wrapper.vm.$store.getters.preview).to.be.false;
     });
+
+    it('has a property named `loading` which is `false` by default', () => {
+      expect(wrapper.vm.$store.getters.loading).to.be.false;
+    });
   });
 
   describe('Components', () => {
@@ -410,6 +414,42 @@ describe('Notes', () => {
       wrapper.update();
 
       expect(note.find('.content').text()).to.equal('Lorem ipsum dolor');
+    });
+  });
+
+  describe('New note', () => {
+    it('prepends new note to Vuex when `New note` menu item is clicked', () => {
+      wrapper.find('.new-note').trigger('click');
+
+      expect(store.getters.notesValidated[0]).eql({
+        id: 'new',
+        content: '',
+        tags: [],
+      });
+
+      expect(store.getters.editingID).equal('new');
+    });
+
+    it('enables edit mode for new note automatically', () => {
+      wrapper.find('.new-note').trigger('click');
+      wrapper.update();
+
+      const note = wrapper.find(NoteItem);
+
+      expect(note.contains('textarea')).to.be.true;
+    });
+
+    it('cancel button drops unsaved note', () => {
+      wrapper.find('.new-note').trigger('click');
+      wrapper.update();
+
+      expect(store.getters.notesValidated).to.have.lengthOf(1);
+
+      const note = wrapper.find(NoteItem);
+      note.find('.is-danger').trigger('click'); // Cancel button
+      wrapper.update();
+
+      expect(store.getters.notesValidated).to.have.lengthOf(0);
     });
   });
 });

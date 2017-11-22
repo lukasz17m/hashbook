@@ -30,7 +30,13 @@ app.get('/', (req, res) => {
 });
 
 // 404 Middleware
-app.use((req, res) => res.redirect('/'));
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, '404.html'), {
+    headers: {
+      'X-UA-Compatible': 'IE=edge',
+    },
+  });
+});
 
 /**
  * Mongoose

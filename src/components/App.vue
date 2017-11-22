@@ -6,6 +6,7 @@
       <TagsInactive />
       <Notes />
     </div>
+    <Spinner v-if="loading" />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import { mapGetters } from 'vuex';
 import NavLeft from '@/components/NavLeft.vue';
 import NavTop from '@/components/NavTop.vue';
 import Notes from '@/components/Notes.vue';
+import Spinner from '@/components/common/Spinner.vue';
 import TagsInactive from '@/components/TagsInactive.vue';
 
 export default {
@@ -23,11 +25,12 @@ export default {
     NavLeft,
     NavTop,
     Notes,
+    Spinner,
     TagsInactive,
   },
 
   computed: {
-    ...mapGetters(['leftNav', 'leftNavCollapsed']),
+    ...mapGetters(['leftNav', 'leftNavCollapsed', 'loading']),
 
     classObject() {
       return {

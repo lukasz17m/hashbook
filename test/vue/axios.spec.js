@@ -12,7 +12,7 @@ const localVue = createLocalVue();
 
 localVue.use(Vuex);
 
-describe.only('Axios', () => {
+describe('Axios', () => {
   const initialState = extend(true, {}, state);
 
   let wrapper;

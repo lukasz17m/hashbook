@@ -1,6 +1,6 @@
 <template>
   <ul class="tags">
-    <NoteItemTagsItem v-for="(tag, i) in tags" :key="i" :tag="tag" />
+    <NoteItemTagsItem v-for="tag in tags" :key="tag" :tag="tag" />
   </ul>
 </template>
 

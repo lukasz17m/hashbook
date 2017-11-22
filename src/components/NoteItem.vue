@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapGetters, mapMutations } from 'vuex';
 import NoteItemContent from '@/components/NoteItemContent.vue';
 import NoteItemMenu from '@/components/NoteItemMenu.vue';
@@ -81,6 +82,14 @@ export default {
         default:
       }
     },
+  },
+
+  mounted() {
+    if (this.id === 'new') {
+      Vue.nextTick(() => {
+        this.$el.dispatchEvent(new Event('editmodeon'));
+      });
+    }
   },
 };
 </script>
