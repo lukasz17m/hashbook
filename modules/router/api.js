@@ -27,14 +27,17 @@ router.all('/', (req, res) => {
 
 // Create
 router.post('/notes', (req, res) => {
-  const note = new Note({
+  new Note({
     content: req.body.content,
     tags: req.body.tags,
-  });
-
-  note.save()
-    .then((doc) => {
-      res.json(doc);
+  }).save()
+    .then((note) => {
+      res.json({
+        /* eslint-disable no-underscore-dangle */
+        id: note._id,
+        content: note.content,
+        tags: note.tags,
+      });
     })
     .catch((error) => {
       res.status(500).send(error);
@@ -69,7 +72,12 @@ router.put('/notes/:id', (req, res) => {
       return note.save();
     })
     .then((note) => {
-      res.json(note);
+      res.json({
+        /* eslint-disable no-underscore-dangle */
+        id: note._id,
+        content: note.content,
+        tags: note.tags,
+      });
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -87,7 +95,14 @@ router.delete('/notes/:id', (req, res) => {
       if (!note) {
         res.status(404).send('Note doesn’t exist');
       } else {
-        note.remove().then(() => res.json(note));
+        note.remove().then(() => {
+          res.json({
+            /* eslint-disable no-underscore-dangle */
+            id: note._id,
+            content: note.content,
+            tags: note.tags,
+          });
+        });
       }
     })
     .catch((error) => {

@@ -18,9 +18,7 @@ describe('Update', () => {
         tags: ['lorem', 'ipsum'],
       });
 
-    // Linter is annoying sometimes ^^
-    const mongoID = '_id';
-    const noteID = res.body[mongoID];
+    const noteID = res.body.id;
 
     expect(res.body).to.have.property('content', 'Lorem ipsum');
     expect(res.body).to.have.property('tags').eql(['lorem', 'ipsum']);
@@ -32,6 +30,7 @@ describe('Update', () => {
         tags: ['lorem', 'ipsum', 'dolor'],
       });
 
+    expect(res.body.id).to.be.a('string');
     expect(res.body).to.have.property('content', 'Lorem ipsum dolor');
     expect(res.body).to.have.property('tags').eql(['lorem', 'ipsum', 'dolor']);
   });
