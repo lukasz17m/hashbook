@@ -8,7 +8,7 @@
 
 <script>
 import Vue from 'vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import NoteItemContent from '@/components/NoteItemContent.vue';
 import NoteItemMenu from '@/components/NoteItemMenu.vue';
 import NoteItemTags from '@/components/NoteItemTags.vue';
@@ -34,7 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['editingID', 'preview']),
+    ...mapGetters(['editingID', 'noteContent', 'preview']),
 
     inEditMode() {
       return this.editingID === this.id;
@@ -42,6 +42,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['deleteNote', 'saveNote']),
+
     ...mapMutations([
       'cancel',
       'disablePreview',
@@ -56,6 +58,20 @@ export default {
           this.edit({ id: this.id });
           this.pushActiveTags({ tags: this.tags });
           this.$el.dispatchEvent(new Event('editmodeon'));
+
+          break;
+        }
+
+        case 'delete': {
+          this.deleteNote(this.id);
+
+          break;
+        }
+
+        case 'save': {
+          if (this.noteContent === '') break;
+          this.saveNote();
+          this.$_eventBus.$emit('save');
 
           break;
         }
@@ -82,6 +98,14 @@ export default {
         default:
       }
     },
+  },
+
+  created() {
+    this.$_eventBus.$on('save', () => {
+      if (this.inEditMode) {
+        this.$el.dispatchEvent(new Event('editmodeoff'));
+      }
+    });
   },
 
   mounted() {

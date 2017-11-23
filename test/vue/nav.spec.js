@@ -12,6 +12,8 @@ import state from '@/store/state';
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+// BUGFIX
+localVue.prototype.$_eventBus = { $emit() {}, $on() {} };
 
 describe('Nav', () => {
   const initialState = extend(true, {}, state);

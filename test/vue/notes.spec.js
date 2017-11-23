@@ -22,6 +22,8 @@ import state from '@/store/state';
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+// BUGFIX
+localVue.prototype.$_eventBus = { $emit() {}, $on() {} };
 
 describe('Notes', () => {
   const initialState = extend(true, {}, state);
@@ -34,8 +36,8 @@ describe('Notes', () => {
     if (invalid) {
       notes = [
         // Only two first are valid
-        { id: 'valid', content: 'Lorem ipsum.', tags: ['lorem ipsum'] },
         { id: 'any length', content: '', tags: [] },
+        { id: 'valid', content: 'Lorem ipsum.', tags: ['lorem ipsum'] },
         { id: [], content: 'Lorem ipsum', tags: ['lorem ipsum'] },
         { id: {}, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
         { id: null, content: 'Lorem ipsum', tags: ['lorem ipsum'] },
@@ -61,8 +63,8 @@ describe('Notes', () => {
       ];
     } else {
       notes = [
-        { id: 'valid', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
         { id: 'valid2', content: 'Foobar', tags: ['foo', 'bar'] },
+        { id: 'valid', content: 'Lorem ipsum', tags: ['lorem ipsum'] },
       ];
     }
 
@@ -229,7 +231,6 @@ describe('Notes', () => {
       const note2 = notes.at(1);
 
       note.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       expect(note.contains(NoteItemContentEdit)).to.be.true;
@@ -251,7 +252,6 @@ describe('Notes', () => {
       const menu2 = note2.find(NoteItemMenu);
 
       menu.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       expect(menu.html()).to.not.contain('Edit');
@@ -279,7 +279,6 @@ describe('Notes', () => {
       const menu2 = note2.find(NoteItemMenu);
 
       menu.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       expect(menu.html()).to.not.contain('Edit');
@@ -288,7 +287,6 @@ describe('Notes', () => {
       expect(menu2.html()).to.not.contain('Preview');
 
       menu.find('.is-danger').trigger('click'); // Cancel button
-
       wrapper.update();
 
       expect(menu.html()).to.contain('Edit');
@@ -313,7 +311,6 @@ describe('Notes', () => {
       expect(note2.find(NoteItemTags).html()).to.contain('bar');
 
       menu.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       expect(note.find(NoteItemTags).html()).to.be.undefined;
@@ -323,7 +320,6 @@ describe('Notes', () => {
       expect(tagsActive.html()).to.contain('lorem ipsum');
 
       menu.find('.is-danger').trigger('click'); // Cancel button
-
       wrapper.update();
 
       expect(note.find(NoteItemTags).html()).to.contain('lorem ipsum');
@@ -343,13 +339,12 @@ describe('Notes', () => {
       note.find('textarea').element.value = 'Lorem ipsum dolor'; // Set content
       note.find('textarea').trigger('input'); // Force v-model update
 
-      expect(store.getters.noteContent).to.equal('Lorem ipsum dolor');
+      expect(store.getters.noteContent).equal('Lorem ipsum dolor');
 
       store.commit('setNoteContent', 'Foobar');
-
       wrapper.update();
 
-      expect(note.find('textarea').element.value).to.equal('Foobar');
+      expect(note.find('textarea').element.value).equal('Foobar');
     });
 
     it('note content is set into editor', () => {
@@ -358,10 +353,27 @@ describe('Notes', () => {
       const note = wrapper.find(NoteItem);
 
       note.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
-      expect(note.find('textarea').element.value).to.equal('Lorem ipsum');
+      expect(note.find('textarea').element.value).equal('Lorem ipsum');
+    });
+
+    it('empty content disables save buttons', () => {
+      pushNotes();
+
+      const note = wrapper.find(NoteItem);
+
+      note.find('.is-info').trigger('click'); // Edit button
+      wrapper.update();
+
+      note.find('textarea').element.value = ''; // Set content
+      note.find('textarea').trigger('input'); // Force v-model update
+      wrapper.update();
+
+      expect(note.find('.is-success').hasAttribute('disabled', 'disabled'))
+        .to.be.true;
+
+      expect(wrapper.find('.save-note').hasClass('disabled')).to.be.true;
     });
   });
 
@@ -372,14 +384,12 @@ describe('Notes', () => {
       const note = wrapper.find(NoteItem);
 
       note.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       expect(note.contains(NoteItemContentEdit)).to.be.true;
       expect(note.contains(NoteItemContentPreview)).to.be.false;
 
       note.find('.is-primary').trigger('click'); // Preview button, switch on
-
       wrapper.update();
 
       expect(note.find('.is-primary').hasClass('active')).to.be.true;
@@ -388,7 +398,6 @@ describe('Notes', () => {
       expect(note.contains(NoteItemContentPreview)).to.be.true;
 
       note.find('.is-primary').trigger('click'); // Preview button, switch off
-
       wrapper.update();
 
       expect(note.find('.is-primary').hasClass('active')).to.be.false;
@@ -403,17 +412,15 @@ describe('Notes', () => {
       const note = wrapper.find(NoteItem);
 
       note.find('.is-info').trigger('click'); // Edit button
-
       wrapper.update();
 
       note.find('textarea').element.value = 'Lorem ipsum dolor'; // Set content
       note.find('textarea').trigger('input'); // Force v-model update
 
       note.find('.is-primary').trigger('click'); // Preview button, switch on
-
       wrapper.update();
 
-      expect(note.find('.content').text()).to.equal('Lorem ipsum dolor');
+      expect(note.find('.content').text()).equal('Lorem ipsum dolor');
     });
   });
 

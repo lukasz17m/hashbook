@@ -7,6 +7,8 @@ import '@/assets/scss/style.scss';
 
 Vue.use(VueResource);
 
+Vue.prototype.$_eventBus = new Vue();
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

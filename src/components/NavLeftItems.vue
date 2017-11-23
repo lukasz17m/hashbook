@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import NavLeftItem from '@/components/NavLeftItem.vue';
 import NavLeftToggleCollapse from '@/components/NavLeftToggleCollapse.vue';
 
@@ -39,10 +39,12 @@ export default {
   components: { NavLeftItem, NavLeftToggleCollapse },
 
   computed: {
-    ...mapGetters(['editingID', 'tagsInactiveVisible']),
+    ...mapGetters(['editingID', 'noteContent', 'tagsInactiveVisible']),
 
     newNoteClass() {
-      return this.editingID ? 'save-note' : 'new-note';
+      return this.editingID
+        ? `save-note${this.noteContent === '' ? ' disabled' : ''}`
+        : 'new-note';
     },
 
     newNoteIcon() {
@@ -55,13 +57,17 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['hideTagsInactive', 'prependNote', 'showTagsInactive']),
+    ...mapActions(['saveNote']),
+
+    ...mapMutations(['hideTagsInactive', 'appendNote', 'showTagsInactive']),
 
     newNoteAction() {
       if (this.editingID) {
-        // Save note
+        if (this.noteContent === '') return;
+        this.saveNote();
+        this.$_eventBus.$emit('save');
       } else {
-        this.prependNote();
+        this.appendNote();
       }
     },
 

@@ -11,10 +11,13 @@ import state from '@/store/state';
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+// BUGFIX
+localVue.prototype.$_eventBus = { $emit() {}, $on() {} };
 
 describe('Axios', () => {
   const initialState = extend(true, {}, state);
 
+  let config;
   let wrapper;
 
   const staticNotes = [
@@ -49,7 +52,7 @@ describe('Axios', () => {
 
   it('upates Vuex store', (done) => {
     moxios.wait(() => {
-      expect(store.getters.notesValidated).eql(staticNotes);
+      expect(store.getters.notesValidated).eql(staticNotes.slice().reverse());
       expect(store.getters.tags).eql(['lorem ipsum', 'foo', 'bar']);
 
       done();
@@ -58,12 +61,15 @@ describe('Axios', () => {
 
   it('displays notes correctly', (done) => {
     moxios.wait(() => {
+      ({ config } = moxios.requests.mostRecent());
+      expect(config.method).equal('get');
+
       const notes = wrapper.findAll(NoteItem);
 
       expect(notes).to.have.lengthOf(2);
 
-      expect(notes.at(0).html()).contains('Lorem ipsum');
-      expect(notes.at(1).html()).contains('Foobar');
+      expect(notes.at(0).html()).contains('Foobar');
+      expect(notes.at(1).html()).contains('Lorem ipsum');
 
       done();
     });

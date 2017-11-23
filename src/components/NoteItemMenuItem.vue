@@ -2,6 +2,7 @@
   <li
     :class="classObject"
     tabindex="0"
+    :disabled="disabled"
     @click="$emit('hit')"
     @keyup.enter.space="$emit('hit')">
     <span class="note__menu-icon">
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { contains } from '@/utils';
 
 export default {
@@ -32,6 +34,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['noteContent']),
+
     classIcon() {
       return [
         'fa',
@@ -49,6 +53,10 @@ export default {
         'is-info': this.label.includes('Edit'),
         'is-primary is-outlined--preview': this.label.includes('Preview'),
       };
+    },
+
+    disabled() {
+      return this.label.includes('Save') && this.noteContent === '';
     },
   },
 };

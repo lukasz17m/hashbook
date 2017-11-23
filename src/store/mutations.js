@@ -1,9 +1,20 @@
+import { last } from '@/utils';
+
 export default {
+  appendNote(_state) {
+    const state = _state;
+    const id = 'new';
+
+    state.notes.push({ id, content: '', tags: [] });
+    state.editingID = id;
+    state.noteContent = '';
+  },
+
   cancel(_state) {
     const state = _state;
 
     if (state.editingID === 'new') {
-      state.notes.shift();
+      state.notes.pop();
     }
 
     state.tagsActive = [];
@@ -58,17 +69,39 @@ export default {
     state.tagsInactiveVisible = true;
   },
 
-  prependNote(_state) {
-    const state = _state;
-    const id = 'new';
-
-    state.notes.unshift({ id, content: '', tags: [] });
-    state.editingID = id;
-  },
-
   pushActiveTags(_state, { tags }) {
     const state = _state;
     state.tagsActive.push(...tags);
+  },
+
+  removeNote(_state, id) {
+    const state = _state;
+
+    state.notes = state.notes.filter(note => note.id !== id);
+  },
+
+  createNote(_state, id) {
+    const state = _state;
+    last(state.notes).id = String(id);
+    last(state.notes).content = state.noteContent;
+    last(state.notes).tags = state.tagsActive;
+
+    state.tagsActive = [];
+    state.editingID = null;
+    state.noteContent = null;
+    state.preview = false;
+  },
+
+  updateNote(_state, id) {
+    const state = _state;
+    const note = state.notes.find(item => item.id === id);
+    note.content = state.noteContent;
+    note.tags = state.tagsActive;
+
+    state.tagsActive = [];
+    state.editingID = null;
+    state.noteContent = null;
+    state.preview = false;
   },
 
   setNoteContent(_state, value) {

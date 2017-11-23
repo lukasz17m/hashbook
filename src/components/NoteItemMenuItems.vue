@@ -10,13 +10,13 @@
       v-if="!inEditMode"
       label="Delete"
       fa="trash"
-      @hit="temp" />
+      @hit="$emit('action', 'delete')" />
 
     <NoteItemMenuItem
       v-if="inEditMode"
       label="Save"
       fa="check"
-      @hit="temp" />
+      @hit="$emit('action', 'save')" />
 
     <NoteItemMenuItem
       v-if="inEditMode"
@@ -55,7 +55,6 @@ export default {
     // TEMP
     temp() {
       /* eslint-disable no-console */
-      console.log('Note menu');
     },
   },
 };

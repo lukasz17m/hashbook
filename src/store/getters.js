@@ -28,7 +28,9 @@ export default {
 
   noteContent: state => state.noteContent,
 
-  notesValidated: state => state.notes.filter(validator.note),
+  notesValidated: state => state.notes
+    .filter(validator.note)
+    .slice().reverse(),
 
   preview: state => state.preview,
 
