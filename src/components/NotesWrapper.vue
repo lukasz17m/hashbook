@@ -4,7 +4,6 @@
       <NoteItem
         v-for="note in notes"
         :key="note.id"
-        :ref="note.id"
         :id="note.id"
         :content="note.content"
         :tags="note.tags"
