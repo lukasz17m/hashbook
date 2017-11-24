@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-input">
+  <div class="tag-input" @click="$emit('escape')">
     <div class="tag-input__wrapper">
       <input
         v-model="tag"

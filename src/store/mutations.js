@@ -81,7 +81,7 @@ export default {
 
   setActiveTags(_state, tags) {
     const state = _state;
-    state.tagsActive = tags;
+    state.tagsActive = [...tags];
   },
 
   removeNote(_state, id) {

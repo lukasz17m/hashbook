@@ -69,7 +69,6 @@ export default {
 
   created() {
     this.$_eventBus.$on('addTag', () => {
-      this.$_eventBus.$emit('qq');
       this.showInput = true;
 
       this.$nextTick(() => {
