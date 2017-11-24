@@ -5,7 +5,7 @@ export default {
     const tag = el;
     const { textContent: text } = tag;
 
-    tag.style.backgroundColor = tagColor(text).background;
-    tag.style.color = tagColor(text).font;
+    tag.style.backgroundColor = tagColor(text + text.length).background;
+    tag.style.color = tagColor(text + text.length).font;
   },
 };

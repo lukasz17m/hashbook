@@ -6,6 +6,7 @@
         type="text"
         placeholder="#"
         class="tag-input__input input"
+        @click.stop
         @keyup.enter="$emit('submit', tag)"
         @keyup.escape="$emit('escape')">
 
@@ -28,7 +29,9 @@ export default {
 
   computed: {
     boxColor() {
-      return { backgroundColor: tagColor(this.tag).background };
+      return {
+        backgroundColor: tagColor(this.tag + this.tag.length).background,
+      };
     },
   },
 };

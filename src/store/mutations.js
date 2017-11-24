@@ -71,7 +71,9 @@ export default {
 
   pushActiveTag(_state, tag) {
     const state = _state;
-    state.tagsActive.push(tag);
+    if (state.tagsActive.indexOf(tag) < 0) {
+      state.tagsActive.push(tag);
+    }
   },
 
   removeActiveTag(_state, tag) {
