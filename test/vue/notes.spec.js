@@ -179,6 +179,18 @@ describe('Notes', () => {
       expect(wrapper.findAll(NoteItem)).to.have.lengthOf(2);
     });
 
+    it('shows `Empty` in tags wrapper when note has no tags', () => {
+      store.replaceState(extend(true, {}, initialState, {
+        notes: [
+          { id: 'v', content: 'No tags', tags: [] },
+        ],
+      }));
+
+      wrapper = mount(App, { store, localVue });
+
+      expect(wrapper.find(NoteItemTagsItems).html()).contains('Empty');
+    });
+
     it('shows correct content and tags', () => {
       store.replaceState(extend(true, {}, initialState, {
         notes: [

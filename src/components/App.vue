@@ -2,10 +2,12 @@
   <div :class="classObject">
     <NavTop />
     <NavLeft />
+
     <div class="main-flex">
       <TagsInactive />
       <Notes />
     </div>
+
     <Spinner v-if="loading" />
   </div>
 </template>

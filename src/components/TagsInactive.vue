@@ -18,8 +18,6 @@ export default {
 
   directives: { noScrollbar },
 
-  computed: {
-    ...mapGetters(['tags', 'tagsInactiveVisible']),
-  },
+  computed: mapGetters(['tags', 'tagsInactiveVisible']),
 };
 </script>

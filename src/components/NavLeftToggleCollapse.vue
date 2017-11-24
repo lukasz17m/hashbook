@@ -7,6 +7,7 @@
     <span class="left-nav__icon">
       <span :class="classIcon"></span>
     </span>
+
     <span v-if="!leftNavCollapsed" class="left-nav__label">Collapse</span>
   </li>
 </template>

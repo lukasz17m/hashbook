@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="hasActive" class="tags-active">
+  <aside v-if="tagsActive.length" class="tags-active">
     <div class="tags-active__scroll-wrapper" v-no-scrollbar:horizontal.wheel>
       <NavTopTagsActiveItems :tags="tagsActive" />
     </div>
@@ -18,12 +18,6 @@ export default {
 
   directives: { noScrollbar },
 
-  computed: {
-    ...mapGetters(['tagsActive']),
-
-    hasActive() {
-      return !!this.tagsActive.length;
-    },
-  },
+  computed: mapGetters(['tagsActive']),
 };
 </script>

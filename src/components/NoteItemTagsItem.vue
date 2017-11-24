@@ -6,7 +6,7 @@
 import { tag } from '@/directives';
 
 export default {
-  name: 'NoteItemMenuItem',
+  name: 'NoteItemTagsItem',
 
   directives: { tag },
 

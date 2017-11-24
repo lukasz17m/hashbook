@@ -16,9 +16,7 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'NavTopBurgerButton',
 
-  computed: {
-    ...mapGetters(['leftNav']),
-  },
+  computed: mapGetters(['leftNav']),
 
   methods: {
     ...mapMutations(['hideLeftNav', 'showLeftNav']),

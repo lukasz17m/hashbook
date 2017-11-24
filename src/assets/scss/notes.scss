@@ -113,7 +113,7 @@
   &__menu-icon {
     align-items: center;
     display: inline-flex;
-    font-size: .875rem;
+    font-size: .875em;
     height: 2rem;
     justify-content: center;
     vertical-align: middle;
@@ -123,7 +123,7 @@
   &__menu-label {
     align-items: center;
     display: inline-flex;
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: bold;
     line-height: 2rem;
     padding: 0 .5rem;
@@ -135,5 +135,9 @@
     background-color: $note-tags-background-color;
     overflow: auto;
     padding: .5rem;
+
+    &--zero-tags {
+      color: $note-tags-zero-color;
+    }
   }
 }

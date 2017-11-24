@@ -1,7 +1,12 @@
 <template>
-  <ul class="tags">
+  <ul v-if="tags.length" class="tags">
     <NoteItemTagsItem v-for="tag in tags" :key="tag" :tag="tag" />
   </ul>
+
+  <div v-else class="note__tags--zero-tags">
+    <span class="fa fa-hashtag"></span>
+    <span>Empty</span>
+  </div>
 </template>
 
 <script>

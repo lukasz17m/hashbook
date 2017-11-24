@@ -1,6 +1,5 @@
 <template>
-  <div class="content" v-html="desiredContent">
-  </div>
+  <div class="content" v-html="desiredContent"></div>
 </template>
 
 <script>

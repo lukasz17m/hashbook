@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { last } from '@/utils';
 
 describe('Last', () => {
-  it('returns last array item, `3` in this case', () => {
+  it('returns last array item', () => {
     expect(last([1, 2, 3])).equal(3);
   });
 

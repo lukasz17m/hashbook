@@ -8,9 +8,8 @@
     <span class="note__menu-icon">
       <span :class="classIcon"></span>
     </span>
-    <span
-      class="note__menu-label"
-      v-text="label"></span>
+
+    <span class="note__menu-label" v-text="label"></span>
   </li>
 </template>
 

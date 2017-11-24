@@ -25,8 +25,6 @@ export default {
     },
   },
 
-  computed: {
-    ...mapGetters(['editingID']),
-  },
+  computed: mapGetters(['editingID']),
 };
 </script>

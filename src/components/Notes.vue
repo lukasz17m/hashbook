@@ -13,9 +13,7 @@ export default {
 
   components: { NotesWrapper },
 
-  computed: {
-    ...mapGetters(['notesValidated']),
-  },
+  computed: mapGetters(['notesValidated']),
 
   methods: mapActions(['getNotes']),
 
