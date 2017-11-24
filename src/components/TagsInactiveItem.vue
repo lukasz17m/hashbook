@@ -3,10 +3,12 @@
     class="tag is-medium"
     tabindex="0"
     v-text="tag"
-    v-tag></li>
+    v-tag
+    @click="pushActiveTag(tag)"></li>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import { tag } from '@/directives';
 
 export default {
@@ -20,5 +22,7 @@ export default {
       required: true,
     },
   },
+
+  methods: mapMutations(['pushActiveTag']),
 };
 </script>

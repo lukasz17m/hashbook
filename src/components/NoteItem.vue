@@ -48,14 +48,14 @@ export default {
       'disablePreview',
       'edit',
       'enablePreview',
-      'pushActiveTags',
+      'setActiveTags',
     ]),
 
     handleAction(type) {
       switch (type) {
         case 'edit': {
-          this.edit({ id: this.id });
-          this.pushActiveTags({ tags: this.tags });
+          this.edit(this.id);
+          this.setActiveTags(this.tags);
           this.$el.dispatchEvent(new Event('editmodeon'));
 
           break;

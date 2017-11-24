@@ -14,11 +14,12 @@ export default {
 @import "~@/assets/scss/palette";
 @import "~@/assets/scss/variables";
 
+$overlay-color: $color1;
 $spinner-color: $color4;
 
 .spinner-wrapper {
   align-items: center;
-  background-color: transparentize($color1, .1);
+  background-color: transparentize($overlay-color, .1);
   display: flex;
   height: 100vh;
   left: 0;

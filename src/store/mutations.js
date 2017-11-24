@@ -23,7 +23,7 @@ export default {
     state.preview = false;
   },
 
-  edit(_state, { id }) {
+  edit(_state, id) {
     const state = _state;
     state.editingID = String(id);
     state.noteContent = state.notes.find(note => note.id === id).content;
@@ -69,9 +69,19 @@ export default {
     state.tagsInactiveVisible = true;
   },
 
-  pushActiveTags(_state, { tags }) {
+  pushActiveTag(_state, tag) {
     const state = _state;
-    state.tagsActive.push(...tags);
+    state.tagsActive.push(tag);
+  },
+
+  removeActiveTag(_state, tag) {
+    const state = _state;
+    state.tagsActive = state.tagsActive.filter(item => tag !== item);
+  },
+
+  setActiveTags(_state, tags) {
+    const state = _state;
+    state.tagsActive = tags;
   },
 
   removeNote(_state, id) {

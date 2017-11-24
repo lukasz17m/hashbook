@@ -82,7 +82,7 @@ describe('Tags', () => {
 
       expect(store.getters.tags).eql(['foo', 'bar', 'baz']);
 
-      store.commit('pushActiveTags', { tags: ['baz'] });
+      store.commit('setActiveTags', ['baz']);
 
       expect(store.getters.tags).eql(['foo', 'bar']);
     });

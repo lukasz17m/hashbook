@@ -3,6 +3,7 @@ export default {
     const el = _el;
 
     el.attributes.removeNamedItem('content');
+    el.attributes.removeNamedItem('ineditmode');
 
     el.style.display = 'block';
     el.style.height = '100%';

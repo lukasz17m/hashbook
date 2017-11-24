@@ -7,9 +7,50 @@
   <title>#Book</title>
 
   <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABlBMVEUSRVn////N0atcAAAAAWJLR0QB/wIt3gAAAAd0SU1FB+ELCgYRMHgs3PwAAAAMSURBVAjXY2AgDQAAADAAAceqhY4AAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMTEtMTBUMDY6MTc6NDgtMDc6MDBVH5GPAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTExLTEwVDA2OjE3OjQ4LTA3OjAwJEIpMwAAAABJRU5ErkJggg==">
+
+  <style>
+    .initial-spinner-wrapper {
+      align-items: center;
+      background-color: rgba(1, 22, 30, .9);
+      display: flex;
+      height: 100vh;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      z-index: 1;
+    }
+
+    /* http://tobiasahlin.com/spinkit/ */
+    .initial-spinner {
+      animation: sk-rotateplane 1s infinite ease-in-out;
+      background-color: rgba(174, 195, 176, 1);
+      height: 3rem;
+      margin: 0 auto;
+      width: 3rem;
+    }
+
+    @keyframes sk-rotateplane {
+      0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+      }
+
+      100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+      }
+    }
+  </style>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="initial-spinner-wrapper">
+      <div class="initial-spinner"></div>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 </body>

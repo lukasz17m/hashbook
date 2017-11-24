@@ -3,6 +3,7 @@
     <template v-if="notes.length">
       <NoteItem
         v-for="note in notes"
+        v-if="display(note)"
         :key="note.id"
         :id="note.id"
         :content="note.content"
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import NoteItem from '@/components/NoteItem.vue';
 import { adjustEditor } from '@/directives';
 
@@ -32,6 +34,15 @@ export default {
     notes: {
       type: Array,
       required: true,
+    },
+  },
+
+  computed: mapGetters(['editingID', 'tagsActive']),
+
+  methods: {
+    display({ id, tags }) {
+      return this.editingID
+        || this.tagsActive.every(tag => tags.indexOf(tag) >= 0);
     },
   },
 };

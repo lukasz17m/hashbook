@@ -1,15 +1,15 @@
 <template>
-  <textarea v-model="content" v-content-editor></textarea>
+  <textarea v-model="content" v-content-editor v-fetch-hashtag="addTag"></textarea>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import { contentEditor } from '@/directives';
+import { contentEditor, fetchHashtag } from '@/directives';
 
 export default {
   name: 'NoteItemContentEdit',
 
-  directives: { contentEditor },
+  directives: { contentEditor, fetchHashtag },
 
   computed: {
     ...mapGetters(['noteContent']),
@@ -25,6 +25,12 @@ export default {
     },
   },
 
-  methods: mapMutations(['setNoteContent']),
+  methods: {
+    ...mapMutations(['setNoteContent']),
+
+    addTag() {
+      this.$_eventBus.$emit('addTag');
+    },
+  },
 };
 </script>
