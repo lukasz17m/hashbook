@@ -3,7 +3,7 @@
     <template v-if="notes.length">
       <NoteItem
         v-for="note in notes"
-        v-if="display(note)"
+        v-if="display(note.tags)"
         :key="note.id"
         :id="note.id"
         :content="note.content"
@@ -40,7 +40,7 @@ export default {
   computed: mapGetters(['editingID', 'tagsActive']),
 
   methods: {
-    display({ id, tags }) {
+    display(tags) {
       return this.editingID
         || this.tagsActive.every(tag => tags.indexOf(tag) >= 0);
     },
