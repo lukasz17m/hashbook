@@ -2,17 +2,13 @@ import axios from 'axios';
 
 export default {
   deleteNote({ commit }, id) {
-    if (id === 'new') {
-      commit('removeNote', id);
-    } else {
-      commit('spin', true);
-      axios.delete(`/api/notes/${id}`)
-        .catch(() => undefined)
-        .then(() => {
-          commit('removeNote', id);
-          commit('spin', false);
-        });
-    }
+    commit('spin', true);
+    axios.delete(`/api/notes/${id}`)
+      .catch(() => undefined)
+      .then(() => {
+        commit('removeNote', id);
+        commit('spin', false);
+      });
   },
 
   getNotes({ commit }) {
