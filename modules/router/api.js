@@ -46,7 +46,8 @@ router.post('/notes', (req, res) => {
 
 // Read
 router.get('/notes', (req, res) => {
-  Note.find()
+  Note.find({})
+    .sort({ _id: 'asc' })
     .then((notes) => {
       res.json(notes.map(note => ({
         /* eslint-disable no-underscore-dangle */

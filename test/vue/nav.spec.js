@@ -257,23 +257,23 @@ describe('Nav', () => {
 
   describe('Items icons', () => {
     it('should have `fa-pencil` icon for `.new-note` selector', () => {
-      expect(wrapper.find('.new-note').contains('.fa-pencil'));
+      expect(wrapper.find('.new-note').contains('.fa-pencil')).to.be.true;
     });
 
     it('should have `fa-hashtag` icon for `.hashtags` selector', () => {
-      expect(wrapper.find('.hashtags').contains('.fa-hashtag'));
+      expect(wrapper.find('.hashtags').contains('.fa-hashtag')).to.be.true;
     });
 
-    it('should have `fa-microchip` icon for `.technologies` selector', () => {
-      expect(wrapper.find('.technologies').contains('.fa-microchip'));
+    it('should have `fa-code` icon for `.technologies` selector', () => {
+      expect(wrapper.find('.technologies').contains('.fa-code')).to.be.true;
     });
 
     it('should have `fa-github` icon for `.github` selector', () => {
-      expect(wrapper.find('.github').contains('.fa-github'));
+      expect(wrapper.find('.github').contains('.fa-github')).to.be.true;
     });
 
     it('should have `fa-angle-left` icon for `.collapse` selector', () => {
-      expect(wrapper.find('.collapse').contains('.fa-angle-left'));
+      expect(wrapper.find('.collapse').contains('.fa-angle-left')).to.be.true;
     });
   });
 

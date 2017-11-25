@@ -20,8 +20,10 @@ export default {
     el.addEventListener('keyup', ({ key }) => {
       if (typeof key === 'undefined') return;
 
-      el.value = el.value.replace(/\\\\#/, '\\​#'); // \<ZERO WIDTH SPACE\u200b>#
-      el.value = el.value.replace(/\\#/, '#');
+      el.value = el.value
+        .replace(/\\\\#/, '\\​#') // \<ZERO WIDTH SPACE\u200b>#
+        .replace(/\\#/, '#');
+
       el.dispatchEvent(new Event('input')); // Force Vuex update
     });
   },

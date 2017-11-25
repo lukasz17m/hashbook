@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 
-const config = require('../config')(process.env.NODE_ENV).mongoose;
 const log = require('../utils/log');
+const { mongoose: config } = require('../config')(process.env.NODE_ENV);
 
 const { host, name } = config.database;
 

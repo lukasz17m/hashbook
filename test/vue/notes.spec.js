@@ -426,13 +426,13 @@ describe('Notes', () => {
       note.find('.is-info').trigger('click'); // Edit button
       wrapper.update();
 
-      note.find('textarea').element.value = 'Lorem ipsum dolor'; // Set content
+      note.find('textarea').element.value = '__Lorem__'; // Set content
       note.find('textarea').trigger('input'); // Force v-model update
 
       note.find('.is-primary').trigger('click'); // Preview button, switch on
       wrapper.update();
 
-      expect(note.find('.content').text()).equal('Lorem ipsum dolor');
+      expect(note.find('.content').html()).contains('<strong>Lorem</strong>');
     });
   });
 

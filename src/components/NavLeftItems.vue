@@ -15,7 +15,7 @@
     <NavLeftItem
       className="technologies"
       label="Technologies"
-      fa="microchip"
+      fa="code"
       @hit="technologies" />
 
     <NavLeftItem

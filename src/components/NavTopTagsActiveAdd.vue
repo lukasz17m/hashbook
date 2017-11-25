@@ -5,7 +5,7 @@
     class="tags-active__add-button"
     @click="addTag"
     @keyup.enter.space="addTag">
-    <span class="fa-plus fa-2x"></span>
+    <span class="fa fa-plus fa-2x"></span>
   </div>
 </template>
 

@@ -23,7 +23,14 @@ export default {
 
         if (!containerHeight || id !== store.getters.editingID) return;
 
-        el.style.height = `${containerHeight - (3 * rem)}px`;
+        const calculatedHeight = containerHeight - (3 * rem);
+        const minHeight = 20 * rem;
+
+        if (calculatedHeight < minHeight) {
+          el.style.height = `${minHeight}px`;
+        } else {
+          el.style.height = `${calculatedHeight}px`;
+        }
 
         container.scrollTo({
           behavior: 'smooth',

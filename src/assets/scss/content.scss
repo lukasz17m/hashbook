@@ -1,0 +1,11 @@
+.content {
+  code,
+  pre {
+    background-color: desaturate($color5, 40%);
+    border-radius: .25rem;
+  }
+
+  .emoji {
+    height: 1.2em;
+  }
+}
