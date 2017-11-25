@@ -1,5 +1,5 @@
 <template>
-  <aside v-if="tagsActive.length" class="tags-active">
+  <aside v-if="tagsActive.length" :class="classObject">
     <div class="tags-active__scroll-wrapper" v-no-scrollbar:horizontal.wheel>
       <NavTopTagsActiveItems :tags="tagsActive" />
     </div>
@@ -18,6 +18,15 @@ export default {
 
   directives: { noScrollbar },
 
-  computed: mapGetters(['tagsActive']),
+  computed: {
+    ...mapGetters(['editingID', 'tagsActive']),
+
+    classObject() {
+      return {
+        'edit-mode': this.editingID,
+        'tags-active': true,
+      };
+    },
+  },
 };
 </script>

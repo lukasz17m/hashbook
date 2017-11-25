@@ -1,29 +1,26 @@
-// BUG: Not working in Android Chrome
 export default {
-  bind(_el, { value: callback }) {
+  bind(_el, _, { context: $vue }) {
     const el = _el;
 
     el.addEventListener('keydown', (e) => {
-      const {
-        key,
-        keyCode,
-        shiftKey,
-        which,
-      } = e;
+      const { key } = e;
 
-      const code = keyCode || which;
+      if (typeof key === 'undefined') return;
 
-      if (key === '#' || (shiftKey && code === 51)) {
+      if (key === '#') {
         const { value: content, selectionStart: caret } = el;
 
         if (content.substring(caret - 1, caret) !== '\\') {
           e.preventDefault();
-          callback();
+          $vue.$_eventBus.$emit('addTag');
         }
       }
     });
 
-    el.addEventListener('keyup', () => {
+    el.addEventListener('keyup', ({ key }) => {
+      if (typeof key === 'undefined') return;
+
+      el.value = el.value.replace(/\\\\#/, '\\​#'); // \<ZERO WIDTH SPACE\u200b>#
       el.value = el.value.replace(/\\#/, '#');
       el.dispatchEvent(new Event('input')); // Force Vuex update
     });

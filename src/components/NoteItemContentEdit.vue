@@ -1,5 +1,5 @@
 <template>
-  <textarea v-model="content" v-content-editor v-fetch-hashtag="addTag"></textarea>
+  <textarea v-model="content" v-content-editor v-fetch-hashtag></textarea>
 </template>
 
 <script>
@@ -25,12 +25,6 @@ export default {
     },
   },
 
-  methods: {
-    ...mapMutations(['setNoteContent']),
-
-    addTag() {
-      this.$_eventBus.$emit('addTag');
-    },
-  },
+  methods: mapMutations(['setNoteContent']),
 };
 </script>
