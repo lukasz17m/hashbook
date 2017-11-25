@@ -1,3 +1,7 @@
+import detectIt from 'detect-it';
+
+const { deviceType } = detectIt;
+
 export default {
   bind(_el, _, { context: $vue }) {
     const el = _el;
@@ -5,7 +9,7 @@ export default {
     el.addEventListener('keydown', (e) => {
       const { key } = e;
 
-      if (typeof key === 'undefined') return;
+      if (deviceType === 'touchOnly') return;
 
       if (key === '#') {
         const { value: content, selectionStart: caret } = el;
@@ -17,8 +21,8 @@ export default {
       }
     });
 
-    el.addEventListener('keyup', ({ key }) => {
-      if (typeof key === 'undefined') return;
+    el.addEventListener('keyup', () => {
+      if (deviceType === 'touchOnly') return;
 
       el.value = el.value
         .replace(/\\\\#/, '\\​#') // \<ZERO WIDTH SPACE\u200b>#
