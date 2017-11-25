@@ -1,7 +1,11 @@
 .notes {
+  @include media-min-width($note-zero-padding-breakpoint) {
+    padding: 1rem;
+  }
+
   flex: 1;
   overflow-y: scroll;
-  padding: 1rem;
+  padding: 1rem 0;
 
   &--flex {
     align-items: center;
@@ -20,21 +24,44 @@
   }
 
   &__wrapper {
+    @include media-min-width($note-zero-padding-breakpoint) {
+      padding: .5rem;
+    }
+
     margin: 0 auto;
+    margin-bottom: 1rem;
     max-width: 60rem;
-    padding: .5rem;
+    padding: .5rem 0;
   }
 }
 
 .note {
+  @include media-min-width($note-zero-padding-breakpoint) {
+    padding: .5rem;
+  }
+
   background-color: $note-background-color;
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
-  padding: .5rem;
+  margin-bottom: 4rem;
+  padding: .5rem 0;
+  position: relative;
+
+  &:not(:last-child) {
+    &::after {
+      border-top: .25rem $notes-delimiter-color;
+      border-top-style: dotted;
+      bottom: -2.25rem;
+      content: '';
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 80%;
+    }
+  }
 
   &:last-child {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
   &__content {
