@@ -8,7 +8,7 @@ const config = require('./modules/config')(process.env.NODE_ENV);
 const connection = require('./modules/mongoose/connection');
 const log = require('./modules/utils/log');
 
-const PORT = ((process.env.PORT || config.http.port) || 3000);
+const PORT = process.env.PORT || config.http.port || 3000;
 
 /**
  * Express
