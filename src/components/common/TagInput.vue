@@ -64,7 +64,7 @@ $input-color: $color4;
   }
 
   &__input {
-    flex: 1;
+    flex: 1 1 auto;
   }
 
   &__color {

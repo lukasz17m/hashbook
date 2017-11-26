@@ -56,7 +56,7 @@ export default {
         case 'edit': {
           this.edit(this.id);
           this.setActiveTags(this.tags);
-          this.$el.dispatchEvent(new Event('editmodeon'));
+          this.$el.dispatchEvent(new CustomEvent('editmodeon'));
 
           break;
         }
@@ -77,7 +77,7 @@ export default {
 
         case 'cancel': {
           this.cancel();
-          this.$el.dispatchEvent(new Event('editmodeoff'));
+          this.$el.dispatchEvent(new CustomEvent('editmodeoff'));
 
           break;
         }
@@ -85,10 +85,10 @@ export default {
         case 'preview': {
           if (this.preview) {
             this.disablePreview();
-            this.$el.dispatchEvent(new Event('previewmodeoff'));
+            this.$el.dispatchEvent(new CustomEvent('previewmodeoff'));
           } else {
             this.enablePreview();
-            this.$el.dispatchEvent(new Event('previewmodeon'));
+            this.$el.dispatchEvent(new CustomEvent('previewmodeon'));
           }
 
           break;
@@ -102,7 +102,7 @@ export default {
   created() {
     this.$_eventBus.$on('save', () => {
       if (this.inEditMode) {
-        this.$el.dispatchEvent(new Event('editmodeoff'));
+        this.$el.dispatchEvent(new CustomEvent('editmodeoff'));
       }
     });
   },
@@ -110,7 +110,7 @@ export default {
   mounted() {
     if (this.id === 'new') {
       this.$nextTick(() => {
-        this.$el.dispatchEvent(new Event('editmodeon'));
+        this.$el.dispatchEvent(new CustomEvent('editmodeon'));
       });
     }
   },

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import 'babel-polyfill';
+import 'custom-event-polyfill';
 import App from '@/components/App.vue';
 import store from '@/store';
 import '@/assets/scss/style.scss';

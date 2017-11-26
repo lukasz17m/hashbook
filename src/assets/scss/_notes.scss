@@ -3,7 +3,8 @@
     padding: 1rem;
   }
 
-  flex: 1;
+  flex: 1 1 auto;
+  overflow-x: hidden;
   overflow-y: scroll;
   padding: 1rem 0;
 
@@ -66,7 +67,7 @@
 
   &__content {
     background-color: $note-content-background-color;
-    flex: 1;
+    flex: 1 1 auto;
     margin-top: .5rem;
     overflow: auto;
     padding: .5rem;

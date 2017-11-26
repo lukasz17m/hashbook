@@ -24,11 +24,15 @@ export default {
     el.addEventListener('keyup', () => {
       if (deviceType === 'touchOnly') return;
 
-      el.value = el.value
-        .replace(/\\\\#/, '\\​#') // \<ZERO WIDTH SPACE\u200b>#
-        .replace(/\\#/, '#');
+      if (new RegExp(/\\\\#/).test(el.value)) {
+        el.value = el.value.replace(/\\\\#/, '\\​#'); // \<\u200b>#
+      }
 
-      el.dispatchEvent(new Event('input')); // Force Vuex update
+      if (new RegExp(/\\#/).test(el.value)) {
+        el.value = el.value.replace(/\\#/, '#');
+      }
+
+      el.dispatchEvent(new CustomEvent('input')); // Force Vuex update
     });
   },
 };
