@@ -6,10 +6,12 @@ export default {
     el.attributes.removeNamedItem('ineditmode');
 
     el.style.display = 'block';
-    el.style.height = 'calc(100% - 5.75rem)';
+    el.style.height = 'calc(100% - 1rem)';
+    el.style.left = '.5rem';
     el.style.position = 'absolute';
     el.style.resize = 'none';
-    el.style.width = 'calc(100% - 2rem)';
+    el.style.top = '.5rem';
+    el.style.width = 'calc(100% - 1rem)';
 
     setTimeout(() => {
       el.focus();
