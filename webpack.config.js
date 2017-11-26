@@ -1,13 +1,30 @@
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
+const HTMLMinify = {
+  collapseWhitespace: true,
+  minifyCSS: true,
+  removeComments: true,
+  removeRedundantAttributes: true,
+  removeScriptTypeAttributes: true,
+  removeStyleLinkTypeAttributes: true,
+};
+
+const errorPage = code => ({
+  template: `./src/${code}.html`,
+  filename: `${code}.html`,
+  inject: false,
+  minify: (process.env.NODE_ENV === 'production') ? HTMLMinify : false,
+});
+
 module.exports = {
-  entry: '@/main.js',
+  entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/',
-    filename: 'main.js',
+    filename: '[name].js',
   },
   resolve: {
     alias: {
@@ -17,22 +34,26 @@ module.exports = {
   module: {
     rules: [
       {
+        exclude: /node_modules/,
         test: /\.vue$/,
         loaders: ['vue-loader', 'eslint-loader'],
-        exclude: /node_modules/,
       },
       {
+        exclude: /node_modules/,
         test: /\.js$/,
-        loader: 'babel-loader!eslint-loader',
-        exclude: /node_modules/,
+        loaders: ['babel-loader', 'eslint-loader'],
       },
       {
+        exclude: /node_modules/,
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader',
-        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+        }),
       },
       {
-        test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        exclude: /node_modules/,
+        test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?v=\d\.\d\.\d)?$/,
         loader: 'file-loader',
         options: {
           context: './src/',
@@ -42,12 +63,17 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, 'src/raw/*'),
-        to: path.join(__dirname, 'dist/[name].[ext]'),
-      },
-    ]),
+    new ExtractTextPlugin({
+      filename: '[name].css',
+    }),
+    new HtmlWebpackPlugin({
+      hash: true,
+      template: './src/index.html',
+      minify: (process.env.NODE_ENV === 'production') ? HTMLMinify : false,
+    }),
+    new HtmlWebpackPlugin(errorPage(500)),
+    new HtmlWebpackPlugin(errorPage(404)),
+    new HtmlWebpackPlugin(errorPage(403)),
   ],
   // devtool: '#eval-source-map',
 };
@@ -62,10 +88,11 @@ if (process.env.NODE_ENV === 'production') {
       },
     }),
     new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
+      comments: false,
       compress: {
         warnings: false,
       },
+      sourceMap: true,
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,

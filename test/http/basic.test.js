@@ -12,7 +12,7 @@ describe('Basic HTTP tests', () => {
     const res = await chai.request(app).get('/');
 
     expect(res).to.have.status(200);
-    expect(res).to.have.header('X-UA-Compatible', 'IE=edge');
+    expect(res).to.have.header('X-UA-Compatible', 'IE=edge,chrome=1');
   });
 
   it('GET on /undefined/route return 404', async () => {

@@ -1,4 +1,8 @@
 @import '~font-awesome/scss/font-awesome';
+@import '~bulma/sass/utilities/all';
 @import '~@/assets/scss/variables';
-@import '~bulma';
+@import '~bulma/sass/base/all';
+@import '~bulma/sass/elements/button';
+@import '~bulma/sass/elements/content';
+@import '~bulma/sass/elements/tag';
 @import '~@/assets/scss/mixins';
