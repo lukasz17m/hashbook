@@ -14,7 +14,7 @@ export default {
   getNotes({ commit }) {
     commit('spin', true);
 
-    axios.get('/api/notes')
+    axios.get('/notes.json')
       .catch(() => ({ data: [] }))
       .then(({ data: notes }) => {
         commit('updateNotes', notes);
