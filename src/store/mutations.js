@@ -42,34 +42,58 @@ export default {
   setLeftNavStateFromLocalStorage(_state) {
     const state = _state;
 
-    state.leftNav = Boolean(window.localStorage.getItem('leftNav'));
+    try {
+      state.leftNav = Boolean(window.localStorage.getItem('leftNav'));
 
-    state.leftNavCollapsed =
-      Boolean(window.localStorage.getItem('leftNavCollapsed'));
+      state.leftNavCollapsed =
+        Boolean(window.localStorage.getItem('leftNavCollapsed'));
+    } catch (_) {
+      //
+    }
   },
 
   hideLeftNav(_state) {
     const state = _state;
     state.leftNav = false;
-    window.localStorage.setItem('leftNav', '');
+
+    try {
+      window.localStorage.setItem('leftNav', '');
+    } catch (_) {
+      //
+    }
   },
 
   showLeftNav(_state) {
     const state = _state;
     state.leftNav = true;
-    window.localStorage.setItem('leftNav', '1');
+
+    try {
+      window.localStorage.setItem('leftNav', '1');
+    } catch (_) {
+      //
+    }
   },
 
   collapseLeftNav(_state) {
     const state = _state;
     state.leftNavCollapsed = true;
-    window.localStorage.setItem('leftNavCollapsed', '1');
+
+    try {
+      window.localStorage.setItem('leftNavCollapsed', '1');
+    } catch (_) {
+      //
+    }
   },
 
   uncollapseLeftNav(_state) {
     const state = _state;
     state.leftNavCollapsed = false;
-    window.localStorage.setItem('leftNavCollapsed', '');
+
+    try {
+      window.localStorage.setItem('leftNavCollapsed', '');
+    } catch (_) {
+      //
+    }
   },
 
   hideTagsInactive(_state) {

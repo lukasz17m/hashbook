@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -21,15 +22,15 @@ const errorPage = code => ({
 });
 
 module.exports = {
-  entry: './src/main.js',
+  entry: path.resolve('src/main.js'),
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve('dist'),
     publicPath: '/',
     filename: '[name].js',
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve('src'),
     },
   },
   module: {
@@ -57,19 +58,29 @@ module.exports = {
         test: /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?v=\d\.\d\.\d)?$/,
         loader: 'file-loader',
         options: {
-          context: './src/',
+          context: path.resolve('src'),
           name: '[path][name].[ext]',
         },
       },
     ],
   },
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve('src/assets/technologies.md'),
+        to: path.join('assets', 'technologies.md'),
+      },
+      {
+        from: path.resolve('src/assets/images'),
+        to: path.join('assets', 'images'),
+      },
+    ]),
     new ExtractTextPlugin({
       filename: '[name].css',
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      template: './src/index.html',
+      template: path.resolve('src/index.html'),
       minify: (process.env.NODE_ENV === 'production') ? HTMLMinify : false,
     }),
     new HtmlWebpackPlugin(errorPage(500)),
@@ -85,13 +96,13 @@ module.exports = {
       icons: [
         {
           destination: path.join('assets', 'icons'),
-          src: path.resolve('src/assets/images/icon.png'),
+          src: path.resolve('src/assets/icons/icon.png'),
           sizes: [96, 128, 192, 256, 384, 512],
         },
       ],
     }),
   ],
-  // devtool: '#eval-source-map',
+  devtool: '#eval-source-map',
 };
 
 if (process.env.NODE_ENV === 'production') {

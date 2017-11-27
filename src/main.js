@@ -5,12 +5,22 @@ import App from '@/components/App.vue';
 import store from '@/store';
 import '@/assets/scss/style.scss';
 
-if (window.localStorage.getItem('leftNav') === null) {
-  window.localStorage.setItem('leftNav', '1');
+
+try {
+  if (window.localStorage.getItem('leftNav') === null) {
+    const state = document.documentElement.offsetWidth < 768 ? '' : '1';
+    window.localStorage.setItem('leftNav', state);
+  }
+} catch (_) {
+  //
 }
 
-if (window.localStorage.getItem('leftNavCollapsed') === null) {
-  window.localStorage.setItem('leftNavCollapsed', '');
+try {
+  if (window.localStorage.getItem('leftNavCollapsed') === null) {
+    window.localStorage.setItem('leftNavCollapsed', '');
+  }
+} catch (_) {
+  //
 }
 
 Vue.prototype.$_eventBus = new Vue();

@@ -18,13 +18,21 @@ export default {
   methods: {
     hide() {
       this.hidden = true;
-      window.localStorage.setItem('ls-policy-hidden', '1');
+      try {
+        window.localStorage.setItem('ls-policy-hidden', '1');
+      } catch (_) {
+        //
+      }
     },
   },
 
   created() {
-    if (window.localStorage.getItem('ls-policy-hidden') === '1') {
-      this.hidden = true;
+    try {
+      if (window.localStorage.getItem('ls-policy-hidden') === '1') {
+        this.hidden = true;
+      }
+    } catch (_) {
+      //
     }
   },
 };

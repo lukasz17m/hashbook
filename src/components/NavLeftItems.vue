@@ -80,9 +80,7 @@ export default {
     },
 
     technologies() {
-      // TEMP
-      /* eslint-disable no-console */
-      console.log(JSON.stringify(['Vue.js', 'Node.js', 'MongoDB'], null, 2));
+      this.$_eventBus.$emit('showTechnologiesModal');
     },
 
     github() {

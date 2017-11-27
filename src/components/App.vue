@@ -9,8 +9,9 @@
       <Notes />
     </div>
 
-    <TagInput v-if="showInput" @escape="escape" @submit="saveTag" />
     <Spinner v-if="loading" />
+    <TagInput v-if="showInput" @escape="escape" @submit="saveTag" />
+    <TechnologiesModal v-if="showTechnologiesModal" @close="hideTechnologiesModal" />
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import Notes from '@/components/Notes.vue';
 import Spinner from '@/components/common/Spinner.vue';
 import TagInput from '@/components/common/TagInput.vue';
 import TagsInactive from '@/components/TagsInactive.vue';
+import TechnologiesModal from '@/components/common/TechnologiesModal.vue';
 
 export default {
   name: 'App',
@@ -35,11 +37,13 @@ export default {
     Spinner,
     TagInput,
     TagsInactive,
+    TechnologiesModal,
   },
 
   data() {
     return {
       showInput: false,
+      showTechnologiesModal: false,
     };
   },
 
@@ -56,11 +60,19 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['pushActiveTag', 'setLeftNavStateFromLocalStorage']),
+    ...mapMutations([
+      'hideLeftNav',
+      'pushActiveTag',
+      'setLeftNavStateFromLocalStorage',
+    ]),
 
     escape() {
       this.showInput = false;
       document.querySelector('.note__content textarea').focus();
+    },
+
+    hideTechnologiesModal() {
+      this.showTechnologiesModal = false;
     },
 
     saveTag(tag) {
@@ -79,6 +91,10 @@ export default {
       this.$nextTick(() => {
         document.querySelector('.tag-input input').focus();
       });
+    });
+
+    this.$_eventBus.$on('showTechnologiesModal', () => {
+      this.showTechnologiesModal = true;
     });
   },
 };
