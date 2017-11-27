@@ -5,7 +5,7 @@ const path = require('path');
 
 const apiRouter = require('./modules/router/api');
 const config = require('./modules/config')(process.env.NODE_ENV);
-const connection = require('./modules/mongoose/connection');
+// const connection = require('./modules/mongoose/connection');
 const log = require('./modules/utils/log');
 
 const port = process.env.PORT || config.http.port || 3000;
@@ -46,12 +46,17 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, 'dist', '404.html'));
 });
 
-connection.once('open', () => {
-  app.listen(port, () => log(
-    chalk.bgBlue('HTTP'),
-    chalk.blue(`Listening on ${port}…`),
-  ));
-});
+// connection.once('open', () => {
+//   app.listen(port, () => log(
+//     chalk.bgBlue('HTTP'),
+//     chalk.blue(`Listening on ${port}…`),
+//   ));
+// });
+
+app.listen(port, () => log(
+  chalk.bgBlue('HTTP'),
+  chalk.blue(`Listening on ${port}…`),
+));
 
 if (process.env.NODE_ENV === 'test') {
   module.exports = app;

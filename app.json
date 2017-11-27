@@ -1,0 +1,13 @@
+{
+  "name": "hashbook",
+  "description": "A simple webbook with markdowned and #hashtagged notes.",
+  "keywords": [
+    "notebook",
+    "hashtag",
+    "markdown"
+  ],
+  "repository": "https://github.com/lukasz17m/hashbook",
+  "scripts": {
+    "postdeploy": "npm run build"
+  }
+}
