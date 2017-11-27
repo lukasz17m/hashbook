@@ -48,7 +48,7 @@ $text-color: $color5;
   align-items: center;
   background-color: $background;
   display: flex;
-  flex: 1 0 auto;
+  flex-shrink: 0;
   padding: 0.5rem;
 
   &__text {
