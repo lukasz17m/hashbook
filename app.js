@@ -16,48 +16,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
 
+// 500 Middleware
+/* eslint-disable no-unused-vars */
+app.use((err, req, res, next) => {
+  log(chalk.bgRed('500'), chalk.red(err.stack));
+  res.status(500).sendFile(path.join(__dirname, 'dist', '500.html'));
+});
+
 // Restrict direct access to *.html files
 app.use('/', (req, res, next) => {
   const { url } = req;
 
   if (new RegExp(/\/.+\.html/).test(url)) {
-    res.status(403).sendFile(path.join(__dirname, 'dist', '403.html'), {
-      headers: {
-        'X-UA-Compatible': 'IE=edge,chrome=1',
-      },
-    });
+    res.status(403).sendFile(path.join(__dirname, 'dist', '403.html'));
   }
   next();
 });
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'), {
-    headers: {
-      'X-UA-Compatible': 'IE=edge,chrome=1',
-    },
+    headers: { 'X-UA-Compatible': 'IE=edge,chrome=1' },
   });
 });
 
 app.use(express.static('dist'));
 
-// 500 Middleware
-/* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
-  log(chalk.bgRed('500'), chalk.red(err.stack));
-  res.status(500).sendFile(path.join(__dirname, 'dist', '500.html'), {
-    headers: {
-      'X-UA-Compatible': 'IE=edge,chrome=1',
-    },
-  });
-});
-
 // 404 Middleware
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'dist', '404.html'), {
-    headers: {
-      'X-UA-Compatible': 'IE=edge,chrome=1',
-    },
-  });
+  res.status(404).sendFile(path.join(__dirname, 'dist', '404.html'));
 });
 
 connection.once('open', () => {

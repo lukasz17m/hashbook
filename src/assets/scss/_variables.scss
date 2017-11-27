@@ -1,4 +1,3 @@
-@import '~bulma/sass/utilities/initial-variables';
 @import '~@/assets/scss/palette';
 
 $background: $color5;
@@ -6,6 +5,7 @@ $body-size: 100%;
 $burger-color: $color4;
 $burger-color-hover: $color5;
 $family-sans-serif: 'Roboto', sans-serif;
+$family-primary: $family-sans-serif;
 $left-menu-transition: .25s ease-in-out;
 $nav-background-color: $color4;
 $nav-font-color: $color2;

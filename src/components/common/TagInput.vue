@@ -39,7 +39,6 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/palette";
-@import "~@/assets/scss/variables";
 
 $overlay-color: $color1;
 $wrapper-color: $color2;

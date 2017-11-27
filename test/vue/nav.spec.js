@@ -12,8 +12,14 @@ import state from '@/store/state';
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+
 // BUGFIX
 localVue.prototype.$_eventBus = { $emit() {}, $on() {} };
+
+window.localStorage = {
+  getItem: item => (item === 'leftNav' ? '1' : ''),
+  setItem: () => undefined,
+};
 
 describe('Nav', () => {
   const initialState = extend(true, {}, state);
@@ -69,9 +75,8 @@ describe('Nav', () => {
     });
 
     it('shows left menu when burger button is clicked', () => {
-      store.replaceState(extend(true, {}, initialState, { leftNav: false }));
-
-      wrapper = mount(App, { store, localVue });
+      wrapper.vm.$store.commit('hideLeftNav');
+      wrapper.update();
 
       const burgerBtn = wrapper.find('.burger-button');
       const leftNav = wrapper.find('.left-nav');
@@ -187,11 +192,8 @@ describe('Nav', () => {
     });
 
     it('uncollapses left menu when uncollapse button is clicked', () => {
-      store.replaceState(extend(true, {}, initialState, {
-        leftNavCollapsed: true,
-      }));
-
-      wrapper = mount(App, { store, localVue });
+      wrapper.vm.$store.commit('collapseLeftNav');
+      wrapper.update();
 
       const paddingBox = wrapper.find('.fix-top-padding');
       const leftNav = wrapper.find('.left-nav');

@@ -39,24 +39,37 @@ export default {
     state.preview = true;
   },
 
+  setLeftNavStateFromLocalStorage(_state) {
+    const state = _state;
+
+    state.leftNav = Boolean(window.localStorage.getItem('leftNav'));
+
+    state.leftNavCollapsed =
+      Boolean(window.localStorage.getItem('leftNavCollapsed'));
+  },
+
   hideLeftNav(_state) {
     const state = _state;
     state.leftNav = false;
+    window.localStorage.setItem('leftNav', '');
   },
 
   showLeftNav(_state) {
     const state = _state;
     state.leftNav = true;
+    window.localStorage.setItem('leftNav', '1');
   },
 
   collapseLeftNav(_state) {
     const state = _state;
     state.leftNavCollapsed = true;
+    window.localStorage.setItem('leftNavCollapsed', '1');
   },
 
   uncollapseLeftNav(_state) {
     const state = _state;
     state.leftNavCollapsed = false;
+    window.localStorage.setItem('leftNavCollapsed', '');
   },
 
   hideTagsInactive(_state) {

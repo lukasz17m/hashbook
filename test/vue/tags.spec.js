@@ -15,8 +15,14 @@ import state from '@/store/state';
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+
 // BUGFIX
 localVue.prototype.$_eventBus = { $emit() {}, $on() {} };
+
+window.localStorage = {
+  getItem: item => (item === 'leftNav' ? '1' : ''),
+  setItem: () => undefined,
+};
 
 describe('Tags', () => {
   const initialState = extend(true, {}, state);

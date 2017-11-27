@@ -12,7 +12,6 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/palette";
-@import "~@/assets/scss/variables";
 
 $overlay-color: $color1;
 $spinner-color: $color4;

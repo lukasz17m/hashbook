@@ -2,6 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const HTMLMinify = {
   collapseWhitespace: true,
@@ -74,6 +75,21 @@ module.exports = {
     new HtmlWebpackPlugin(errorPage(500)),
     new HtmlWebpackPlugin(errorPage(404)),
     new HtmlWebpackPlugin(errorPage(403)),
+    new WebpackPwaManifest({
+      name: 'Hash Book',
+      short_name: '#Book',
+      description: 'A simple webbook with markdowned and #hashtagged notes.',
+      theme_color: '#01161e',
+      background_color: '#01161e',
+      orientation: 'any',
+      icons: [
+        {
+          destination: path.join('assets', 'icons'),
+          src: path.resolve('src/assets/images/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+        },
+      ],
+    }),
   ],
   // devtool: '#eval-source-map',
 };

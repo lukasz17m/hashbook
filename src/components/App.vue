@@ -4,6 +4,7 @@
     <NavLeft />
 
     <div class="main-flex">
+      <LocalStoragePolicy />
       <TagsInactive />
       <Notes />
     </div>
@@ -15,6 +16,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import LocalStoragePolicy from '@/components/common/LocalStoragePolicy.vue';
 import NavLeft from '@/components/NavLeft.vue';
 import NavTop from '@/components/NavTop.vue';
 import Notes from '@/components/Notes.vue';
@@ -26,6 +28,7 @@ export default {
   name: 'App',
 
   components: {
+    LocalStoragePolicy,
     NavLeft,
     NavTop,
     Notes,
@@ -53,7 +56,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['pushActiveTag']),
+    ...mapMutations(['pushActiveTag', 'setLeftNavStateFromLocalStorage']),
 
     escape() {
       this.showInput = false;
@@ -68,6 +71,8 @@ export default {
   },
 
   created() {
+    this.setLeftNavStateFromLocalStorage();
+
     this.$_eventBus.$on('addTag', () => {
       this.showInput = true;
 
