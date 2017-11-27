@@ -6,8 +6,5 @@
     "hashtag",
     "markdown"
   ],
-  "repository": "https://github.com/lukasz17m/hashbook",
-  "scripts": {
-    "postdeploy": "npm run build"
-  }
+  "repository": "https://github.com/lukasz17m/hashbook"
 }

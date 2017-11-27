@@ -1,0 +1,43 @@
+{
+  "icons": [
+    {
+      "src": "/assets/icons/icon_512x512.88be6cbbffabe07dac0036511d23d8dc.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon_384x384.2bc56b7b164600fcd825b7308bcf7391.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon_256x256.7dd06c57cfe28df513abdff19a900850.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon_192x192.0434f8e1d7a5347d459a00a59c0c444a.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon_128x128.5b0a2fe58372b959edafc20591751d9a.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icons/icon_96x96.aa518747dd507794b6fb9dcd819a7e6c.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Hash Book",
+  "orientation": "any",
+  "display": "standalone",
+  "start_url": ".",
+  "publicPath": null,
+  "short_name": "#Book",
+  "description": "A simple webbook with markdowned and #hashtagged notes.",
+  "theme_color": "#01161e",
+  "background_color": "#01161e"
+}
