@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const chalk = require('chalk');
 const express = require('express');
 const path = require('path');
@@ -12,6 +13,7 @@ const port = process.env.PORT || config.http.port || 3000;
 
 const app = express();
 
+app.use(compression({ level: 9 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
@@ -24,7 +26,7 @@ app.use((err, req, res, next) => {
 });
 
 // Restrict direct access to *.html files
-app.use('/', (req, res, next) => {
+app.use((req, res, next) => {
   const { url } = req;
 
   if (new RegExp(/\/.+\.html/).test(url)) {

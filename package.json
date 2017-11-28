@@ -38,6 +38,7 @@
     "body-parser": "^1.18.2",
     "bulma": "^0.6.1",
     "chalk": "^2.3.0",
+    "compression": "^1.7.1",
     "custom-event-polyfill": "^0.3.0",
     "detect-it": "^3.0.3",
     "express": "^4.16.2",

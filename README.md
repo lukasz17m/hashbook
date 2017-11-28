@@ -1,3 +1,3 @@
 # :notebook: #Book
 
-### :wrench: In development…
+## [Demo](https://vue-hashbook.herokuapp.com/)
