@@ -4,7 +4,8 @@
     tabindex="0"
     v-text="tag"
     v-tag
-    @click="pushActiveTag(tag)"></li>
+    @click="pushActiveTag(tag)"
+    @keyup.space.enter="pushActiveTag(tag)"></li>
 </template>
 
 <script>
