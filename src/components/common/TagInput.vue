@@ -10,7 +10,12 @@
         @keyup.enter="$emit('submit', tag)"
         @keyup.escape="$emit('escape')">
 
-        <div class="tag-input__color" :style="boxColor"></div>
+        <div
+          tabindex="0"
+          class="tag-input__color"
+          :style="boxColor"
+          @click="$emit('submit', tag)"
+          @keyup.enter.space="$emit('submit', tag)"></div>
     </div>
   </div>
 </template>
@@ -68,6 +73,7 @@ $input-color: $color4;
 
   &__color {
     border-radius: 4px;
+    cursor: pointer;
     filter: drop-shadow(0 0 2px black);
     height: 36px;
     margin-left: .5rem;

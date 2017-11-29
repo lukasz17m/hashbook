@@ -4,7 +4,8 @@
     tabindex="0"
     v-text="tag"
     v-tag
-    @click="removeActiveTag(tag)"></li>
+    @click="removeActiveTag(tag)"
+    @keyup.space.enter="removeActiveTag(tag)"></li>
 </template>
 
 <script>

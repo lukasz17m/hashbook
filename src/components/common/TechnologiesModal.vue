@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper" @click="$emit('close')">
-    <div class="content" v-html="content"></div>
+    <div
+      ref="content"
+      tabindex="0"
+      class="content"
+      v-html="content"
+      @keyup.escape="$emit('close')"></div>
   </div>
 </template>
 
@@ -28,6 +33,10 @@ export default {
       .then(({ data }) => {
         this.content = md.render(data);
       });
+  },
+
+  updated() {
+    this.$refs.content.focus();
   },
 };
 </script>

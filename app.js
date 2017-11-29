@@ -24,7 +24,7 @@ app.use((err, req, res, next) => {
 });
 
 // Restrict direct access to *.html files
-app.use('/', (req, res, next) => {
+app.use((req, res, next) => {
   const { url } = req;
 
   if (new RegExp(/\/.+\.html/).test(url)) {

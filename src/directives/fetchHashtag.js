@@ -7,9 +7,9 @@ export default {
     const el = _el;
 
     el.addEventListener('keydown', (e) => {
-      const { key } = e;
-
       if (deviceType === 'touchOnly') return;
+
+      const { key } = e;
 
       if (key === '#') {
         const { value: content, selectionStart: caret } = el;

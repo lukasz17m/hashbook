@@ -11,11 +11,7 @@ try {
     const state = document.documentElement.offsetWidth < 768 ? '' : '1';
     window.localStorage.setItem('leftNav', state);
   }
-} catch (_) {
-  //
-}
 
-try {
   if (window.localStorage.getItem('leftNavCollapsed') === null) {
     window.localStorage.setItem('leftNavCollapsed', '');
   }
